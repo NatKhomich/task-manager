@@ -11,4 +11,12 @@
   border: 2px solid deeppink;
   border-radius: 3px;
   padding: 20px;
+  background-color: darkseagreen;
+}
+
+.todolist-empty {
+  border: 2px solid deeppink;
+  border-radius: 3px;
+  padding: 20px;
+  background-color: darksalmon;
 }

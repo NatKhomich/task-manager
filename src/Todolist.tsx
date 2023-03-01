@@ -1,27 +1,46 @@
-import React, {Component} from 'react';
+import React, {Component, FC} from 'react';
+import {TaskType} from "./App";
 
-const Todolist = () => {
-        return (
-                <div className="App">
-                    <div className="todolist">
-                        <h3>What to learn</h3>
-                        <div>
-                            <input/>
-                            <button>+</button>
-                        </div>
-                        <ul>
-                            <li><input type="checkbox" checked={true}/> <span>HTML&CSS</span></li>
-                            <li><input type="checkbox" checked={true}/> <span>JS</span></li>
-                            <li><input type="checkbox" checked={false}/> <span>React</span></li>
-                        </ul>
-                        <div>
-                            <button>All</button>
-                            <button>Active</button>
-                            <button>Completed</button>
-                        </div>
-                    </div>
-                </div>
-        );
+type TodolistPropsType = {
+    title: string
+    tasks: Array<TaskType>
+}
+
+const Todolist: FC <TodolistPropsType> = (props) => {
+
+    let isAllTasksNoIsDone = true //все не выполненные
+    for (let i = 0; i < props.tasks.length; i++) {
+        if(props.tasks[i].isDone) {
+            isAllTasksNoIsDone = false
+        }
+    }
+    const todoClasses = isAllTasksNoIsDone ? "todolist-empty " : "todolist"
+
+    return (
+        <div className={todoClasses}>
+            <h3>{props.title}</h3>
+            <div>
+                <input/>
+                <button>+</button>
+            </div>
+            <ul>
+                <li>
+                    <input type="checkbox" checked={props.tasks[0].isDone}/> <span>{props.tasks[0].title}</span>
+                </li>
+                <li>
+                    <input type="checkbox" checked={props.tasks[1].isDone}/> <span>{props.tasks[1].title}</span>
+                </li>
+                <li>
+                    <input type="checkbox" checked={props.tasks[2].isDone}/> <span>{props.tasks[2].title}</span>
+                </li>
+            </ul>
+            <div>
+                <button>All</button>
+                <button>Active</button>
+                <button>Completed</button>
+            </div>
+        </div>
+    );
 }
 
 export default Todolist;
