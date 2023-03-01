@@ -25,3 +25,5 @@ yarn-error.log*
 /.idea/1-todolist.iml
 /.idea/modules.xml
 /.idea/vcs.xml
+
+/.idea
