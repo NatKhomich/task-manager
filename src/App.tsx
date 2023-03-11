@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import './App.css';
 import Todolist, {FilterValuesType, TaskType} from './Todolist';
 
-
 function App(): JSX.Element {
     const [tasks, setTasks] = useState<Array<TaskType>>(
         [
@@ -40,7 +39,6 @@ function App(): JSX.Element {
                       tasks={tasksForRender}
                       removeTask={removeTask}
                       changeTodolistFilter={changeTodolistFilter}
-
             />
         </div>
     );
