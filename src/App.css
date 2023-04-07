@@ -7,20 +7,10 @@
   margin-right: 50px;
 }
 
-.todolist {
-  border: 2px solid deeppink;
-  border-radius: 3px;
-  padding: 20px;
-  background-color: darkseagreen;
+.error {
+  border: red 1px solid;
 }
 
-.todolist-empty {
-  border: 2px solid deeppink;
-  border-radius: 3px;
-  padding: 20px;
-  background-color: darksalmon;
-}
-
-.btn {
-  margin-left: 10px;
+.error-message {
+  color: red;
 }
