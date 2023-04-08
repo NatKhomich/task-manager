@@ -1,4 +1,4 @@
-import React, {useState, KeyboardEvent, ChangeEvent} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValueType, TasksType} from '../App';
 import AddItemForm from './AddItemForm';
 import EditableSpan from './EditableSpan';
@@ -21,29 +21,6 @@ type TodolistPropsType = {
 
 const Todolist = (props: TodolistPropsType) => {
 
-    /*const [inputTitle, setInputTitle] = useState('')
-    const [error, setError] = useState<string | null>(null)
-
-    const addTaskHandler = () => {
-        if (inputTitle.trim() !== '') {
-            props.addTask(props.todolistID, inputTitle.trim())
-            setInputTitle('')
-        } else {
-            setError('Title is required')
-        }
-    }
-
-    const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (event.key === 'Enter') {
-            addTaskHandler()
-        }
-    }*/
-
-    /*const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputTitle(event.currentTarget.value)
-    }*/
-
     const onClickAllHandler = () => {
         props.filterValueTask(props.todolistID, 'All')
     }
@@ -65,26 +42,17 @@ const Todolist = (props: TodolistPropsType) => {
     }
 
     const newTitleTodolistEditableSpanHandler = (newTitle: string) => {
-        props.onChangeTodolistEditableSpan(props.todolistID, newTitle )
+        props.onChangeTodolistEditableSpan(props.todolistID, newTitle)
     }
 
     return (
         <div>
             <h3>
-                <EditableSpan value={props.title} callBack={ newTitleTodolistEditableSpanHandler } />
+                <EditableSpan value={props.title} callBack={newTitleTodolistEditableSpanHandler}/>
                 <button onClick={onClickRemoveTodolistHandler}> X</button>
             </h3>
 
             <AddItemForm callBack={addTaskHandlerBroker}/>
-            {/*<div>
-                <input value={inputTitle}
-                       onChange={onChangeHandler}
-                       onKeyDown={onKeyDownHandler}
-                       className={error ? 'error' : ''}
-                />
-                <button onClick={addTaskHandler}> +</button>
-                { error && <div className = 'error-message'> {error} </div> }
-            </div>*/}
             <ul>
 
                 {props.tasks.map(el => {
