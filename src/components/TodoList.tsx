@@ -14,7 +14,7 @@ const TodoList = (props: TodoListType) => {
             <h3>{props.title}</h3>
             <div>
                 <input/>
-                <button>+</button>
+                <button onClick={ ()=> {} }>+</button>
             </div>
             <ul>
                 {props.tasks.map( el => {
