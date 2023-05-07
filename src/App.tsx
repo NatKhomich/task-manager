@@ -13,7 +13,7 @@ export type FilterPropsType = 'All' | 'Active' | 'Completed'
 
 function App() {
 
-    const [tasks, setTasks] = useState( [
+    const [tasks, setTasks] = useState<TasksType[]>( [
         { id: v1(), title: "HTML&CSS", isDone: true },
         { id: v1(), title: "JS", isDone: true },
         { id: v1(), title: "ReactJS", isDone: false },
@@ -39,6 +39,15 @@ function App() {
        setTasks( tasks.filter( el => el.id !== taskID ))
     }
 
+    const addTask = (taskTitle: string) => {
+       const newTask = {id: v1(), title: taskTitle, isDone: false }
+        setTasks( [newTask ,...tasks] )
+    }
+
+    const onChangeTaskStatus = (taskID: string, newIsDone: boolean) => {
+        setTasks( tasks.map( el => el.id === taskID ? {...el, isDone: newIsDone} : el ) )
+    }
+
 
     return (
         <div className={'App'}>
@@ -46,6 +55,8 @@ function App() {
                       title={'What to learn'}
                       deleteTask={deleteTask}
                       filteredTasks={filteredTasks}
+                      addTask={addTask}
+                      onChangeTaskStatus={onChangeTaskStatus}
 
             />
         </div>
