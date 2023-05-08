@@ -31,8 +31,6 @@ const TodoList = (props: TodoListType) => {
         }
     }
 
-
-
     return (
         <div>
             <h3>{props.title}</h3>
