@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList from './components/TodoList';
 import {v1} from 'uuid';
-import exp from 'constants';
 
 export type TasksType = {
     id: string
@@ -44,6 +43,12 @@ const [tasks, setTasks] = useState<TasksType[]>([
         setFilter( filterValue )
     }
 
+    const addNewTask = (title: string) => {
+        const newTask = {id: v1(), title: title, isDone: false}
+        setTasks( [newTask, ...tasks] )
+
+    }
+
     return (
         <div className="App">
             <TodoList title={'What to learn'}
@@ -51,6 +56,8 @@ const [tasks, setTasks] = useState<TasksType[]>([
                       removeTask={removeTask}
                       changeCheckedTasks={changeCheckedTasks}
                       filteredTasks={filteredTasks}
+                      addNewTask={addNewTask}
+                      filter={filter}
 
             />
         </div>
