@@ -27,7 +27,7 @@ const [tasks, setTasks] = useState<TasksType[]>([
     }
 
     const changeCheckedTasks = (taskID: string, newIsDone: boolean) => {
-        setTasks( tasks.map( el => el.id === taskID ? {...el, isDone: newIsDone} : el ) )
+        setTasks( tasks.map( el => el.id === taskID ? {...el, isDone: newIsDone} : el ))
     }
 
     let filterTask = tasks
@@ -46,7 +46,6 @@ const [tasks, setTasks] = useState<TasksType[]>([
     const addNewTask = (title: string) => {
         const newTask = {id: v1(), title: title, isDone: false}
         setTasks( [newTask, ...tasks] )
-
     }
 
     return (
@@ -58,7 +57,6 @@ const [tasks, setTasks] = useState<TasksType[]>([
                       filteredTasks={filteredTasks}
                       addNewTask={addNewTask}
                       filter={filter}
-
             />
         </div>
     );

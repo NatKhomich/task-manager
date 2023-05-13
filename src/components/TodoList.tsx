@@ -57,7 +57,6 @@ const TodoList = (props: TodoListType) => {
                        onChange={ onChangeTitleHandler }
                        onKeyDown={ onKeyDownHandler }
                        className={ error ? 'error' : '' }
-
                 />
                 <button onClick={ addTaskHandler }> + </button>
                 {error && <div className={'error-message'}> {error} </div>}
@@ -79,7 +78,6 @@ const TodoList = (props: TodoListType) => {
                             <input type="checkbox"
                                    checked={el.isDone}
                                    onChange={changeCheckedTaskHandler}
-
                             />
                             <span>{el.title}</span>
                             <button onClick={removeTaskHandler}> X</button>
