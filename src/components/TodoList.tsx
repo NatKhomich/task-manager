@@ -1,5 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValueType, TasksType} from '../App';
+import AddItemForm from './AddItemForm';
 
 type TodoListType = {
     todoListID: string
@@ -15,15 +16,15 @@ type TodoListType = {
 
 const TodoList = (props: TodoListType) => {
 
-    const [title, setTitle] = useState('')
+    /*const [title, setTitle] = useState('')
 
-    const [error, setError] = useState<string | null>(null)
+    const [error, setError] = useState<string | null>(null)*/
 
-    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    /*const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
             setTitle(e.currentTarget.value)
-    }
+    }*/
 
-    const addTaskHandler = () => {
+    /*const addTaskHandler = () => {
         if (title.trim() !== '') {
             props.addNewTask(props.todoListID ,title.trim())
             setTitle('')
@@ -37,6 +38,10 @@ const TodoList = (props: TodoListType) => {
         if( e.key === 'Enter' ) {
             addTaskHandler()
         }
+    }*/
+
+    const addTaskHandler = (title: string) => {
+        props.addNewTask(props.todoListID, title)
     }
 
     const allOnClickHandler = () => {
@@ -55,7 +60,9 @@ const TodoList = (props: TodoListType) => {
         <div>
             <h3>{props.title} <button onClick={ ()=> {props.removeTodoList(props.todoListID)} }> X </button> </h3>
 
-            <div>
+            <AddItemForm addItem={ addTaskHandler} />
+
+           {/* <div>
                 <input value={title}
                        onChange={ onChangeTitleHandler }
                        onKeyDown={ onKeyDownHandler }
@@ -63,7 +70,7 @@ const TodoList = (props: TodoListType) => {
                 />
                 <button onClick={ addTaskHandler }> + </button>
                 {error && <div className={'error-message'}> {error} </div>}
-            </div>
+            </div>*/}
             <ul>
                 {props.tasks.map(el => {
 
