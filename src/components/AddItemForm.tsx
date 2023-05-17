@@ -12,6 +12,7 @@ const AddItemForm = (props: AddItemFormType) => {
 
     const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
+        setError(null)
     }
 
     const addItemHandler = () => {
@@ -24,22 +25,21 @@ const AddItemForm = (props: AddItemFormType) => {
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if( e.key === 'Enter' ) {
+        if (e.key === 'Enter') {
             addItemHandler()
         }
     }
 
     return (
-            <div>
-                <input value={title}
-                       onChange={ onChangeTitleHandler }
-                       onKeyDown={ onKeyDownHandler }
-                       className={ error ? 'error' : '' }
-                />
-                <button onClick={ addItemHandler }> + </button>
-                {error && <div className={'error-message'}> {error} </div>}
-            </div>
+        <div>
+            <input value={title}
+                   onChange={onChangeTitleHandler}
+                   onKeyDown={onKeyDownHandler}
+                   className={error ? 'error' : ''}
+            />
+            <button onClick={addItemHandler}> +</button>
+            {error && <div className={'error-message'}> {error} </div>}
+        </div>
     );
 };
 

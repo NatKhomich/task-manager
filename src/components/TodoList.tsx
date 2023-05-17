@@ -19,10 +19,6 @@ type TodoListType = {
 
 const TodoList = (props: TodoListType) => {
 
-    const addTask = (title: string) => {
-        props.addNewTask(props.todoListID, title)
-    }
-
     const allOnClickHandler = () => {
         props.filteredTasks('All', props.todoListID)
     }
@@ -41,6 +37,10 @@ const TodoList = (props: TodoListType) => {
 
     const removeTodolistHandler = () => {
         props.removeTodoList(props.todoListID)
+    }
+
+    const addTask = (title: string) => {
+        props.addNewTask(props.todoListID, title)
     }
 
     return (
