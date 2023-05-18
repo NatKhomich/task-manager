@@ -45,40 +45,40 @@ function App() {
         ]
     })
 
-    const removeTask = (todoListID: string, taskID: string) => {
+    const removeTask = (todoListID: string, taskID: string) => { //удаление таски
         setTasks( {...tasks, [todoListID] : tasks[todoListID].filter( el => el.id !== taskID )})
     }
 
-    const changeCheckedTasks = (todoListID: string, taskID: string, newIsDone: boolean) => {
+    const changeCheckedTasks = (todoListID: string, taskID: string, newIsDone: boolean) => {//изм статуса чекбокса
         setTasks( {...tasks, [todoListID]: tasks[todoListID].map( el => el.id === taskID ? {...el, isDone: newIsDone} : el ) } )
     }
 
-    const filteredTasks = (filterValue: FilterValueType, todoListID: string) => {
+    const filteredTasks = (filterValue: FilterValueType, todoListID: string) => {//фильтер по кнопкам
         setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: filterValue} : el))
     }
 
-    const addNewTask = (todoListsID: string ,title: string) => {
+    const addNewTask = (todoListsID: string ,title: string) => {//добавить таску
         const newTask = {id: v1(), title: title, isDone: false}
         setTasks( {...tasks, [todoListsID]: [newTask, ...tasks[todoListsID]] } )
     }
 
-    const removeTodoList = (todoListID: string) => {
+    const removeTodoList = (todoListID: string) => {//удалить тудулист
         setTodoLists( todoLists.filter( el => el.id !== todoListID ) )
         delete tasks[todoListID]
     }
 
-    const addTodoList = (title: string) => {
+    const addTodoList = (title: string) => {//добавить тудулист
         let newTodoListID = v1()
         let newTodoList: TodoListsType = {id: newTodoListID, title: title, filter: 'All'}
         setTodoLists([newTodoList, ...todoLists])
         setTasks( {...tasks, [newTodoListID] : [] } )
     }
 
-    const updateTaskTitle = (todoListID: string, taskID: string, newTitle: string) => {
+    const updateTaskTitle = (todoListID: string, taskID: string, newTitle: string) => {//редактирования заголовка таски
         setTasks( {...tasks, [todoListID]: tasks[todoListID].map( el => el.id === taskID ? {...el, title: newTitle} : el )})
     }
 
-    const updateTodoListTitle = (todoListID: string, newTitle: string) => {
+    const updateTodoListTitle = (todoListID: string, newTitle: string) => {//редактирования заголовка тудулиста
         setTodoLists( todoLists.map( el => el.id === todoListID ? {...el, title: newTitle} : el ))
     }
 
