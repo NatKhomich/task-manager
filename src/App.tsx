@@ -104,13 +104,15 @@ function App() {
                         todoListID={el.id}
                         title={el.title}
                         tasks={filterTask}
+                        filter={el.filter}
+
                         removeTask={removeTask}
                         changeCheckedTasks={changeCheckedTasks}
                         filteredTasks={filteredTasks}
                         addNewTask={addNewTask}
-                        filter={el.filter}
-                        removeTodoList={removeTodoList}
                         updateTaskTitle={updateTaskTitle}
+
+                        removeTodoList={removeTodoList}
                         updateTodoListTitle={updateTodoListTitle}
                     />
                 )

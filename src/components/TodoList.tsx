@@ -7,13 +7,15 @@ type TodoListType = {
     todoListID: string
     title: string
     tasks: TasksType[]
+    filter: FilterValueType
+
     removeTask: (todoListID: string, taskID: string) => void
     changeCheckedTasks: (todoListID: string, taskID: string, newIsDone: boolean) => void
     filteredTasks: (filterValue: FilterValueType, todoListID: string) => void
     addNewTask: (todoListsID: string, title: string) => void
-    filter: FilterValueType
-    removeTodoList: (todoListID: string) => void
     updateTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
+
+    removeTodoList: (todoListID: string) => void
     updateTodoListTitle: (todoListID: string, newTitle: string) => void
 }
 
