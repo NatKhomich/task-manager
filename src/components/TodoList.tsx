@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import {FilterValueType, TasksType} from '../App';
 import AddItemForm from './AddItemForm';
 import EditableSpan from './EditableSpan';
+import {Button} from '@mui/material';
 
 type TodoListType = {
     todoListID: string
@@ -47,7 +48,8 @@ const TodoList = (props: TodoListType) => {
         <div>
             <h3>
                 <EditableSpan oldTitle={props.title} callBack={updateTodoListTitleHandler}/>
-                <button onClick={removeTodolistHandler}> X</button>
+                {/*<button onClick={removeTodolistHandler}> X</button>*/}
+                <Button variant="outlined" onClick={removeTodolistHandler}> X </Button>
             </h3>
 
             <AddItemForm addItem={addTaskHandler}/>
