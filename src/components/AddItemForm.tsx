@@ -37,6 +37,7 @@ const AddItemForm = (props: AddItemFormType) => {
                    onKeyDown={onKeyDownHandler}
                    className={error ? 'error' : ''}
             />
+
             <button onClick={addItemHandler}> +</button>
             {error && <div className={'error-message'}> {error} </div>}
         </div>

@@ -74,11 +74,11 @@ function App() {
         setTasks( {...tasks, [newTodoListID] : [] } )
     }
 
-    const updateTaskTitle = (todoListID: string, taskID: string, newTitle: string) => {//редактирования заголовка таски
+    const updateTaskTitle = (todoListID: string, taskID: string, newTitle: string) => {//редактирование заголовка таски
         setTasks( {...tasks, [todoListID]: tasks[todoListID].map( el => el.id === taskID ? {...el, title: newTitle} : el )})
     }
 
-    const updateTodoListTitle = (todoListID: string, newTitle: string) => {//редактирования заголовка тудулиста
+    const updateTodoListTitle = (todoListID: string, newTitle: string) => {//редактирование заголовка тудулиста
         setTodoLists( todoLists.map( el => el.id === todoListID ? {...el, title: newTitle} : el ))
     }
 
