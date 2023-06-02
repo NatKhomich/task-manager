@@ -24,16 +24,14 @@ const TodoList = (props: TodoListType) => {
     const allOnClickHandler = () => {
         props.filteredTasks('All', props.todoListID)
     }
-
     const activeOnClickHandler = () => {
         props.filteredTasks('Active', props.todoListID)
     }
-
     const completedOnClickHandler = () => {
         props.filteredTasks('Completed', props.todoListID)
     }
 
-    const callBackEditableSpanTodoListHandler = (newTitle: string) => {
+    const updateTodoListTitleHandler = (newTitle: string) => {
         props.updateTodoListTitle(props.todoListID, newTitle)
     }
 
@@ -41,18 +39,18 @@ const TodoList = (props: TodoListType) => {
         props.removeTodoList(props.todoListID)
     }
 
-    const addTask = (title: string) => {
+    const addTaskHandler = (title: string) => {
         props.addNewTask(props.todoListID, title)
     }
 
     return (
         <div>
             <h3>
-                <EditableSpan value={props.title} callBack={callBackEditableSpanTodoListHandler}/>
+                <EditableSpan oldTitle={props.title} callBack={updateTodoListTitleHandler}/>
                 <button onClick={removeTodolistHandler}> X</button>
             </h3>
 
-            <AddItemForm addItem={addTask}/>
+            <AddItemForm addItem={addTaskHandler}/>
 
             <ul>
                 {props.tasks.map(el => {
@@ -66,7 +64,7 @@ const TodoList = (props: TodoListType) => {
                         props.changeCheckedTasks(props.todoListID, el.id, newIsDone)
                     }
 
-                    const callBackEditableSpanTaskHandler = (newTitle: string) => {
+                    const updateTaskTitleHandler = (newTitle: string) => {
                         props.updateTaskTitle(props.todoListID, el.id, newTitle)
                     }
 
@@ -77,27 +75,20 @@ const TodoList = (props: TodoListType) => {
                                    onChange={changeCheckedTaskHandler}
                             />
 
-                            <EditableSpan value={el.title} callBack={callBackEditableSpanTaskHandler}/>
+                            <EditableSpan oldTitle={el.title} callBack={updateTaskTitleHandler}/>
 
-                            <button onClick={removeTaskHandler}> X</button>
+                            <button onClick={removeTaskHandler}> X </button>
                         </li>
                     )
                 })}
             </ul>
             <div>
-                <button onClick={allOnClickHandler} className={props.filter === 'All' ? 'active-filter' : ''}>All
-                </button>
-                <button onClick={activeOnClickHandler}
-                        className={props.filter === 'Active' ? 'active-filter' : ''}>Active
-                </button>
-                <button onClick={completedOnClickHandler}
-                        className={props.filter === 'Completed' ? 'active-filter' : ''}>Completed
-                </button>
+                <button onClick={allOnClickHandler} className={props.filter === 'All' ? 'active-filter' : ''}>All</button>
+                <button onClick={activeOnClickHandler} className={props.filter === 'Active' ? 'active-filter' : ''}>Active</button>
+                <button onClick={completedOnClickHandler} className={props.filter === 'Completed' ? 'active-filter' : ''}>Completed</button>
             </div>
         </div>
     )
-
-
 }
 
 export default TodoList;

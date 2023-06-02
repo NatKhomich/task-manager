@@ -7,7 +7,6 @@ type AddItemFormType = {
 const AddItemForm = (props: AddItemFormType) => {
 
     const [title, setTitle] = useState('')
-
     const [error, setError] = useState<string | null>(null)
 
     const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +37,8 @@ const AddItemForm = (props: AddItemFormType) => {
                    className={error ? 'error' : ''}
             />
 
-            <button onClick={addItemHandler}> +</button>
+            <button onClick={addItemHandler}> + </button>
+
             {error && <div className={'error-message'}> {error} </div>}
         </div>
     );
