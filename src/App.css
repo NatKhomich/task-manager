@@ -21,4 +21,9 @@
 
 .is-done {
   opacity: 0.5;
+  /*list-style-type: none;*/
+}
+
+.li {
+  /*list-style-type: none;*/
 }
