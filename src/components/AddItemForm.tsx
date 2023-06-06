@@ -32,10 +32,10 @@ const AddItemForm = (props: AddItemFormType) => {
     }
 
     const muiStyles = {
-        maxWidth: '40px',
-        maxHeight: '40px',
-        minWidth: '40px',
-        minHeight: '40px',
+        maxWidth: '39px',
+        maxHeight: '39px',
+        minWidth: '39px',
+        minHeight: '39px',
         marginLeft: '3px'
     }
 

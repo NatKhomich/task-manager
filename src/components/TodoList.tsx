@@ -62,7 +62,7 @@ const TodoList = (props: TodoListType) => {
 
             <AddItemForm addItem={addTaskHandler}/>
 
-            <ul>
+            <div style={{padding: '10px 0'}}>
                 {props.tasks.map(el => {
 
                     const removeTaskHandler = () => {
@@ -79,7 +79,10 @@ const TodoList = (props: TodoListType) => {
                     }
 
                     return (
-                        <li key={el.id} className={el.isDone ? 'is-done' : ''}>
+                        <div key={el.id}
+                             style={{padding: '3px'}}
+                        className={el.isDone ? 'is-done' : ''}
+                        >
 
                          {/* <input type="checkbox" checked={el.isDone} onChange={changeCheckedTaskHandler}/>*/}
 
@@ -94,10 +97,10 @@ const TodoList = (props: TodoListType) => {
                             <IconButton aria-label="delete" onClick={removeTaskHandler}  >
                                 <DeleteIcon fontSize="small"/>
                             </IconButton>
-                        </li>
+                        </div>
                     )
                 })}
-            </ul>
+            </div>
             <div>
                 <Button onClick={allOnClickHandler}
                         /*className={props.filter === 'All' ? 'active-filter' : ''}*/
