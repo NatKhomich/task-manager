@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import './App.css';
 import TodoList from './components/TodoList';
 import {v1} from 'uuid';
@@ -7,7 +7,7 @@ import {ButtonAppBar} from './components/ ButtonAppBar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-
+import {createTheme, CssBaseline, ThemeProvider} from '@mui/material';
 
 export type TasksStateType = {
     [key: string]: TasksType[]
@@ -54,6 +54,8 @@ function App() {
         ]
     })
 
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
+
     const removeTask = (todoListID: string, taskID: string) => { //удаление таски
         setTasks({...tasks, [todoListID]: tasks[todoListID].filter(el => el.id !== taskID)})
     }
@@ -97,10 +99,42 @@ function App() {
         setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, title: newTitle} : el))
     }
 
+    //темная/светлая тема в зависимости от времени суток
+   /* useEffect(()=> {
+        const date = new Date()
+        const hours = date.getHours()
+
+        if (hours >= 8 && hours < 20) {
+            setIsDarkMode(false)
+        } else {
+            setIsDarkMode(true)
+        }
+    }, [])*/
+
+    const mode = isDarkMode ? "dark" : "light"
+
+    const customTheme = createTheme({
+        palette: {
+            primary: {
+                main: '#1a237e',
+            },
+            secondary: {
+                main: '#8c9eff',
+            },
+            mode: mode
+        },
+
+    })
+
     return (
+
+        <ThemeProvider theme={customTheme} >
+            <CssBaseline></CssBaseline>
+
         <div className="App">
 
-            <ButtonAppBar/>
+
+            <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
 
             <Container fixed maxWidth="xl" >
 
@@ -108,7 +142,7 @@ function App() {
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
 
-                <Grid container spacing={3}  >
+                <Grid container spacing={4}  >
 
                     {todoLists.map(el => {
 
@@ -123,7 +157,7 @@ function App() {
                         return (
                             <Grid item key={el.id} >
 
-                                <Paper elevation={2} style={{padding: '10px'}}>
+                                <Paper elevation={4} style={{padding: '10px'}}>
 
                                 <TodoList
                                     todoListID={el.id}
@@ -151,7 +185,10 @@ function App() {
 
             </Container>
 
+
         </div>
+
+        </ThemeProvider>
     );
 }
 

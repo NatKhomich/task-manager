@@ -82,7 +82,7 @@ const TodoList: FC<TodoListType> = (props) => {
 
                     return (
                         <ListItem key={el.id}
-                                  style={{padding: '3px'}}
+                                  style={{padding: '3px', marginRight: "20px"}}
                                   className={el.isDone ? 'is-done' : ''}
                                   secondaryAction={
                                       <IconButton aria-label="delete" onClick={removeTaskHandler}>

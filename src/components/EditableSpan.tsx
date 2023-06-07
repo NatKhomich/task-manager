@@ -35,9 +35,9 @@ const EditableSpan: FC <EditableSpan> = (props) => {
                      autoFocus
                      onBlur={editModeHandler}
                      onKeyDown={onKeyDownHandler}
-                     onChange={onChangeInputEditHandler}
-            />
-            : <span onDoubleClick={editModeHandler}>{props.oldTitle}</span>
+                     onChange={onChangeInputEditHandler}/>
+
+            : <span onDoubleClick={editModeHandler} style={{marginRight: "30px"}}>{props.oldTitle}</span>
     );
 };
 
