@@ -41,12 +41,16 @@ function App() {
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'ReactJS', isDone: false},
+            {id: v1(), title: 'Rest API', isDone: false},
+            {id: v1(), title: 'ReactJS', isDone: false}
+
 
         ],
         [todolistID2]: [
-            {id: v1(), title: 'Rest API', isDone: true},
-            {id: v1(), title: 'GraphQL', isDone: false},
+            {id: v1(), title: 'Milk', isDone: true},
+            {id: v1(), title: 'Coffee', isDone: true},
+            {id: v1(), title: 'Bread', isDone: false}
+
         ]
     })
 
@@ -98,15 +102,13 @@ function App() {
 
             <ButtonAppBar/>
 
-            <Container fixed>
+            <Container fixed maxWidth="xl" >
 
                 <Grid container style={{padding: '20px 0'}}>
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
 
-
-                <Grid container spacing={3}>
-
+                <Grid container spacing={3}  >
 
                     {todoLists.map(el => {
 
@@ -119,12 +121,11 @@ function App() {
                         }
 
                         return (
-                            <Grid item>
+                            <Grid item key={el.id} >
 
                                 <Paper elevation={2} style={{padding: '10px'}}>
 
                                 <TodoList
-                                    key={el.id}
                                     todoListID={el.id}
                                     title={el.title}
                                     tasks={filterTask}
@@ -142,7 +143,6 @@ function App() {
 
                                 </Paper>
 
-
                             </Grid>
 
                         )
@@ -150,7 +150,6 @@ function App() {
                 </Grid>
 
             </Container>
-
 
         </div>
     );

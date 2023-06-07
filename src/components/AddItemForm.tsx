@@ -6,7 +6,7 @@ type AddItemFormType = {
     addItem: (title: string) => void
 }
 
-const AddItemForm: FC <AddItemFormType>  = (props) => {
+const AddItemForm: FC<AddItemFormType> = (props) => {
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -41,25 +41,25 @@ const AddItemForm: FC <AddItemFormType>  = (props) => {
 
     return (
         <div>
-           {/* <input value={title} onChange={onChangeTitleHandler} onKeyDown={onKeyDownHandler} className={error ? 'error' : ''}/>*/}
+            {/* <input value={title} onChange={onChangeTitleHandler} onKeyDown={onKeyDownHandler} className={error ? 'error' : ''}/>*/}
 
-            <TextField id="outlined-basic"
-                       label={error ? 'Title is required' : 'Type out something' }
+            <TextField label={error ? 'Title is required' : 'Type out something'}
                        variant="outlined"
                        size="small"
                        error={!!error}
                        value={title}
                        onChange={onChangeTitleHandler}
                        onKeyDown={onKeyDownHandler}
+                       type="search"
             />
 
-        {/* <button onClick={addItemHandler}> + </button>*/}
+            {/* <button onClick={addItemHandler}> + </button>*/}
             <Button variant="contained"
                     style={muiStyles}
-                   /* color="success"*/
+                /* color="success"*/
                     onClick={addItemHandler}> + </Button>
 
-           {/* {error && <div className={'error-message'}> {error} </div>}*/}
+            {/* {error && <div className={'error-message'}> {error} </div>}*/}
         </div>
     );
 };

@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
+import {ListItem} from '@mui/material';
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
@@ -52,7 +53,7 @@ const TodoList: FC<TodoListType> = (props) => {
 
     return (
         <div>
-            <Typography variant="h5" align="center" fontWeight="bold" margin="10px 0">
+            <Typography component={'h4'} variant="h5" align="center" fontWeight="bold" margin="10px 0">
                 <EditableSpan oldTitle={props.title} callBack={updateTodoListTitleHandler}/>
 
                 <IconButton aria-label="delete" onClick={removeTodolistHandler}>
@@ -63,7 +64,7 @@ const TodoList: FC<TodoListType> = (props) => {
 
             <AddItemForm addItem={addTaskHandler}/>
 
-            <div style={{padding: '10px 0'}}>
+            <div  style={{padding: '10px 0'}}>
                 {props.tasks.map(el => {
 
                     const removeTaskHandler = () => {
@@ -80,12 +81,15 @@ const TodoList: FC<TodoListType> = (props) => {
                     }
 
                     return (
-                        <div key={el.id}
-                             style={{padding: '3px'}}
-                             className={el.isDone ? 'is-done' : ''}
-                        >
-
-                            {/* <input type="checkbox" checked={el.isDone} onChange={changeCheckedTaskHandler}/>*/}
+                        <ListItem key={el.id}
+                                  style={{padding: '3px'}}
+                                  className={el.isDone ? 'is-done' : ''}
+                                  secondaryAction={
+                                      <IconButton aria-label="delete" onClick={removeTaskHandler}>
+                                      <DeleteIcon fontSize="small"/>
+                                      </IconButton>
+                                  }
+                                  disablePadding>
 
                             <Checkbox {...label}
                                       checked={el.isDone}
@@ -94,14 +98,11 @@ const TodoList: FC<TodoListType> = (props) => {
 
                             <EditableSpan oldTitle={el.title} callBack={updateTaskTitleHandler}/>
 
-                            {/*  <button onClick={removeTaskHandler}> X </button>*/}
-                            <IconButton aria-label="delete" onClick={removeTaskHandler}>
-                                <DeleteIcon fontSize="small"/>
-                            </IconButton>
-                        </div>
-                    )
+                        </ListItem>
+                    );
                 })}
             </div>
+
             <div className={'btn-container'}>
                 <Button onClick={allOnClickHandler}
                         variant={props.filter === 'All' ? 'contained' : 'text'}
