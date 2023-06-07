@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
@@ -6,7 +6,7 @@ type AddItemFormType = {
     addItem: (title: string) => void
 }
 
-const AddItemForm = (props: AddItemFormType) => {
+const AddItemForm: FC <AddItemFormType>  = (props) => {
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)

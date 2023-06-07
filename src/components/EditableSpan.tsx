@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
+import React, {ChangeEvent, useState, KeyboardEvent, FC} from 'react';
 
 type EditableSpan = {
     oldTitle: string
     callBack: (newTitle: string) => void
 }
 
-const EditableSpan = (props: EditableSpan) => {
+const EditableSpan: FC <EditableSpan> = (props) => {
 
     const [editMode, setEditMode] = useState(false)
 
