@@ -56,47 +56,52 @@ function App() {
 
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 
+    //tasks
     const removeTask = (todoListID: string, taskID: string) => { //удаление таски
         setTasks({...tasks, [todoListID]: tasks[todoListID].filter(el => el.id !== taskID)})
     }
-
     const changeCheckedTasks = (todoListID: string, taskID: string, newIsDone: boolean) => {//изм статуса чекбокса
         setTasks({
             ...tasks,
             [todoListID]: tasks[todoListID].map(el => el.id === taskID ? {...el, isDone: newIsDone} : el)
         })
     }
-
-    const filteredTasks = (filterValue: FilterValueType, todoListID: string) => {//фильтер по кнопкам
-        setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: filterValue} : el))
-    }
-
     const addNewTask = (todoListsID: string, title: string) => {//добавить таску
         const newTask = {id: v1(), title: title, isDone: false}
         setTasks({...tasks, [todoListsID]: [newTask, ...tasks[todoListsID]]})
     }
-
-    const removeTodoList = (todoListID: string) => {//удалить тудулист
-        setTodoLists(todoLists.filter(el => el.id !== todoListID))
-        delete tasks[todoListID]
-    }
-
-    const addTodoList = (title: string) => {//добавить тудулист
-        let newTodoListID = v1()
-        let newTodoList: TodoListsType = {id: newTodoListID, title: title, filter: 'All'}
-        setTodoLists([newTodoList, ...todoLists])
-        setTasks({...tasks, [newTodoListID]: []})
-    }
-
-    const updateTaskTitle = (todoListID: string, taskID: string, newTitle: string) => {//редактирование заголовка таски
+    const changeTaskTitle = (todoListID: string, taskID: string, newTitle: string) => {//редактирование заголовка таски
         setTasks({
             ...tasks,
             [todoListID]: tasks[todoListID].map(el => el.id === taskID ? {...el, title: newTitle} : el)
         })
     }
 
-    const updateTodoListTitle = (todoListID: string, newTitle: string) => {//редактирование заголовка тудулиста
+    //todoLists
+    const removeTodoList = (todoListID: string) => {//удалить тудулист
+        setTodoLists(todoLists.filter(el => el.id !== todoListID))
+        delete tasks[todoListID]
+    }
+    const addTodoList = (title: string) => {//добавить тудулист
+        let newTodoListID = v1()
+        let newTodoList: TodoListsType = {id: newTodoListID, title: title, filter: 'All'}
+        setTodoLists([newTodoList, ...todoLists])
+        setTasks({...tasks, [newTodoListID]: []})
+    }
+    const changeTodoListTitle = (todoListID: string, newTitle: string) => {//редактирование заголовка тудулиста
         setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, title: newTitle} : el))
+    }
+    const changeTodoListFilter = (filter: FilterValueType, todoListID: string) => {//фильтр по кнопкам
+        setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: filter} : el))
+    }
+
+
+    const getFilteredTasksForRender = (todoLists: TasksType[], filterValue: FilterValueType) => {
+        if (filterValue === 'Active') {
+            return todoLists.filter(el => !el.isDone)
+        } else if (filterValue === 'Completed') {
+            return todoLists.filter(el => el.isDone)
+        } else return todoLists
     }
 
     //темная/светлая тема в зависимости от времени суток
@@ -133,7 +138,6 @@ function App() {
 
         <div className="App">
 
-
             <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
 
             <Container fixed maxWidth="xl" >
@@ -146,13 +150,7 @@ function App() {
 
                     {todoLists.map(el => {
 
-                        let filterTask = tasks[el.id]
-                        if (el.filter === 'Active') {
-                            filterTask = tasks[el.id].filter(el => !el.isDone)
-                        }
-                        if (el.filter === 'Completed') {
-                            filterTask = tasks[el.id].filter(el => el.isDone)
-                        }
+                        const tasksForRender: TasksType[] =  getFilteredTasksForRender(tasks[el.id], el.filter)
 
                         return (
                             <Grid item key={el.id} >
@@ -162,29 +160,27 @@ function App() {
                                 <TodoList
                                     todoListID={el.id}
                                     title={el.title}
-                                    tasks={filterTask}
+                                    tasks={tasksForRender}
                                     filter={el.filter}
 
                                     removeTask={removeTask}
                                     changeCheckedTasks={changeCheckedTasks}
-                                    filteredTasks={filteredTasks}
+                                    changeTodoListFilter={changeTodoListFilter}
                                     addNewTask={addNewTask}
-                                    updateTaskTitle={updateTaskTitle}
+                                    changeTaskTitle={changeTaskTitle}
 
                                     removeTodoList={removeTodoList}
-                                    updateTodoListTitle={updateTodoListTitle}
+                                    changeTodoListTitle={changeTodoListTitle}
                                 />
 
                                 </Paper>
 
                             </Grid>
-
                         )
                     })}
                 </Grid>
 
             </Container>
-
 
         </div>
 

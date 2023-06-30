@@ -19,28 +19,28 @@ type TodoListType = {
 
     removeTask: (todoListID: string, taskID: string) => void
     changeCheckedTasks: (todoListID: string, taskID: string, newIsDone: boolean) => void
-    filteredTasks: (filterValue: FilterValueType, todoListID: string) => void
+    changeTodoListFilter: (filterValue: FilterValueType, todoListID: string) => void
     addNewTask: (todoListsID: string, title: string) => void
-    updateTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
+    changeTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
 
     removeTodoList: (todoListID: string) => void
-    updateTodoListTitle: (todoListID: string, newTitle: string) => void
+    changeTodoListTitle: (todoListID: string, newTitle: string) => void
 }
 
 const TodoList: FC<TodoListType> = (props) => {
 
     const allOnClickHandler = () => {
-        props.filteredTasks('All', props.todoListID)
+        props.changeTodoListFilter('All', props.todoListID)
     }
     const activeOnClickHandler = () => {
-        props.filteredTasks('Active', props.todoListID)
+        props.changeTodoListFilter('Active', props.todoListID)
     }
     const completedOnClickHandler = () => {
-        props.filteredTasks('Completed', props.todoListID)
+        props.changeTodoListFilter('Completed', props.todoListID)
     }
 
     const updateTodoListTitleHandler = (newTitle: string) => {
-        props.updateTodoListTitle(props.todoListID, newTitle)
+        props.changeTodoListTitle(props.todoListID, newTitle)
     }
 
     const removeTodolistHandler = () => {
@@ -77,7 +77,7 @@ const TodoList: FC<TodoListType> = (props) => {
                     }
 
                     const updateTaskTitleHandler = (newTitle: string) => {
-                        props.updateTaskTitle(props.todoListID, el.id, newTitle)
+                        props.changeTaskTitle(props.todoListID, el.id, newTitle)
                     }
 
                     return (
