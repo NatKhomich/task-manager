@@ -1,4 +1,3 @@
-
 import {
     addTodoListAC, changeTodoListFilterAC,
     changeTodoListTitleAC,
@@ -67,12 +66,6 @@ test('correct filter of todolist should be changed', () => {
         {id: todolistId1, title: 'What to learn', filter: 'All'},
         {id: todolistId2, title: 'What to buy', filter: 'All'}
     ]
-
-    const action = {
-        type: 'CHANGE-TODOLIST-FILTER',
-        id: todolistId2,
-        filter: newFilter
-    }
 
     const endState = todoListsReducer(startState, changeTodoListFilterAC(todolistId2, newFilter))
 

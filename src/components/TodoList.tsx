@@ -18,9 +18,9 @@ type TodoListType = {
     filter: FilterValueType
 
     removeTask: (todoListID: string, taskID: string) => void
-    changeCheckedTasks: (todoListID: string, taskID: string, newIsDone: boolean) => void
+    changeTaskStatus: (todoListID: string, taskID: string, newIsDone: boolean) => void
     changeTodoListFilter: (filterValue: FilterValueType, todoListID: string) => void
-    addNewTask: (todoListsID: string, title: string) => void
+    addTask: (todoListsID: string, title: string) => void
     changeTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
 
     removeTodoList: (todoListID: string) => void
@@ -48,7 +48,7 @@ const TodoList: FC<TodoListType> = (props) => {
     }
 
     const addTaskHandler = (title: string) => {
-        props.addNewTask(props.todoListID, title)
+        props.addTask(props.todoListID, title)
     }
 
     return (
@@ -73,7 +73,7 @@ const TodoList: FC<TodoListType> = (props) => {
 
                     const changeCheckedTaskHandler = (e: ChangeEvent<HTMLInputElement>) => {
                         let newIsDone = e.currentTarget.checked
-                        props.changeCheckedTasks(props.todoListID, el.id, newIsDone)
+                        props.changeTaskStatus(props.todoListID, el.id, newIsDone)
                     }
 
                     const updateTaskTitleHandler = (newTitle: string) => {

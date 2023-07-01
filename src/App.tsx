@@ -60,15 +60,15 @@ function App() {
     const removeTask = (todoListID: string, taskID: string) => { //удаление таски
         setTasks({...tasks, [todoListID]: tasks[todoListID].filter(el => el.id !== taskID)})
     }
-    const changeCheckedTasks = (todoListID: string, taskID: string, newIsDone: boolean) => {//изм статуса чекбокса
+    const addTask = (todoListsID: string, title: string) => {//добавить таску
+        const newTask = {id: v1(), title: title, isDone: false}
+        setTasks({...tasks, [todoListsID]: [newTask, ...tasks[todoListsID]]})
+    }
+    const changeTaskStatus = (todoListID: string, taskID: string, newIsDone: boolean) => {//изм статуса чекбокса
         setTasks({
             ...tasks,
             [todoListID]: tasks[todoListID].map(el => el.id === taskID ? {...el, isDone: newIsDone} : el)
         })
-    }
-    const addNewTask = (todoListsID: string, title: string) => {//добавить таску
-        const newTask = {id: v1(), title: title, isDone: false}
-        setTasks({...tasks, [todoListsID]: [newTask, ...tasks[todoListsID]]})
     }
     const changeTaskTitle = (todoListID: string, taskID: string, newTitle: string) => {//редактирование заголовка таски
         setTasks({
@@ -164,13 +164,13 @@ function App() {
                                     filter={el.filter}
 
                                     removeTask={removeTask}
-                                    changeCheckedTasks={changeCheckedTasks}
-                                    changeTodoListFilter={changeTodoListFilter}
-                                    addNewTask={addNewTask}
+                                    changeTaskStatus={changeTaskStatus}
+                                    addTask={addTask}
                                     changeTaskTitle={changeTaskTitle}
 
                                     removeTodoList={removeTodoList}
                                     changeTodoListTitle={changeTodoListTitle}
+                                    changeTodoListFilter={changeTodoListFilter}
                                 />
 
                                 </Paper>
