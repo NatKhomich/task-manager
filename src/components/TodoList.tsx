@@ -19,7 +19,7 @@ type TodoListType = {
 
     removeTask: (todoListID: string, taskID: string) => void
     changeTaskStatus: (todoListID: string, taskID: string, newIsDone: boolean) => void
-    changeTodoListFilter: (filterValue: FilterValueType, todoListID: string) => void
+    changeTodoListFilter: (todoListID: string, filterValue: FilterValueType) => void
     addTask: (todoListsID: string, title: string) => void
     changeTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
 
@@ -30,13 +30,13 @@ type TodoListType = {
 const TodoList: FC<TodoListType> = (props) => {
 
     const allOnClickHandler = () => {
-        props.changeTodoListFilter('All', props.todoListID)
+        props.changeTodoListFilter(props.todoListID,'All')
     }
     const activeOnClickHandler = () => {
-        props.changeTodoListFilter('Active', props.todoListID)
+        props.changeTodoListFilter(props.todoListID,'Active')
     }
     const completedOnClickHandler = () => {
-        props.changeTodoListFilter('Completed', props.todoListID)
+        props.changeTodoListFilter(props.todoListID,'Completed')
     }
 
     const updateTodoListTitleHandler = (newTitle: string) => {
@@ -66,6 +66,7 @@ const TodoList: FC<TodoListType> = (props) => {
 
             <div  style={{padding: '10px 0'}}>
                 {props.tasks.map(el => {
+                    console.log(props.tasks)
 
                     const removeTaskHandler = () => {
                         props.removeTask(props.todoListID, el.id)

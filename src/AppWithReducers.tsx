@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useReducer, useState} from 'react';
 import './App.css';
 import TodoList from './components/TodoList';
 import {v1} from 'uuid';
@@ -8,6 +8,14 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {createTheme, CssBaseline, ThemeProvider} from '@mui/material';
+import {
+    addTodoListAC,
+    changeTodoListFilterAC,
+    changeTodoListTitleAC,
+    removeTodoListAC,
+    todoListsReducer
+} from './state/todoListsReducer';
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasksReducer';
 
 export type TasksStateType = {
     [key: string]: TasksType[]
@@ -27,17 +35,17 @@ export type TodoListsType = {
 
 export type FilterValueType = 'All' | 'Active' | 'Completed'
 
-function App() {
+function AppWithReducers() {
 
     let todolistID1 = v1()
     let todolistID2 = v1()
 
-    let [todoLists, setTodoLists] = useState<Array<TodoListsType>>([
+    let [todoLists, dispatchToTodoLists] = useReducer(todoListsReducer, [
         {id: todolistID1, title: 'What to learn', filter: 'All'},
         {id: todolistID2, title: 'What to buy', filter: 'All'},
     ])
 
-    let [tasks, setTasks] = useState<TasksStateType>({
+    let [tasks, dispatchToTasks] = useReducer(tasksReducer,{
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
@@ -58,41 +66,34 @@ function App() {
 
     //tasks
     const removeTask = (todoListID: string, taskID: string) => { //удаление таски
-        setTasks({...tasks, [todoListID]: tasks[todoListID].filter(el => el.id !== taskID)})
+       dispatchToTasks(removeTaskAC(todoListID, taskID))
     }
     const addTask = (todoListsID: string, title: string) => {//добавить таску
-        const newTask = {id: v1(), title: title, isDone: false}
-        setTasks({...tasks, [todoListsID]: [newTask, ...tasks[todoListsID]]})
+        dispatchToTasks(addTaskAC(todoListsID, title))
     }
     const changeTaskStatus = (todoListID: string, taskID: string, newIsDone: boolean) => {//изм статуса чекбокса
-        setTasks({
-            ...tasks,
-            [todoListID]: tasks[todoListID].map(el => el.id === taskID ? {...el, isDone: newIsDone} : el)
-        })
+        dispatchToTasks(changeTaskStatusAC(todoListID, taskID, newIsDone))
     }
     const changeTaskTitle = (todoListID: string, taskID: string, newTitle: string) => {//редактирование заголовка таски
-        setTasks({
-            ...tasks,
-            [todoListID]: tasks[todoListID].map(el => el.id === taskID ? {...el, title: newTitle} : el)
-        })
+        dispatchToTasks(changeTaskTitleAC(todoListID, taskID, newTitle))
     }
 
     //todoLists
     const removeTodoList = (todoListID: string) => {//удалить тудулист
-        setTodoLists(todoLists.filter(el => el.id !== todoListID))
-        delete tasks[todoListID]
+        let action = removeTodoListAC(todoListID)
+        dispatchToTodoLists(action)
+        dispatchToTasks(action)
     }
     const addTodoList = (title: string) => {//добавить тудулист
-        let newTodoListID = v1()
-        let newTodoList: TodoListsType = {id: newTodoListID, title: title, filter: 'All'}
-        setTodoLists([newTodoList, ...todoLists])
-        setTasks({...tasks, [newTodoListID]: []})
+        let action = addTodoListAC(title)
+        dispatchToTodoLists(action)
+        dispatchToTasks(action)
     }
     const changeTodoListTitle = (todoListID: string, newTitle: string) => {//редактирование заголовка тудулиста
-        setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, title: newTitle} : el))
+        dispatchToTodoLists(changeTodoListTitleAC(todoListID, newTitle))
     }
-    const changeTodoListFilter = ( todoListID: string, filter: FilterValueType) => {//фильтр по кнопкам
-        setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: filter} : el))
+    const changeTodoListFilter = (todoListID: string, filter: FilterValueType) => {//фильтр по кнопкам
+        dispatchToTodoLists(changeTodoListFilterAC(todoListID, filter))
     }
 
 
@@ -188,4 +189,4 @@ function App() {
     );
 }
 
-export default App;
+export default AppWithReducers;
