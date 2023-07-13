@@ -96,7 +96,6 @@ function AppWithReducers() {
         dispatchToTodoLists(changeTodoListFilterAC(todoListID, filter))
     }
 
-
     const getFilteredTasksForRender = (todoLists: TasksType[], filterValue: FilterValueType) => {
         if (filterValue === 'Active') {
             return todoLists.filter(el => !el.isDone)
@@ -104,18 +103,6 @@ function AppWithReducers() {
             return todoLists.filter(el => el.isDone)
         } else return todoLists
     }
-
-    //темная/светлая тема в зависимости от времени суток
-   /* useEffect(()=> {
-        const date = new Date()
-        const hours = date.getHours()
-
-        if (hours >= 8 && hours < 20) {
-            setIsDarkMode(false)
-        } else {
-            setIsDarkMode(true)
-        }
-    }, [])*/
 
     const mode = isDarkMode ? "dark" : "light"
 

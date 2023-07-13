@@ -86,18 +86,6 @@ function AppWithRedux() {
         } else return todoLists
     }
 
-    //темная/светлая тема в зависимости от времени суток
-   /* useEffect(()=> {
-        const date = new Date()
-        const hours = date.getHours()
-
-        if (hours >= 8 && hours < 20) {
-            setIsDarkMode(false)
-        } else {
-            setIsDarkMode(true)
-        }
-    }, [])*/
-
     const mode = isDarkMode ? "dark" : "light"
 
     const customTheme = createTheme({
