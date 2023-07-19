@@ -1,11 +1,12 @@
-import React, {ChangeEvent, useState, KeyboardEvent, FC} from 'react';
+import React, {ChangeEvent, useState, KeyboardEvent, FC, memo} from 'react';
 
 type EditableSpan = {
     oldTitle: string
     callBack: (newTitle: string) => void
 }
 
-const EditableSpan: FC <EditableSpan> = (props) => {
+const EditableSpan: FC <EditableSpan> = memo((props) => {
+    console.log('EditableSpan')
 
     const [editMode, setEditMode] = useState(false)
 
@@ -39,6 +40,6 @@ const EditableSpan: FC <EditableSpan> = (props) => {
 
             : <span onDoubleClick={editModeHandler} style={{marginRight: "30px"}}>{props.oldTitle}</span>
     );
-};
+})
 
 export default EditableSpan;

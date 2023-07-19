@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent, memo, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
@@ -6,7 +6,8 @@ type AddItemFormType = {
     addItem: (title: string) => void
 }
 
-const AddItemForm: FC<AddItemFormType> = (props) => {
+const AddItemForm: FC<AddItemFormType> = memo(({addItem}) => {
+    console.log('AddItemForm')
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -18,7 +19,7 @@ const AddItemForm: FC<AddItemFormType> = (props) => {
 
     const addItemHandler = () => {
         if (title.trim() !== '') {
-            props.addItem(title.trim())
+            addItem(title.trim())
             setTitle('')
         } else {
             setError('Title is required')
@@ -26,6 +27,7 @@ const AddItemForm: FC<AddItemFormType> = (props) => {
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if(error !== null) return setError(null)
         if (e.key === 'Enter') {
             addItemHandler()
         }
@@ -41,8 +43,6 @@ const AddItemForm: FC<AddItemFormType> = (props) => {
 
     return (
         <div>
-            {/* <input value={title} onChange={onChangeTitleHandler} onKeyDown={onKeyDownHandler} className={error ? 'error' : ''}/>*/}
-
             <TextField label={error ? 'Title is required' : 'Type out something'}
                        variant="outlined"
                        size="small"
@@ -50,18 +50,13 @@ const AddItemForm: FC<AddItemFormType> = (props) => {
                        value={title}
                        onChange={onChangeTitleHandler}
                        onKeyDown={onKeyDownHandler}
-                       type="search"
-            />
+                       type="search"/>
 
-            {/* <button onClick={addItemHandler}> + </button>*/}
             <Button variant="contained"
                     style={muiStyles}
-                /* color="success"*/
                     onClick={addItemHandler}> + </Button>
-
-            {/* {error && <div className={'error-message'}> {error} </div>}*/}
         </div>
     );
-};
+})
 
 export default AddItemForm;
