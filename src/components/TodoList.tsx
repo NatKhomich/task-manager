@@ -1,17 +1,14 @@
-import React, {ChangeEvent, FC, memo, useCallback} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import {FilterValueType, TasksType} from '../App';
 import AddItemForm from './AddItemForm';
 import EditableSpan from './EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
-import {ListItem} from '@mui/material';
 import {ButtonProps} from '@mui/material/Button/Button';
 import {Task} from './Task';
-
-//const label = {inputProps: {'aria-label': 'Checkbox demo'}};
+import {TaskWithRedux} from './TaskWithRedux';
 
 type TodoListType = {
     todoListID: string
@@ -108,12 +105,15 @@ export const TodoList: FC<TodoListType> = memo((props) => {
                             <EditableSpan oldTitle={el.title} callBack={changeTaskTitleHandler}/>
 
                         </ListItem>*/
-                        <Task key={el.id}
+                        /*<Task key={el.id}
                               task={el}
                               changeTaskStatus={changeTaskStatusHandler}
                               changeTaskTitle={changeTaskTitleHandler}
                               removeTask={removeTaskHandler}
-                        />
+                        />*/
+                        <TaskWithRedux key={el.id}
+                                       task={el}
+                                       todoListID={props.todoListID}/>
                     );
                 })}
             </div>
