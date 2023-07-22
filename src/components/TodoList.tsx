@@ -7,7 +7,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ButtonProps} from '@mui/material/Button/Button';
-import {Task} from './Task';
 import {TaskWithRedux} from './TaskWithRedux';
 
 type TodoListType = {
@@ -57,7 +56,7 @@ export const TodoList: FC<TodoListType> = memo((props) => {
         props.addTask(props.todoListID, title)
     }, [props.addTask, props.todoListID])
 
-    const removeTaskHandler = useCallback((taskID: string) => {
+/*    const removeTaskHandler = useCallback((taskID: string) => {
         props.removeTask(props.todoListID, taskID)
     }, [props.removeTask, props.todoListID])
 
@@ -67,7 +66,7 @@ export const TodoList: FC<TodoListType> = memo((props) => {
 
     const changeTaskTitleHandler = useCallback((taskID: string, newTitle: string) => {
         props.changeTaskTitle(props.todoListID, taskID, newTitle)
-    }, [props.changeTaskTitle, props.todoListID])
+    }, [props.changeTaskTitle, props.todoListID])*/
 
     return (
         <div>
