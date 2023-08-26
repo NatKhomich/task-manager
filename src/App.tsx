@@ -43,8 +43,6 @@ function App() {
             {id: v1(), title: 'JS', isDone: true},
             {id: v1(), title: 'Rest API', isDone: false},
             {id: v1(), title: 'ReactJS', isDone: false}
-
-
         ],
         [todolistID2]: [
             {id: v1(), title: 'Milk', isDone: true},
@@ -132,16 +130,11 @@ function App() {
     })
 
     return (
-
         <ThemeProvider theme={customTheme} >
             <CssBaseline></CssBaseline>
-
         <div className="App">
-
             <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
-
             <Container fixed maxWidth="xl" >
-
                 <Grid container style={{padding: '20px 0'}}>
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
@@ -154,9 +147,7 @@ function App() {
 
                         return (
                             <Grid item key={el.id} >
-
                                 <Paper elevation={4} style={{padding: '10px'}}>
-
                                 <TodoList
                                     todoListID={el.id}
                                     title={el.title}
@@ -174,16 +165,12 @@ function App() {
                                 />
 
                                 </Paper>
-
                             </Grid>
                         )
                     })}
                 </Grid>
-
             </Container>
-
         </div>
-
         </ThemeProvider>
     );
 }

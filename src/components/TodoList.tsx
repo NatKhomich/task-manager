@@ -56,27 +56,13 @@ export const TodoList: FC<TodoListType> = memo((props) => {
         props.addTask(props.todoListID, title)
     }, [props.addTask, props.todoListID])
 
-/*    const removeTaskHandler = useCallback((taskID: string) => {
-        props.removeTask(props.todoListID, taskID)
-    }, [props.removeTask, props.todoListID])
-
-    const changeTaskStatusHandler = useCallback((taskID: string, newIsDone: boolean) => {
-        props.changeTaskStatus(props.todoListID, taskID, newIsDone)
-    }, [props.changeTaskStatus, props.todoListID])
-
-    const changeTaskTitleHandler = useCallback((taskID: string, newTitle: string) => {
-        props.changeTaskTitle(props.todoListID, taskID, newTitle)
-    }, [props.changeTaskTitle, props.todoListID])*/
-
     return (
         <div>
             <Typography component={'h4'} variant="h5" align="center" fontWeight="bold" margin="10px 0">
                 <EditableSpan oldTitle={props.title} callBack={changeTodoListTitleHandler}/>
-
                 <IconButton aria-label="delete" onClick={removeTodolistHandler}>
                     <DeleteIcon/>
                 </IconButton>
-
             </Typography>
 
             <AddItemForm addItem={addTaskHandler}/>
@@ -86,30 +72,7 @@ export const TodoList: FC<TodoListType> = memo((props) => {
                 {tasks.map(el => {
 
                     return (
-                        /*<ListItem key={el.id}
-                                  style={{padding: '3px', marginRight: '20px'}}
-                                  className={el.isDone ? 'is-done' : ''}
-                                  secondaryAction={
-                                      <IconButton aria-label="delete" onClick={removeTaskHandler}>
-                                          <DeleteIcon fontSize="small"/>
-                                      </IconButton>
-                                  }
-                                  disablePadding>
 
-                            <Checkbox {...label}
-                                      checked={el.isDone}
-                                      size="small"
-                                      onChange={changeTaskStatusHandler}/>
-
-                            <EditableSpan oldTitle={el.title} callBack={changeTaskTitleHandler}/>
-
-                        </ListItem>*/
-                        /*<Task key={el.id}
-                              task={el}
-                              changeTaskStatus={changeTaskStatusHandler}
-                              changeTaskTitle={changeTaskTitleHandler}
-                              removeTask={removeTaskHandler}
-                        />*/
                         <TaskWithRedux key={el.id}
                                        task={el}
                                        todoListID={props.todoListID}/>
@@ -139,26 +102,10 @@ export const TodoList: FC<TodoListType> = memo((props) => {
                                  color="secondary"
                                  disableElevation
                 />
-                {/*<Button onClick={allOnClickHandler}
-                        variant={props.filter === 'All' ? 'contained' : 'text'}
-                        size="small"
-                        color="secondary"
-                        disableElevation>
-                    All
-                </Button>*/}
             </div>
         </div>
     )
 })
-
-/*type ButtonWitchMemoType = {
-    onClick: () => void
-    variant: 'text' | 'outlined' | 'contained'
-    size: 'small' | 'medium' | 'large'
-    title: string
-    color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
-    disableElevation: boolean
-}*/
 
 const ButtonWitchMemo = memo((props: ButtonProps) => {
     console.log('ButtonWitchMemo')

@@ -26,12 +26,10 @@ export const Task: FC<TaskPropsType> = memo(({
     const removeTaskHandler = () => {
         removeTask(task.id)
     }
-
     const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDone = e.currentTarget.checked
         changeTaskStatus(task.id, newIsDone)
     }
-
     const changeTaskTitleHandler = useCallback((newTitle: string) => {
         changeTaskTitle(task.id, newTitle)
     }, [changeTaskTitle, task.id])

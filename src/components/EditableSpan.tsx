@@ -9,7 +9,6 @@ const EditableSpan: FC <EditableSpan> = memo((props) => {
     console.log('EditableSpan')
 
     const [editMode, setEditMode] = useState(false)
-
     const [newTitle, setNewTitle] = useState(props.oldTitle)
 
     const editModeHandler = () => {

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, memo, useCallback} from 'react';
+import React, {ChangeEvent, memo} from 'react';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
