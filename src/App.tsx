@@ -89,7 +89,7 @@ function App() {
     const changeTodoListTitle = (todoListID: string, newTitle: string) => {//редактирование заголовка тудулиста
         setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, title: newTitle} : el))
     }
-    const changeTodoListFilter = ( todoListID: string, filter: FilterValueType) => {//фильтр по кнопкам
+    const changeTodoListFilter = (todoListID: string, filter: FilterValueType) => {//фильтр по кнопкам
         setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: filter} : el))
     }
 
@@ -103,19 +103,18 @@ function App() {
     }
 
     //темная/светлая тема в зависимости от времени суток
-   /* useEffect(()=> {
-        const date = new Date()
-        const hours = date.getHours()
+    /* useEffect(()=> {
+         const date = new Date()
+         const hours = date.getHours()
 
-        if (hours >= 8 && hours < 20) {
-            setIsDarkMode(false)
-        } else {
-            setIsDarkMode(true)
-        }
-    }, [])*/
+         if (hours >= 8 && hours < 20) {
+             setIsDarkMode(false)
+         } else {
+             setIsDarkMode(true)
+         }
+     }, [])*/
 
     const mode = isDarkMode ? "dark" : "light"
-
     const customTheme = createTheme({
         palette: {
             primary: {
@@ -130,47 +129,43 @@ function App() {
     })
 
     return (
-        <ThemeProvider theme={customTheme} >
+        <ThemeProvider theme={customTheme}>
             <CssBaseline></CssBaseline>
-        <div className="App">
-            <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
-            <Container fixed maxWidth="xl" >
-                <Grid container style={{padding: '20px 0'}}>
-                    <AddItemForm addItem={addTodoList}/>
-                </Grid>
+            <div className="App">
+                <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
+                <Container fixed maxWidth="xl">
+                    <Grid container style={{padding: '20px 0'}}>
+                        <AddItemForm addItem={addTodoList}/>
+                    </Grid>
 
-                <Grid container spacing={4}  >
+                    <Grid container spacing={4}>
+                        {todoLists.map(el => {
+                            const tasksForRender: TasksType[] = getFilteredTasksForRender(tasks[el.id], el.filter)
+                            return (
+                                <Grid item key={el.id}>
+                                    <Paper elevation={4} style={{padding: '10px'}}>
+                                        <TodoList
+                                            todoListID={el.id}
+                                            title={el.title}
+                                            tasks={tasksForRender}
+                                            filter={el.filter}
 
-                    {todoLists.map(el => {
+                                            removeTask={removeTask}
+                                            changeTaskStatus={changeTaskStatus}
+                                            addTask={addTask}
+                                            changeTaskTitle={changeTaskTitle}
 
-                        const tasksForRender: TasksType[] =  getFilteredTasksForRender(tasks[el.id], el.filter)
-
-                        return (
-                            <Grid item key={el.id} >
-                                <Paper elevation={4} style={{padding: '10px'}}>
-                                <TodoList
-                                    todoListID={el.id}
-                                    title={el.title}
-                                    tasks={tasksForRender}
-                                    filter={el.filter}
-
-                                    removeTask={removeTask}
-                                    changeTaskStatus={changeTaskStatus}
-                                    addTask={addTask}
-                                    changeTaskTitle={changeTaskTitle}
-
-                                    removeTodoList={removeTodoList}
-                                    changeTodoListTitle={changeTodoListTitle}
-                                    changeTodoListFilter={changeTodoListFilter}
-                                />
-
-                                </Paper>
-                            </Grid>
-                        )
-                    })}
-                </Grid>
-            </Container>
-        </div>
+                                            removeTodoList={removeTodoList}
+                                            changeTodoListTitle={changeTodoListTitle}
+                                            changeTodoListFilter={changeTodoListFilter}
+                                        />
+                                    </Paper>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                </Container>
+            </div>
         </ThemeProvider>
     );
 }

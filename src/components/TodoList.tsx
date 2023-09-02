@@ -70,16 +70,13 @@ export const TodoList: FC<TodoListType> = memo((props) => {
             <div style={{padding: '10px 0'}}>
 
                 {tasks.map(el => {
-
                     return (
-
                         <TaskWithRedux key={el.id}
                                        task={el}
                                        todoListID={props.todoListID}/>
                     );
                 })}
             </div>
-
             <div className={'btn-container'}>
                 <ButtonWitchMemo title={'All'}
                                  onClick={allOnClickHandler}
@@ -114,8 +111,7 @@ const ButtonWitchMemo = memo((props: ButtonProps) => {
                 variant={props.variant}
                 size={props.size}
                 color={props.color}
-                disableElevation
-        >
+                disableElevation>
             {props.title}
         </Button>
     )
