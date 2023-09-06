@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
 import EditableSpan from './EditableSpan';
 import {ListItem} from '@mui/material';
-import {TasksType} from '../AppWithRedux';
+import {TasksType} from '../App';
 
 export type TaskPropsType = {
     task: TasksType
