@@ -21,7 +21,6 @@ export const Task: FC<TaskPropsType> = memo(({
                                             changeTaskStatus,
                                             removeTask
                                         }) => {
-    console.log('Task')
 
     const removeTaskHandler = () => {
         removeTask(task.id)
@@ -51,7 +50,6 @@ export const Task: FC<TaskPropsType> = memo(({
                           onChange={changeTaskStatusHandler}/>
 
                 <EditableSpan oldTitle={task.title} callBack={changeTaskTitleHandler}/>
-
             </ListItem>
         </div>
     );

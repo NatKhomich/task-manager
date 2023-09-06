@@ -1,11 +1,12 @@
 import React, {ChangeEvent, useState, KeyboardEvent, FC, memo} from 'react';
+import TextField from '@mui/material/TextField';
 
 type EditableSpan = {
     oldTitle: string
     callBack: (newTitle: string) => void
 }
 
-const EditableSpan: FC <EditableSpan> = memo((props) => {
+const EditableSpan: FC<EditableSpan> = memo((props) => {
     console.log('EditableSpan')
 
     const [editMode, setEditMode] = useState(false)
@@ -13,7 +14,7 @@ const EditableSpan: FC <EditableSpan> = memo((props) => {
 
     const editModeHandler = () => {
         setEditMode(!editMode)
-        if(editMode) {
+        if (editMode) {
             props.callBack(newTitle)
         }
     }
@@ -23,7 +24,7 @@ const EditableSpan: FC <EditableSpan> = memo((props) => {
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if(e.key === 'Enter') {
+        if (e.key === 'Enter') {
             setEditMode(false)
             props.callBack(newTitle)
         }
@@ -31,13 +32,17 @@ const EditableSpan: FC <EditableSpan> = memo((props) => {
 
     return (
         editMode
-            ? <input value={newTitle}
-                     autoFocus
-                     onBlur={editModeHandler}
-                     onKeyDown={onKeyDownHandler}
-                     onChange={onChangeInputEditHandler}/>
+            ? <TextField variant="outlined"
+                         size="small"
+                         value={newTitle}
+                         onChange={onChangeInputEditHandler}
+                         onKeyDown={onKeyDownHandler}
+                         onBlur={editModeHandler}
+                         autoFocus
+                         type="search"
+                         style={{width: '70%'}}/>
 
-            : <span onDoubleClick={editModeHandler} style={{marginRight: "30px"}}>{props.oldTitle}</span>
+            : <span onDoubleClick={editModeHandler} style={{marginRight: '30px'}}>{props.oldTitle}</span>
     );
 })
 

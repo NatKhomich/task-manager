@@ -105,7 +105,6 @@ export const TodoList: FC<TodoListType> = memo((props) => {
 })
 
 const ButtonWitchMemo = memo((props: ButtonProps) => {
-    console.log('ButtonWitchMemo')
     return (
         <Button onClick={props.onClick}
                 variant={props.variant}

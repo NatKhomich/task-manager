@@ -38,73 +38,61 @@ export type FilterValueType = 'All' | 'Active' | 'Completed'
 function App() {
 
     const todoLists = useSelector<AppRootStateType, TodoListsType[]>(state => state.todoLists)
-
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-
     const dispatch = useDispatch()
 
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 
     //tasks
-    const removeTask = useCallback((todoListID: string, taskID: string) => { //удаление таски
+    const removeTask = useCallback((todoListID: string, taskID: string) => {
         dispatch(removeTaskAC(todoListID, taskID))
     }, [dispatch])
-    const addTask = useCallback((todoListsID: string, title: string) => {//добавить таску
+    const addTask = useCallback((todoListsID: string, title: string) => {
         dispatch(addTaskAC(todoListsID, title))
     }, [dispatch])
-    const changeTaskStatus = useCallback((todoListID: string, taskID: string, newIsDone: boolean) => {//изм статуса чекбокса
+    const changeTaskStatus = useCallback((todoListID: string, taskID: string, newIsDone: boolean) => {
         dispatch(changeTaskStatusAC(todoListID, taskID, newIsDone))
     }, [dispatch])
-    const changeTaskTitle = useCallback((todoListID: string, taskID: string, newTitle: string) => {//редактирование заголовка таски
+    const changeTaskTitle = useCallback((todoListID: string, taskID: string, newTitle: string) => {
         dispatch(changeTaskTitleAC(todoListID, taskID, newTitle))
     }, [dispatch])
 
     //todoLists
-    const removeTodoList = useCallback((todoListID: string) => {//удалить тудулист
+    const removeTodoList = useCallback((todoListID: string) => {
         dispatch(removeTodoListAC(todoListID))
     }, [dispatch])
-    const addTodoList = useCallback((title: string) => {//добавить тудулист
+    const addTodoList = useCallback((title: string) => {
         dispatch(addTodoListAC(title))
     }, [dispatch])
-    const changeTodoListTitle = useCallback((todoListID: string, newTitle: string) => {//редактирование заголовка тудулиста
+    const changeTodoListTitle = useCallback((todoListID: string, newTitle: string) => {
         dispatch(changeTodoListTitleAC(todoListID, newTitle))
     }, [dispatch])
-    const changeTodoListFilter = useCallback((todoListID: string, filter: FilterValueType) => {//фильтр по кнопкам
+    const changeTodoListFilter = useCallback((todoListID: string, filter: FilterValueType) => {
         dispatch(changeTodoListFilterAC(todoListID, filter))
     }, [dispatch])
 
-
     const mode = isDarkMode ? 'dark' : 'light'
-
     const customTheme = createTheme({
         palette: {
-            primary: {
-                main: '#1a237e',
-            },
-            secondary: {
-                main: '#8c9eff',
-            },
+            primary: {main: '#1a237e'},
+            secondary: {main: '#8c9eff'},
             mode: mode
-        },
+        }
     })
 
     return (
-
         <ThemeProvider theme={customTheme}>
             <CssBaseline></CssBaseline>
-
             <div className="App">
                 <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
                 <Container fixed maxWidth="xl">
                     <Grid container style={{padding: '20px 0'}}>
                         <AddItemForm addItem={addTodoList}/>
                     </Grid>
-                    <Grid container spacing={4}>
+                    <Grid container spacing={5}>
                         {todoLists.map(el => {
-
                             return (
                                 <Grid item key={el.id}>
-
                                     <Paper elevation={4} style={{padding: '10px'}}>
                                         <TodoList
                                             todoListID={el.id}

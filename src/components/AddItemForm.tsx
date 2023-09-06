@@ -7,7 +7,6 @@ type AddItemFormType = {
 }
 
 const AddItemForm: FC<AddItemFormType> = memo(({addItem}) => {
-    console.log('AddItemForm')
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -21,16 +20,12 @@ const AddItemForm: FC<AddItemFormType> = memo(({addItem}) => {
         if (title.trim() !== '') {
             addItem(title.trim())
             setTitle('')
-        } else {
-            setError('Title is required')
-        }
+        } else {setError('Title is required')}
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if(error !== null) return setError(null)
-        if (e.key === 'Enter') {
-            addItemHandler()
-        }
+        if (e.key === 'Enter') addItemHandler()
     }
 
     const muiStyles = {
