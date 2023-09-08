@@ -1,6 +1,5 @@
 import {v1} from 'uuid';
-import {FilterValueType} from '../App';
-import {TodolistCommonType} from '../api/todolists-api';
+import {FilterValueType, TodolistCommonType} from '../App';
 
 let initialState: TodolistCommonType[] = [
     /*{id: 'todolistId', title: 'html', addedDate: '', order: 0, filter: 'All'},

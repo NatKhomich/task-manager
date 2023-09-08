@@ -4,39 +4,40 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
 import EditableSpan from './EditableSpan';
 import {ListItem} from '@mui/material';
-import {TasksType} from '../App';
+import {TaskStatuses, TaskType} from '../api/todolists-api';
 
 export type TaskPropsType = {
-    task: TasksType
-    changeTaskTitle: (taskID: string, newTitle: string) => void
-    changeTaskStatus: (taskID: string, newIsDone: boolean) => void
-    removeTask: (taskID: string) => void
+    task: TaskType
+    todoListID: string
+    changeTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
+    changeTaskStatus: (todoListID: string, taskID: string, status: TaskStatuses) => void
+    removeTask: (todolistID: string, taskID: string) => void
 }
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
 export const Task: FC<TaskPropsType> = memo(({
-                                            task,
-                                            changeTaskTitle,
-                                            changeTaskStatus,
-                                            removeTask
-                                        }) => {
+                                                 task,
+                                                 todoListID,
+                                                 changeTaskTitle,
+                                                 changeTaskStatus,
+                                                 removeTask
+                                             }) => {
 
     const removeTaskHandler = () => {
-        removeTask(task.id)
+        removeTask(todoListID, task.id)
     }
     const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let newIsDone = e.currentTarget.checked
-        changeTaskStatus(task.id, newIsDone)
+        changeTaskStatus(todoListID, task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)
     }
     const changeTaskTitleHandler = useCallback((newTitle: string) => {
-        changeTaskTitle(task.id, newTitle)
+        changeTaskTitle(todoListID,task.id, newTitle)
     }, [changeTaskTitle, task.id])
 
     return (
         <div>
             <ListItem style={{padding: '3px', marginRight: '20px'}}
-                      className={task.isDone ? 'is-done' : ''}
+                      className={task.status ? 'is-done' : ''}
                       secondaryAction={
                           <IconButton aria-label="delete" onClick={removeTaskHandler}>
                               <DeleteIcon fontSize="small"/>
@@ -45,7 +46,7 @@ export const Task: FC<TaskPropsType> = memo(({
                       disablePadding>
 
                 <Checkbox {...label}
-                          checked={task.isDone}
+                          checked={task.status === TaskStatuses.Completed}
                           size="small"
                           onChange={changeTaskStatusHandler}/>
 

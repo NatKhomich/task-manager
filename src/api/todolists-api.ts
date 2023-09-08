@@ -1,5 +1,5 @@
-import axios, {AxiosResponse} from 'axios';
-import {FilterValueType} from '../App';
+import axios, {AxiosResponse} from 'axios'
+import {TaskStatuses} from '../App';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1',
@@ -39,9 +39,7 @@ export type TodolistType = {
     addedDate: string
     order: number
 }
-export type TodolistCommonType = TodolistType & {
-    filter: FilterValueType
-}
+
 
 type TodolistsResponseType<D = {}> = {
     data: D
@@ -53,14 +51,14 @@ export type TaskType = {
     description: string
     title: string
     completed: boolean
-    status: number
-    priority: number
-    startDate: number
+    status: TaskStatuses
+    priority: TaskPriorities
+    startDate: string
     deadline: number
     id: string
     todoListId: string
     order: number
-    addedDate: number
+    addedDate: string
 }
 
 type TasksResponseType = {
@@ -78,12 +76,7 @@ type UpdateTaskModelType = {
     deadline: string
 }
 
-export enum TaskStatuses {
-    New = 0,
-    InProgress = 1,
-    Completed = 2,
-    Draft = 3
-}
+
 
 export enum TaskPriorities {
     Low = 0,
