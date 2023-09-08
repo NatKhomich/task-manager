@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './App.css';
 import {TodoList} from './components/TodoList';
 import AddItemForm from './components/AddItemForm';
@@ -16,30 +16,36 @@ import {
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasksReducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
+import {TaskType, TodolistCommonType, todolistsApi} from './api/todolists-api';
 
 export type TasksStateType = {
-    [key: string]: TasksType[]
+    [key: string]: TaskType[]
 }
 
-export type TasksType = {
+/*export type TasksType = {
     id: string
     title: string
     isDone: boolean
-}
+}*/
 
-export type TodoListsType = {
+/*export type TodoListsType = {
     id: string
     title: string
     filter: FilterValueType
-}
+}*/
 
-export type FilterValueType = 'All' | 'Active' | 'Completed'
+export type FilterValueType = 'all' | 'active' | 'completed'
 
 function App() {
 
-    const todoLists = useSelector<AppRootStateType, TodoListsType[]>(state => state.todoLists)
+    const todoLists = useSelector<AppRootStateType, TodolistCommonType[]>(state => state.todoLists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        todolistsApi.getTodolists()
+            .then(res => res.data)
+    })
 
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 
