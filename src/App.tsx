@@ -11,7 +11,7 @@ import {
     addTodoListAC,
     changeTodoListFilterAC,
     changeTodoListTitleAC,
-    removeTodoListAC,
+    removeTodoListAC, setTodolistsAC,
 } from './state/todoListsReducer';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasksReducer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -53,10 +53,12 @@ function App() {
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
-    useEffect(() => {
+   /* useEffect(() => {
         todolistsApi.getTodolists()
-            .then(res => res.data)
-    })
+            .then(res => {
+               dispatch(setTodolistsAC(res.data))
+            })
+    })*/
 
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 

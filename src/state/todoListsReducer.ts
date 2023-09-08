@@ -1,5 +1,6 @@
 import {v1} from 'uuid';
 import {FilterValueType, TodolistCommonType} from '../App';
+import {TodolistType} from '../api/todolists-api';
 
 let initialState: TodolistCommonType[] = [
     /*{id: 'todolistId', title: 'html', addedDate: '', order: 0, filter: 'All'},
@@ -9,8 +10,8 @@ let initialState: TodolistCommonType[] = [
 
 export const todoListsReducer = (state = initialState, action: ActionsType): TodolistCommonType[] => {
     switch (action.type) {
-        case 'GET-TODOLISTS': {
-            return state
+        case 'SET-TODOLISTS': {
+            return action.todolists.map(el => ({...el, filter: 'all'}))
         }
         case 'REMOVE-TODOLIST' : {
             return state.filter(el => el.id !== action.todoListID)
@@ -34,7 +35,7 @@ type ActionsType = removeTodoListACType
     | addTodoListACType
     | ReturnType<typeof changeTodoListTitleAC>
     | ReturnType<typeof changeTodoListFilterAC>
-    | ReturnType<typeof getTodolistsAC>
+    | ReturnType<typeof setTodolistsAC>
 
 export type removeTodoListACType = ReturnType<typeof removeTodoListAC>
 export type addTodoListACType = ReturnType<typeof addTodoListAC>
@@ -51,6 +52,6 @@ export const changeTodoListTitleAC = (todoListID: string, newTitle: string) => {
 export const changeTodoListFilterAC = (todoListID: string, filter: FilterValueType) => {
     return {type: 'CHANGE-TODOLIST-FILTER', todoListID, filter} as const
 }
-export const getTodolistsAC = () => {
-    return {type: 'GET-TODOLISTS'} as const
+export const setTodolistsAC = (todolists: TodolistType[]) => {
+    return {type: 'SET-TODOLISTS', todolists} as const
 }

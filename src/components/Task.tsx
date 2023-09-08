@@ -4,7 +4,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
 import EditableSpan from './EditableSpan';
 import {ListItem} from '@mui/material';
-import {TaskStatuses, TaskType} from '../api/todolists-api';
+import { TaskType} from '../api/todolists-api';
+import {TaskStatuses} from '../App';
 
 export type TaskPropsType = {
     task: TaskType
@@ -44,12 +45,10 @@ export const Task: FC<TaskPropsType> = memo(({
                           </IconButton>
                       }
                       disablePadding>
-
                 <Checkbox {...label}
                           checked={task.status === TaskStatuses.Completed}
                           size="small"
                           onChange={changeTaskStatusHandler}/>
-
                 <EditableSpan oldTitle={task.title} callBack={changeTaskTitleHandler}/>
             </ListItem>
         </div>
