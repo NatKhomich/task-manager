@@ -7,16 +7,13 @@ type EditableSpan = {
 }
 
 const EditableSpan: FC<EditableSpan> = memo((props) => {
-    console.log('EditableSpan')
 
     const [editMode, setEditMode] = useState(false)
     const [newTitle, setNewTitle] = useState(props.oldTitle)
 
     const editModeHandler = () => {
         setEditMode(!editMode)
-        if (editMode) {
-            props.callBack(newTitle)
-        }
+        if (editMode) props.callBack(newTitle)
     }
 
     const onChangeInputEditHandler = (e: ChangeEvent<HTMLInputElement>) => {

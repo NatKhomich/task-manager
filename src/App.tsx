@@ -11,12 +11,13 @@ import {
     addTodoListAC,
     changeTodoListFilterAC,
     changeTodoListTitleAC,
-    removeTodoListAC, setTodolistsAC,
+    removeTodoListAC,
+    setTodolistsAC,
 } from './state/todoListsReducer';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasksReducer';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from './state/store';
-import {TaskType, todolistsApi, TodolistType} from './api/todolists-api';
+import {useSelector} from 'react-redux';
+import {AppRootStateType, useAppDispatch} from './state/store';
+import {TaskStatuses, TaskType, todolistsApi, TodolistType} from './api/todolists-api';
 
 export type TasksStateType = {
     [key: string]: TaskType[]
@@ -26,19 +27,11 @@ export type TodolistCommonType = TodolistType & {
     filter: FilterValueType
 }
 
-export enum TaskStatuses {
-    New = 0,
-    InProgress = 1,
-    Completed = 2,
-    Draft = 3
-}
-
 /*export type TasksType = {
     id: string
     title: string
     isDone: boolean
 }*/
-
 /*export type TodoListsType = {
     id: string
     title: string
@@ -51,14 +44,14 @@ function App() {
 
     const todoLists = useSelector<AppRootStateType, TodolistCommonType[]>(state => state.todoLists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
-   /* useEffect(() => {
+    useEffect(() => {
         todolistsApi.getTodolists()
             .then(res => {
                dispatch(setTodolistsAC(res.data))
             })
-    })*/
+    }, [])
 
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 

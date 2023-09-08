@@ -4,8 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
 import EditableSpan from './EditableSpan';
 import {ListItem} from '@mui/material';
-import { TaskType} from '../api/todolists-api';
-import {TaskStatuses} from '../App';
+import {TaskStatuses, TaskType} from '../api/todolists-api';
 
 export type TaskPropsType = {
     task: TaskType

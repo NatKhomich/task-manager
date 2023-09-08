@@ -1,5 +1,5 @@
-import React, {FC, memo, useCallback, useEffect} from 'react';
-import {FilterValueType, TaskStatuses} from '../App';
+import React, {FC, memo, useCallback} from 'react';
+import {FilterValueType} from '../App';
 import AddItemForm from './AddItemForm';
 import EditableSpan from './EditableSpan';
 import IconButton from '@mui/material/IconButton';
@@ -7,10 +7,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ButtonProps} from '@mui/material/Button/Button';
-import {TaskType} from '../api/todolists-api';
+import {TaskStatuses, TaskType} from '../api/todolists-api';
 import {Task} from './Task';
-import {useDispatch} from 'react-redux';
-import {setTaskAC} from '../state/tasksReducer';
 
 type TodoListType = {
     todoListID: string
@@ -29,8 +27,6 @@ type TodoListType = {
 }
 
 export const TodoList: FC<TodoListType> = memo((props) => {
-
-    const dispatch = useDispatch()
 
     let tasks = props.tasks
     if (props.filter === 'active') {
