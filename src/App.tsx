@@ -8,13 +8,13 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {createTheme, CssBaseline, ThemeProvider} from '@mui/material';
 import {
-    addTodoListAC,
+    addTodolistTC,
     changeTodoListFilterAC,
-    changeTodoListTitleAC,
-    removeTodoListAC,
+    removeTodolistTC,
     setTodolistsTC,
+    updateTodolistTitleTC,
 } from './state/todoListsReducer';
-import {addTaskTC, changeTaskStatusAC, changeTaskTitleAC, removeTaskTC} from './state/tasksReducer';
+import {addTaskTC, removeTaskTC, updateTaskStatusTC, updateTaskTitleTC} from './state/tasksReducer';
 import {useSelector} from 'react-redux';
 import {AppRootStateType, useAppDispatch} from './state/store';
 import {TaskStatuses, TaskType, TodolistType} from './api/todolists-api';
@@ -59,25 +59,25 @@ function App() {
     const addTask = useCallback((todoListsId: string, title: string) => {
         dispatch(addTaskTC(todoListsId, title))
     }, [dispatch])
-    const changeTaskStatus = useCallback((todoListID: string, taskID: string, status: TaskStatuses) => {
-        dispatch(changeTaskStatusAC(todoListID, taskID, status))
+    const changeTaskStatus = useCallback((todoListId: string, taskId: string, status: TaskStatuses) => {
+       dispatch(updateTaskStatusTC(todoListId, taskId, status))
     }, [dispatch])
-    const changeTaskTitle = useCallback((todoListID: string, taskID: string, newTitle: string) => {
-        dispatch(changeTaskTitleAC(todoListID, taskID, newTitle))
+    const changeTaskTitle = useCallback((todoListId: string, taskId: string, title: string) => {
+        dispatch(updateTaskTitleTC(todoListId, taskId, title))
     }, [dispatch])
 
     //todoLists
-    const removeTodoList = useCallback((todoListID: string) => {
-        dispatch(removeTodoListAC(todoListID))
+    const removeTodoList = useCallback((todoListId: string) => {
+        dispatch(removeTodolistTC(todoListId))
     }, [dispatch])
     const addTodoList = useCallback((title: string) => {
-        dispatch(addTodoListAC(title))
+        dispatch(addTodolistTC(title))
     }, [dispatch])
-    const changeTodoListTitle = useCallback((todoListID: string, newTitle: string) => {
-        dispatch(changeTodoListTitleAC(todoListID, newTitle))
+    const changeTodoListTitle = useCallback((todoListId: string, title: string) => {
+        dispatch(updateTodolistTitleTC(todoListId, title))
     }, [dispatch])
-    const changeTodoListFilter = useCallback((todoListID: string, filter: FilterValueType) => {
-        dispatch(changeTodoListFilterAC(todoListID, filter))
+    const changeTodoListFilter = useCallback((todoListId: string, filter: FilterValueType) => {
+        dispatch(changeTodoListFilterAC(todoListId, filter))
     }, [dispatch])
 
     const mode = isDarkMode ? 'dark' : 'light'

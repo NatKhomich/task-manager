@@ -1,7 +1,8 @@
 import {TasksStateType} from '../App';
 import {addTodoListACType, removeTodoListACType, setTodolistsACType} from './todoListsReducer';
-import {TaskStatuses, TaskType, todolistsApi} from '../api/todolists-api';
+import {TaskStatuses, TaskType, todolistsApi, UpdateTaskModelType} from '../api/todolists-api';
 import {Dispatch} from 'redux';
+import {AppRootStateType} from './store';
 
 let initialState: TasksStateType = {
     /*[todolistID1]: [
@@ -48,7 +49,7 @@ export const tasksReducer = (state = initialState, action: ActionsType): TasksSt
             return copyState
         }
         case 'ADD-TODOLIST' : {
-            return {...state, [action.todoListId]: []}
+            return {...state, [action.todolist.id]: []}
         }
         case 'SET-TODOLISTS': {
             const stateCopy = {...state}
@@ -103,4 +104,44 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
         .then(res => {
             dispatch(addTaskAC(res.data.data.item))
         })
+}
+export const updateTaskStatusTC = (todolistId: string, taskId: string, status: TaskStatuses) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        const task = getState().tasks[todolistId].find(el => el.id === taskId)
+        if(task) {
+            const model: UpdateTaskModelType = {
+                title: task.title,
+                deadline: task.deadline,
+                completed: task.completed,
+                description: task.description,
+                priority: task.priority,
+                startDate: task.startDate,
+                status
+            }
+            todolistsApi.updateTask(todolistId, taskId, model)
+                .then(() => {
+                    dispatch(changeTaskStatusAC(todolistId, taskId, status))
+                })
+        }
+    }
+}
+export const updateTaskTitleTC = (todolistId: string, taskId: string, title: string) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        const task = getState().tasks[todolistId].find(el => el.id === taskId)
+        if(task) {
+            const model: UpdateTaskModelType = {
+                deadline: task.deadline,
+                completed: task.completed,
+                description: task.description,
+                priority: task.priority,
+                startDate: task.startDate,
+                status: task.status,
+                title
+            }
+            todolistsApi.updateTask(todolistId, taskId, model)
+                .then(() => {
+                    dispatch(changeTaskTitleAC(todolistId, taskId, title))
+                })
+        }
+    }
 }

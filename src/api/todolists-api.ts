@@ -10,13 +10,13 @@ export const todolistsApi = {
         return instance.get<TodolistType[]>(`/todo-lists`)
     },
     createTodolist(title: string) {
-        return instance.post<ResponseType<{item: TodolistType}>, AxiosResponse<ResponseType<{item: TodolistType}>>, { title: string }>(`/todo-lists`, {title})
+        return instance.post<ResponseType<{item: TodolistType}>, AxiosResponse<ResponseType<{item: TodolistType}>>, {title: string}>(`/todo-lists`, {title})
     },
     deleteTodolist(todoListId: string) {
         return instance.delete<ResponseType>(`/todo-lists/${todoListId}`)
     },
     updateTodolist(todoListId: string, title: string) {
-        return instance.put<ResponseType, AxiosResponse<ResponseType>, { title: string }>(`/todo-lists/${todoListId}`, {title})
+        return instance.put<ResponseType, AxiosResponse<ResponseType>, {title: string}>(`/todo-lists/${todoListId}`, {title})
     },
     getTasks(todolistID: string) {
         return instance.get<TasksResponseType>(`/todo-lists/${todolistID}/tasks`)
@@ -28,7 +28,7 @@ export const todolistsApi = {
         return instance.delete<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
     },
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
-        return instance.put<ResponseType<{ item: TaskType }>, AxiosResponse<ResponseType<{ item: TaskType }>>, UpdateTaskModelType>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
+        return instance.put<ResponseType<{item: TaskType}>, AxiosResponse<ResponseType<{ item: TaskType }>>, UpdateTaskModelType>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
     }
 }
 
@@ -53,7 +53,7 @@ export type TaskType = {
     status: TaskStatuses
     priority: TaskPriorities
     startDate: string
-    deadline: number
+    deadline: string
     id: string
     todoListId: string
     order: number
@@ -66,9 +66,10 @@ type TasksResponseType = {
     error: string | null
 }
 
-type UpdateTaskModelType = {
+export type UpdateTaskModelType = {
     title: string
     description: string
+    completed: boolean
     status: TaskStatuses
     priority: TaskPriorities
     startDate: string
