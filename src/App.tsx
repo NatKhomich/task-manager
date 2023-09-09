@@ -12,12 +12,12 @@ import {
     changeTodoListFilterAC,
     changeTodoListTitleAC,
     removeTodoListAC,
-    setTodolistsAC,
+    setTodolistsTC,
 } from './state/todoListsReducer';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasksReducer';
+import {addTaskTC, changeTaskStatusAC, changeTaskTitleAC, removeTaskTC} from './state/tasksReducer';
 import {useSelector} from 'react-redux';
 import {AppRootStateType, useAppDispatch} from './state/store';
-import {TaskStatuses, TaskType, todolistsApi, TodolistType} from './api/todolists-api';
+import {TaskStatuses, TaskType, TodolistType} from './api/todolists-api';
 
 export type TasksStateType = {
     [key: string]: TaskType[]
@@ -27,12 +27,12 @@ export type TodolistCommonType = TodolistType & {
     filter: FilterValueType
 }
 
-/*export type TasksType = {
+/*export type TaskType = {
     id: string
     title: string
     isDone: boolean
 }*/
-/*export type TodoListsType = {
+/*export type TodoListType = {
     id: string
     title: string
     filter: FilterValueType
@@ -47,20 +47,17 @@ function App() {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        todolistsApi.getTodolists()
-            .then(res => {
-               dispatch(setTodolistsAC(res.data))
-            })
+       dispatch(setTodolistsTC())
     }, [])
 
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 
     //tasks
-    const removeTask = useCallback((todoListID: string, taskID: string) => {
-        dispatch(removeTaskAC(todoListID, taskID))
+    const removeTask = useCallback((todoListId: string, taskId: string) => {
+        dispatch(removeTaskTC(todoListId, taskId))
     }, [dispatch])
-    const addTask = useCallback((todoListsID: string, title: string) => {
-        dispatch(addTaskAC(todoListsID, title))
+    const addTask = useCallback((todoListsId: string, title: string) => {
+        dispatch(addTaskTC(todoListsId, title))
     }, [dispatch])
     const changeTaskStatus = useCallback((todoListID: string, taskID: string, status: TaskStatuses) => {
         dispatch(changeTaskStatusAC(todoListID, taskID, status))

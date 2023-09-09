@@ -44,7 +44,7 @@ test('correct task should be deleted from correct array', () => {
         'todolistId2': [
         {id: '1', title: 'bread', status: TaskStatuses.New, startDate: '', priority: 0,
             description: '', deadline: 0, todoListId: 'todolistId2', addedDate: '', completed: false, order: 0},
-        {id: '3', title: 'tea', status: TaskStatuses.New, startDate: '', priority: 0,
+        {id: '2', title: 'tea', status: TaskStatuses.New, startDate: '', priority: 0,
             description: '', deadline: 0, todoListId: 'todolistId2', addedDate: '', completed: false, order: 0}
     ]
     })
@@ -52,15 +52,16 @@ test('correct task should be deleted from correct array', () => {
 
 test('correct task should be added to correct array', () => {
 
-    const action = addTaskAC('todolistId2','juice' )
+    const action = addTaskAC({id: '5', title: 'New Task', status: TaskStatuses.New, startDate: '', priority: 0,
+        description: '', deadline: 0, todoListId: 'todolistId1', addedDate: '', completed: false, order: 0})
 
     const endState = tasksReducer(startState, action)
 
-    expect(endState['todolistId1'].length).toBe(3)
-    expect(endState['todolistId2'].length).toBe(4)
+    expect(endState['todolistId1'].length).toBe(4)
+    expect(endState['todolistId2'].length).toBe(3)
     expect(endState['todolistId2'][0].id).toBeDefined()
-    expect(endState['todolistId2'][0].title).toBe('juice')
-    expect(endState['todolistId2'][0].status).toBe(TaskStatuses.New)
+    expect(endState['todolistId1'][0].title).toBe('New Task')
+    expect(endState['todolistId1'][0].status).toBe(TaskStatuses.New)
 })
 
 test('status of specified task should be changed', () => {

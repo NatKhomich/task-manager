@@ -1,4 +1,4 @@
-import React, {FC, memo, useCallback} from 'react';
+import React, {FC, memo, useCallback, useEffect} from 'react';
 import {FilterValueType} from '../App';
 import AddItemForm from './AddItemForm';
 import EditableSpan from './EditableSpan';
@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import {ButtonProps} from '@mui/material/Button/Button';
 import {TaskStatuses, TaskType} from '../api/todolists-api';
 import {Task} from './Task';
+import {useAppDispatch} from '../state/store';
+import {setTasksTC} from '../state/tasksReducer';
 
 type TodoListType = {
     todoListID: string
@@ -28,6 +30,8 @@ type TodoListType = {
 
 export const TodoList: FC<TodoListType> = memo((props) => {
 
+    const dispatch = useAppDispatch()
+
     let tasks = props.tasks
     if (props.filter === 'active') {
         tasks = tasks.filter(el => !el.status)
@@ -35,9 +39,9 @@ export const TodoList: FC<TodoListType> = memo((props) => {
         tasks = tasks.filter(el => el.status)
     }
 
-   /* useEffect(() => {
-        dispatch(setTaskAC(props.todoListID, tasks))
-    })*/
+    useEffect(() => {
+        dispatch(setTasksTC(props.todoListID))
+    }, [])
 
     const changeTodoListFilterHandler = useCallback((filter: FilterValueType) => () => {
         props.changeTodoListFilter(props.todoListID, filter)
@@ -58,7 +62,7 @@ export const TodoList: FC<TodoListType> = memo((props) => {
 
     return (
         <div>
-            <Typography component={'h4'} variant="h5" align="center" fontWeight="bold" margin="10px 0">
+            <Typography component={'h5'} variant="h6" align="center" fontWeight="bold" margin="10px 0">
                 <EditableSpan oldTitle={props.title} callBack={changeTodoListTitleHandler}/>
                 <IconButton aria-label="delete" onClick={removeTodolistHandler}>
                     <DeleteIcon/>
