@@ -41,6 +41,7 @@ export type TodolistCommonType = TodolistType & {
 export type FilterValueType = 'all' | 'active' | 'completed'
 
 function App() {
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 
     const todoLists = useSelector<AppRootStateType, TodolistCommonType[]>(state => state.todoLists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
@@ -49,8 +50,6 @@ function App() {
     useEffect(() => {
        dispatch(setTodolistsTC())
     }, [])
-
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 
     //tasks
     const removeTask = useCallback((todoListId: string, taskId: string) => {
