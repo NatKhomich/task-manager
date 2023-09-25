@@ -1,7 +1,7 @@
-import {TasksStateType} from '../App';
 import {addTodoListACType, removeTodoListACType, setTodolistsACType} from './todoListsReducer';
 import {TaskStatuses, TaskType, todolistsApi, UpdateTaskModelType} from '../api/todolists-api';
 import {AppRootStateType, AppThunk} from './store';
+import {TasksStateType} from '../features/TodolistList/TodolistList';
 
 let initialState: TasksStateType = {
     /*[todolistID1]: [

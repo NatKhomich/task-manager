@@ -1,16 +1,16 @@
 import React, {FC, memo, useCallback, useEffect} from 'react';
-import {FilterValueType} from '../App';
-import AddItemForm from './AddItemForm';
-import EditableSpan from './EditableSpan';
+import AddItemForm from '../../../components/AddItemForm';
+import EditableSpan from '../../../components/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ButtonProps} from '@mui/material/Button/Button';
-import {TaskStatuses, TaskType} from '../api/todolists-api';
-import {Task} from './Task';
-import {useAppDispatch} from '../state/store';
-import {setTasksTC} from '../state/tasksReducer';
+import {TaskStatuses, TaskType} from '../../../api/todolists-api';
+import {Task} from '../../../components/Task';
+import {useAppDispatch} from '../../../state/store';
+import {setTasksTC} from '../../../state/tasksReducer';
+import {FilterValueType} from '../TodolistList';
 
 type TodoListType = {
     todoListID: string
@@ -28,7 +28,7 @@ type TodoListType = {
     changeTodoListTitle: (todoListID: string, newTitle: string) => void
 }
 
-export const TodoList: FC<TodoListType> = memo((props) => {
+export const Todolist: FC<TodoListType> = memo((props) => {
 
     const dispatch = useAppDispatch()
 

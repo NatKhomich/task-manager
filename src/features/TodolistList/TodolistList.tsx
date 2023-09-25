@@ -1,28 +1,24 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import './App.css';
-import {TodoList} from './components/TodoList';
-import AddItemForm from './components/AddItemForm';
-import {ButtonAppBar} from './components/ ButtonAppBar';
+import React, {useCallback, useEffect} from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {createTheme, CssBaseline, ThemeProvider} from '@mui/material';
+import {useSelector} from 'react-redux';
+import {Todolist} from './Todolist/Todolist';
+import AddItemForm from '../../components/AddItemForm';
+import {TaskStatuses, TaskType, TodolistType} from '../../api/todolists-api';
+import {AppRootStateType, useAppDispatch} from '../../state/store';
 import {
     addTodolistTC,
     changeTodoListFilterAC,
     removeTodolistTC,
     setTodolistsTC,
-    updateTodolistTitleTC,
-} from './state/todoListsReducer';
-import {addTaskTC, removeTaskTC, updateTaskStatusTC, updateTaskTitleTC} from './state/tasksReducer';
-import {useSelector} from 'react-redux';
-import {AppRootStateType, useAppDispatch} from './state/store';
-import {TaskStatuses, TaskType, TodolistType} from './api/todolists-api';
+    updateTodolistTitleTC
+} from '../../state/todoListsReducer';
+import {addTaskTC, removeTaskTC, updateTaskStatusTC, updateTaskTitleTC} from '../../state/tasksReducer';
 
 export type TasksStateType = {
     [key: string]: TaskType[]
 }
-
 export type TodolistCommonType = TodolistType & {
     filter: FilterValueType
 }
@@ -40,15 +36,14 @@ export type TodolistCommonType = TodolistType & {
 
 export type FilterValueType = 'all' | 'active' | 'completed'
 
-function App() {
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
+export const TodolistList = () => {
 
     const todoLists = useSelector<AppRootStateType, TodolistCommonType[]>(state => state.todoLists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-       dispatch(setTodolistsTC())
+        dispatch(setTodolistsTC())
     }, [])
 
     //tasks
@@ -59,7 +54,7 @@ function App() {
         dispatch(addTaskTC(todoListsId, title))
     }, [dispatch])
     const changeTaskStatus = useCallback((todoListId: string, taskId: string, status: TaskStatuses) => {
-       dispatch(updateTaskStatusTC(todoListId, taskId, status))
+        dispatch(updateTaskStatusTC(todoListId, taskId, status))
     }, [dispatch])
     const changeTaskTitle = useCallback((todoListId: string, taskId: string, title: string) => {
         dispatch(updateTaskTitleTC(todoListId, taskId, title))
@@ -79,20 +74,13 @@ function App() {
         dispatch(changeTodoListFilterAC(todoListId, filter))
     }, [dispatch])
 
-    const mode = isDarkMode ? 'dark' : 'light'
-    const customTheme = createTheme({
-        palette: {
-            primary: {main: '#1a237e'},
-            secondary: {main: '#8c9eff'},
-            mode: mode
-        }
-    })
+
 
     return (
-        <ThemeProvider theme={customTheme}>
+       /* <ThemeProvider theme={customTheme}>
             <CssBaseline></CssBaseline>
             <div className="App">
-                <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
+                <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>*/
                 <Container fixed maxWidth="xl">
                     <Grid container style={{padding: '20px 0'}}>
                         <AddItemForm addItem={addTodoList}/>
@@ -102,7 +90,7 @@ function App() {
                             return (
                                 <Grid item key={el.id}>
                                     <Paper elevation={4} style={{padding: '10px'}}>
-                                        <TodoList
+                                        <Todolist
                                             todoListID={el.id}
                                             title={el.title}
                                             tasks={tasks[el.id]}
@@ -123,9 +111,8 @@ function App() {
                         })}
                     </Grid>
                 </Container>
-            </div>
-        </ThemeProvider>
+       /*     </div>
+        </ThemeProvider>*/
     );
 }
 
-export default App;

@@ -1,6 +1,6 @@
-import {FilterValueType, TodolistCommonType} from '../App';
 import {todolistsApi, TodolistType} from '../api/todolists-api';
 import {AppThunk} from './store';
+import {FilterValueType, TodolistCommonType} from '../features/TodolistList/TodolistList';
 
 let initialState: TodolistCommonType[] = [
     /*{id: 'todolistId', title: 'html', addedDate: '', order: 0, filter: 'All'},
