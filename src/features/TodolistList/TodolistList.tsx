@@ -22,18 +22,6 @@ export type TasksStateType = {
 export type TodolistCommonType = TodolistType & {
     filter: FilterValueType
 }
-
-/*export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}*/
-/*export type TodoListType = {
-    id: string
-    title: string
-    filter: FilterValueType
-}*/
-
 export type FilterValueType = 'all' | 'active' | 'completed'
 
 export const TodolistList = () => {
@@ -74,45 +62,45 @@ export const TodolistList = () => {
         dispatch(changeTodoListFilterAC(todoListId, filter))
     }, [dispatch])
 
-
-
     return (
-       /* <ThemeProvider theme={customTheme}>
-            <CssBaseline></CssBaseline>
-            <div className="App">
-                <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>*/
-                <Container fixed maxWidth="xl">
-                    <Grid container style={{padding: '20px 0'}}>
-                        <AddItemForm addItem={addTodoList}/>
-                    </Grid>
-                    <Grid container spacing={5}>
-                        {todoLists.map(el => {
-                            return (
-                                <Grid item key={el.id}>
-                                    <Paper elevation={4} style={{padding: '10px'}}>
-                                        <Todolist
-                                            todoListID={el.id}
-                                            title={el.title}
-                                            tasks={tasks[el.id]}
-                                            filter={el.filter}
+        <Container fixed maxWidth="xl">
+            <Grid container style={{padding: '20px 0'}}>
+                <AddItemForm addItem={addTodoList}/>
+            </Grid>
+            <Grid container spacing={5}>
+                {todoLists.map(el => {
+                    return (
+                        <Grid item key={el.id}>
+                            <Paper elevation={4} style={{padding: '10px'}}>
+                                <Todolist
+                                    todolist={el}
+                                    tasks={tasks[el.id]}
 
-                                            removeTask={removeTask}
-                                            changeTaskStatus={changeTaskStatus}
-                                            addTask={addTask}
-                                            changeTaskTitle={changeTaskTitle}
+                                    removeTask={removeTask}
+                                    changeTaskStatus={changeTaskStatus}
+                                    addTask={addTask}
+                                    changeTaskTitle={changeTaskTitle}
 
-                                            removeTodoList={removeTodoList}
-                                            changeTodoListTitle={changeTodoListTitle}
-                                            changeTodoListFilter={changeTodoListFilter}
-                                        />
-                                    </Paper>
-                                </Grid>
-                            )
-                        })}
-                    </Grid>
-                </Container>
-       /*     </div>
-        </ThemeProvider>*/
+                                    removeTodoList={removeTodoList}
+                                    changeTodoListTitle={changeTodoListTitle}
+                                    changeTodoListFilter={changeTodoListFilter}
+                                />
+                            </Paper>
+                        </Grid>
+                    )
+                })}
+            </Grid>
+        </Container>
     );
 }
 
+/*export type TaskType = {
+    id: string
+    title: string
+    isDone: boolean
+}*/
+/*export type TodoListType = {
+    id: string
+    title: string
+    filter: FilterValueType
+}*/

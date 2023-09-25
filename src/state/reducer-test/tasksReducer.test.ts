@@ -35,17 +35,17 @@ test('correct task should be deleted from correct array', () => {
     expect(endState).toEqual({
         'todolistId1': [
         {id: '1', title: 'CSS', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: 0, todoListId: 'todolistId1', addedDate: '', completed: false, order: 0},
+            description: '', deadline: '', todoListId: 'todolistId1', addedDate: '', completed: false, order: 0},
         {id: '2', title: 'JS', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: 0, todoListId: 'todolistId1', addedDate: '', completed: false, order: 0},
+            description: '', deadline: '', todoListId: 'todolistId1', addedDate: '', completed: false, order: 0},
         {id: '3', title: 'React', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: 0, todoListId: 'todolistId1', addedDate: '', completed: false, order: 0}
+            description: '', deadline: '', todoListId: 'todolistId1', addedDate: '', completed: false, order: 0}
     ],
         'todolistId2': [
         {id: '1', title: 'bread', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: 0, todoListId: 'todolistId2', addedDate: '', completed: false, order: 0},
-        {id: '2', title: 'tea', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: 0, todoListId: 'todolistId2', addedDate: '', completed: false, order: 0}
+            description: '', deadline: '', todoListId: 'todolistId2', addedDate: '', completed: false, order: 0},
+        {id: '3', title: 'tea', status: TaskStatuses.New, startDate: '', priority: 0,
+            description: '', deadline: '', todoListId: 'todolistId2', addedDate: '', completed: false, order: 0}
     ]
     })
 })

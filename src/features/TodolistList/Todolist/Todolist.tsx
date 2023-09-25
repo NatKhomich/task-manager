@@ -7,16 +7,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ButtonProps} from '@mui/material/Button/Button';
 import {TaskStatuses, TaskType} from '../../../api/todolists-api';
-import {Task} from '../../../components/Task';
+import {Task} from './Task/Task';
 import {useAppDispatch} from '../../../state/store';
 import {setTasksTC} from '../../../state/tasksReducer';
-import {FilterValueType} from '../TodolistList';
+import {FilterValueType, TodolistCommonType} from '../TodolistList';
 
 type TodoListType = {
-    todoListID: string
-    title: string
+    todolist: TodolistCommonType
     tasks: TaskType[]
-    filter: FilterValueType
 
     removeTask: (todoListID: string, taskID: string) => void
     changeTaskStatus: (todoListID: string, taskID: string, status: TaskStatuses) => void
@@ -33,37 +31,37 @@ export const Todolist: FC<TodoListType> = memo((props) => {
     const dispatch = useAppDispatch()
 
     let tasks = props.tasks
-    if (props.filter === 'active') {
+    if (props.todolist.filter === 'active') {
         tasks = tasks.filter(el => !el.status)
-    } else if (props.filter === 'completed') {
+    } else if (props.todolist.filter === 'completed') {
         tasks = tasks.filter(el => el.status)
     }
 
     useEffect(() => {
-        dispatch(setTasksTC(props.todoListID))
+        dispatch(setTasksTC(props.todolist.id))
     }, [])
 
     const changeTodoListFilterHandler = useCallback((filter: FilterValueType) => () => {
-        props.changeTodoListFilter(props.todoListID, filter)
-    }, [props.todoListID])
+        props.changeTodoListFilter(props.todolist.id, filter)
+    }, [props.todolist.id])
 
 
     const changeTodoListTitleHandler = useCallback((newTitle: string) => {
-        props.changeTodoListTitle(props.todoListID, newTitle)
-    }, [props.changeTodoListTitle, props.todoListID])
+        props.changeTodoListTitle(props.todolist.id, newTitle)
+    }, [props.changeTodoListTitle, props.todolist.id])
 
     const removeTodolistHandler = useCallback(() => {
-        props.removeTodoList(props.todoListID)
-    }, [props.removeTodoList, props.todoListID])
+        props.removeTodoList(props.todolist.id)
+    }, [props.removeTodoList, props.todolist.id])
 
     const addTaskHandler = useCallback((title: string) => {
-        props.addTask(props.todoListID, title)
-    }, [props.addTask, props.todoListID])
+        props.addTask(props.todolist.id, title)
+    }, [props.addTask, props.todolist.id])
 
     return (
         <div>
             <Typography component={'h5'} variant="h6" align="center" fontWeight="bold" margin="10px 0">
-                <EditableSpan oldTitle={props.title} callBack={changeTodoListTitleHandler}/>
+                <EditableSpan oldTitle={props.todolist.title} callBack={changeTodoListTitleHandler}/>
                 <IconButton aria-label="delete" onClick={removeTodolistHandler}>
                     <DeleteIcon/>
                 </IconButton>
@@ -75,7 +73,7 @@ export const Todolist: FC<TodoListType> = memo((props) => {
                     return (
                         <Task key={el.id}
                               task={el}
-                              todoListID={props.todoListID}
+                              todoListId={props.todolist.id}
                               changeTaskStatus={props.changeTaskStatus}
                               removeTask={props.removeTask}
                               changeTaskTitle={props.changeTaskTitle}
@@ -86,21 +84,21 @@ export const Todolist: FC<TodoListType> = memo((props) => {
             <div className={'btn-container'}>
                 <ButtonWitchMemo title={'All'}
                                  onClick={changeTodoListFilterHandler('all')}
-                                 variant={props.filter === 'all' ? 'contained' : 'text'}
+                                 variant={props.todolist.filter === 'all' ? 'contained' : 'text'}
                                  size="small"
                                  color="secondary"
                                  disableElevation
                 />
                 <ButtonWitchMemo title={'Active'}
                                  onClick={changeTodoListFilterHandler('active')}
-                                 variant={props.filter === 'active' ? 'contained' : 'text'}
+                                 variant={props.todolist.filter === 'active' ? 'contained' : 'text'}
                                  size="small"
                                  color="secondary"
                                  disableElevation
                 />
                 <ButtonWitchMemo title={'Completed'}
                                  onClick={changeTodoListFilterHandler('completed')}
-                                 variant={props.filter === 'completed' ? 'contained' : 'text'}
+                                 variant={props.todolist.filter === 'completed' ? 'contained' : 'text'}
                                  size="small"
                                  color="secondary"
                                  disableElevation
