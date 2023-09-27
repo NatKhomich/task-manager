@@ -1,5 +1,5 @@
 import { TaskStatuses } from '../../api/todolists-api';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from '../tasksReducer';
+import {addTaskAC, removeTaskAC, tasksReducer, updateTaskAC} from '../tasksReducer';
 import {addTodoListAC} from '../todoListsReducer';
 import {TasksStateType} from '../../features/TodolistList/TodolistList';
 
@@ -66,7 +66,7 @@ test('correct task should be added to correct array', () => {
 
 test('status of specified task should be changed', () => {
 
-    const action = changeTaskStatusAC('todolistId2','2', TaskStatuses.Completed)
+    const action = updateTaskAC('todolistId2','2', {status: TaskStatuses.Completed})
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][1].status).toBe(TaskStatuses.Completed)
@@ -77,7 +77,7 @@ test('title of specified task should be changed', () => {
 
     const newTitle = 'hi hi'
 
-    const action = changeTaskTitleAC('todolistId2','2', newTitle)
+    const action = updateTaskAC('todolistId2','2', {title: newTitle})
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][1].title).toBe('hi hi')
