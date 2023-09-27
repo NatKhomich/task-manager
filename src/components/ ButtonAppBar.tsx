@@ -16,7 +16,7 @@ type PropsType = {
 export function ButtonAppBar(props: PropsType) {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" style={{marginBottom: "20px"}}>
+            <AppBar position="static">
                 <Toolbar>
                     <IconButton
                         size="large"

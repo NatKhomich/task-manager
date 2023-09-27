@@ -2,11 +2,10 @@ import React, {useCallback, useEffect} from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {useSelector} from 'react-redux';
 import {Todolist} from './Todolist/Todolist';
 import AddItemForm from '../../components/AddItemForm';
 import {TaskStatuses, TaskType, TodolistType} from '../../api/todolists-api';
-import {AppRootStateType, useAppDispatch} from '../../state/store';
+import {useAppDispatch, useAppSelector} from '../../state/store';
 import {
     addTodolistTC,
     changeTodoListFilterAC,
@@ -26,8 +25,8 @@ export type FilterValueType = 'all' | 'active' | 'completed'
 
 export const TodolistList = () => {
 
-    const todoLists = useSelector<AppRootStateType, TodolistCommonType[]>(state => state.todoLists)
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+    const todoLists = useAppSelector(state => state.todoLists)
+    const tasks = useAppSelector(state => state.tasks)
     const dispatch = useAppDispatch()
 
     useEffect(() => {

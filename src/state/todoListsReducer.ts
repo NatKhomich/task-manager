@@ -1,6 +1,7 @@
 import {todolistsApi, TodolistType} from '../api/todolists-api';
 import {AppThunk} from './store';
 import {FilterValueType, TodolistCommonType} from '../features/TodolistList/TodolistList';
+import {changeStatusLoadingAC} from './appReducer';
 
 let initialState: TodolistCommonType[] = [
     /*{id: 'todolistId', title: 'html', addedDate: '', order: 0, filter: 'All'},
@@ -48,26 +49,34 @@ export const changeTodoListFilterAC = (todoListId: string, filter: FilterValueTy
 }
 
 export const setTodolistsTC = (): AppThunk => (dispatch) => {
+    dispatch(changeStatusLoadingAC('loading'))
     todolistsApi.getTodolists()
         .then(res => {
             dispatch(setTodolistsAC(res.data))
+            dispatch(changeStatusLoadingAC('succeeded'))
         })
 }
 export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => {
+    dispatch(changeStatusLoadingAC('loading'))
     todolistsApi.deleteTodolist(todolistId)
         .then(() => {
             dispatch(removeTodoListAC(todolistId))
+            dispatch(changeStatusLoadingAC('succeeded'))
         })
 }
 export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
+    dispatch(changeStatusLoadingAC('loading'))
     todolistsApi.createTodolist(title)
         .then((res) => {
             dispatch(addTodoListAC(res.data.data.item))
+            dispatch(changeStatusLoadingAC('succeeded'))
         })
 }
 export const updateTodolistTitleTC = (todoListId: string, title: string): AppThunk => (dispatch) => {
+    dispatch(changeStatusLoadingAC('loading'))
     todolistsApi.updateTodolist(todoListId, title)
         .then(() => {
             dispatch(changeTodoListTitleAC(todoListId, title))
+            dispatch(changeStatusLoadingAC('succeeded'))
         })
 }
