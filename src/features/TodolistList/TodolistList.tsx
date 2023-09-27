@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {Todolist} from './Todolist/Todolist';
 import AddItemForm from '../../components/AddItemForm';
-import {TaskStatuses, TaskType, TodolistType} from '../../api/todolists-api';
+import {TaskStatuses, TodolistType} from '../../api/todolists-api';
 import {useAppDispatch, useAppSelector} from '../../state/store';
 import {
     addTodolistTC,
@@ -16,9 +16,6 @@ import {
 import {addTaskTC, removeTaskTC, updateTaskTC} from '../../state/tasksReducer';
 import {RequestStatusType} from '../../state/appReducer';
 
-export type TasksStateType = {
-    [key: string]: TaskType[]
-}
 export type TodolistCommonType = TodolistType & {
     filter: FilterValueType
     entityStatus: RequestStatusType

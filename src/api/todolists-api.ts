@@ -1,4 +1,5 @@
 import axios, {AxiosResponse} from 'axios'
+import {RequestStatusType} from '../state/appReducer';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1',
@@ -44,6 +45,10 @@ export type ResponseType<D = {}> = {
     resultCode: number
     messages: string[]
     fieldsErrors: Array<string>
+}
+
+export type TaskDomainType = TaskType & {
+    entityStatus: RequestStatusType
 }
 
 export type TaskType = {

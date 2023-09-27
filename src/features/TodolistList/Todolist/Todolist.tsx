@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ButtonProps} from '@mui/material/Button/Button';
-import {TaskStatuses, TaskType} from '../../../api/todolists-api';
+import {TaskDomainType, TaskStatuses} from '../../../api/todolists-api';
 import {Task} from './Task/Task';
 import {useAppDispatch} from '../../../state/store';
 import {setTasksTC} from '../../../state/tasksReducer';
@@ -14,7 +14,7 @@ import {FilterValueType, TodolistCommonType} from '../TodolistList';
 
 type TodoListType = {
     todolist: TodolistCommonType
-    tasks: TaskType[]
+    tasks: TaskDomainType[]
 
     removeTask: (todoListID: string, taskID: string) => void
     changeTaskStatus: (todoListID: string, taskID: string, status: TaskStatuses) => void
@@ -61,7 +61,9 @@ export const Todolist: FC<TodoListType> = memo((props) => {
     return (
         <div>
             <Typography component={'h5'} variant="h6" align="center" fontWeight="bold" margin="10px 0">
-                <EditableSpan oldTitle={props.todolist.title} callBack={changeTodoListTitleHandler}/>
+                <EditableSpan oldTitle={props.todolist.title}
+                              disabled={props.todolist.entityStatus === 'loading'}
+                              callBack={changeTodoListTitleHandler}/>
                 <IconButton aria-label="delete"
                             onClick={removeTodolistHandler}
                             disabled={props.todolist.entityStatus === 'loading'}>
@@ -79,6 +81,8 @@ export const Todolist: FC<TodoListType> = memo((props) => {
                               changeTaskStatus={props.changeTaskStatus}
                               removeTask={props.removeTask}
                               changeTaskTitle={props.changeTaskTitle}
+                              disabled={el.entityStatus === 'loading'}
+
                         />
                     );
                 })}

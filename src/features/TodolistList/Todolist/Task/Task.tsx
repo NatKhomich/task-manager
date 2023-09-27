@@ -12,6 +12,7 @@ export type TaskPropsType = {
     changeTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
     changeTaskStatus: (todoListID: string, taskID: string, status: TaskStatuses) => void
     removeTask: (todolistID: string, taskID: string) => void
+    disabled: boolean
 }
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
@@ -21,7 +22,8 @@ export const Task: FC<TaskPropsType> = memo(({
                                                  todoListId,
                                                  changeTaskTitle,
                                                  changeTaskStatus,
-                                                 removeTask
+                                                 removeTask,
+                                                 disabled
                                              }) => {
 
     const removeTaskHandler = () => {
@@ -48,7 +50,7 @@ export const Task: FC<TaskPropsType> = memo(({
                           checked={task.status === TaskStatuses.Completed}
                           size="small"
                           onChange={changeTaskStatusHandler}/>
-                <EditableSpan oldTitle={task.title} callBack={changeTaskTitleHandler}/>
+                <EditableSpan oldTitle={task.title} callBack={changeTaskTitleHandler} disabled={disabled}/>
             </ListItem>
         </div>
     );

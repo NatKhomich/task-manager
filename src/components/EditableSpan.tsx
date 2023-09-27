@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 type EditableSpan = {
     oldTitle: string
     callBack: (newTitle: string) => void
+    disabled: boolean
 }
 
 const EditableSpan: FC<EditableSpan> = memo((props) => {
@@ -12,6 +13,9 @@ const EditableSpan: FC<EditableSpan> = memo((props) => {
     const [newTitle, setNewTitle] = useState(props.oldTitle)
 
     const editModeHandler = () => {
+        if (props.disabled) {
+            return
+        }
         setEditMode(!editMode)
         if (editMode) props.callBack(newTitle)
     }
