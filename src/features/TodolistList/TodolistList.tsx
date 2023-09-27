@@ -14,12 +14,14 @@ import {
     updateTodolistTitleTC
 } from '../../state/todoListsReducer';
 import {addTaskTC, removeTaskTC, updateTaskStatusTC, updateTaskTitleTC} from '../../state/tasksReducer';
+import {RequestStatusType} from '../../state/appReducer';
 
 export type TasksStateType = {
     [key: string]: TaskType[]
 }
 export type TodolistCommonType = TodolistType & {
     filter: FilterValueType
+    entityStatus: RequestStatusType
 }
 export type FilterValueType = 'all' | 'active' | 'completed'
 

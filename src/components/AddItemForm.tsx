@@ -4,9 +4,10 @@ import TextField from '@mui/material/TextField';
 
 type AddItemFormType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
-const AddItemForm: FC<AddItemFormType> = memo(({addItem}) => {
+const AddItemForm: FC<AddItemFormType> = memo(({addItem, disabled}) => {
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -49,7 +50,9 @@ const AddItemForm: FC<AddItemFormType> = memo(({addItem}) => {
 
             <Button variant="contained"
                     style={muiStyles}
-                    onClick={addItemHandler}> + </Button>
+                    disabled={disabled}
+                    onClick={addItemHandler}>
+                + </Button>
         </div>
     );
 })

@@ -62,11 +62,13 @@ export const Todolist: FC<TodoListType> = memo((props) => {
         <div>
             <Typography component={'h5'} variant="h6" align="center" fontWeight="bold" margin="10px 0">
                 <EditableSpan oldTitle={props.todolist.title} callBack={changeTodoListTitleHandler}/>
-                <IconButton aria-label="delete" onClick={removeTodolistHandler}>
+                <IconButton aria-label="delete"
+                            onClick={removeTodolistHandler}
+                            disabled={props.todolist.entityStatus === 'loading'}>
                     <DeleteIcon/>
                 </IconButton>
             </Typography>
-            <AddItemForm addItem={addTaskHandler}/>
+            <AddItemForm addItem={addTaskHandler} disabled={props.todolist.entityStatus === 'loading'}/>
             <div style={{padding: '10px 0'}}>
 
                 {tasks.map(el => {

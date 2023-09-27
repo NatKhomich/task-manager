@@ -26,7 +26,6 @@ function App() {
                 <Container fixed maxWidth="xl">
                     <TodolistList />
                 </Container>
-
                 <ErrorSnackbar />
             </div>
         </ThemeProvider>
