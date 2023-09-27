@@ -22,7 +22,9 @@ export const appReducer = (state= initialState, action: AppReducerActionsType): 
     }
 }
 
-export type AppReducerActionsType = ReturnType<typeof changeStatusLoadingAC> | ReturnType<typeof setErrorAC>
+export type AppReducerActionsType = ChangeStatusLoadingActionType | SetErrorACActionType
+export type ChangeStatusLoadingActionType = ReturnType<typeof changeStatusLoadingAC>
+export type SetErrorACActionType = ReturnType<typeof setErrorAC>
 export const changeStatusLoadingAC = (status: RequestStatusType) => ({type: 'SET-STATUS-LOADING', status} as const)
 export const setErrorAC = (error: string | null) => ({type: 'SET-ERROR', error} as const)
 

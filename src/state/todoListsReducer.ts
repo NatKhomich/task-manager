@@ -1,7 +1,8 @@
 import {ResultCodeStatuses, todolistsApi, TodolistType} from '../api/todolists-api';
 import {AppThunk} from './store';
 import {FilterValueType, TodolistCommonType} from '../features/TodolistList/TodolistList';
-import {changeStatusLoadingAC, RequestStatusType, setErrorAC} from './appReducer';
+import {changeStatusLoadingAC, RequestStatusType} from './appReducer';
+import {handleServerAppError, handleServerNetworkError} from '../utils/errorUtils';
 
 let initialState: TodolistCommonType[] = [
     /*{id: 'todolistId', title: 'html', addedDate: '', order: 0, filter: 'All'},
@@ -28,8 +29,7 @@ export const todoListsReducer = (state = initialState, action: TodolistActionsTy
         case 'CHANGE-TODOLIST-ENTITY-STATUS': {
             return state.map(el => el.id === action.todoListId ? {...el, entityStatus: action.status} : el)
         }
-        default:
-            return state
+        default: return state
     }
 }
 
@@ -62,6 +62,9 @@ export const setTodolistsTC = (): AppThunk => (dispatch) => {
             dispatch(setTodolistsAC(res.data))
             dispatch(changeStatusLoadingAC('succeeded'))
         })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
+        })
 }
 export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => {
     dispatch(changeStatusLoadingAC('loading'))
@@ -72,6 +75,10 @@ export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => 
             dispatch(changeStatusLoadingAC('succeeded'))
             dispatch(changeTodoListEntityStatusAC(todolistId, 'succeeded'))
         })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
+            dispatch(changeTodoListEntityStatusAC(todolistId, 'failed'))
+        })
 }
 export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
     dispatch(changeStatusLoadingAC('loading'))
@@ -81,20 +88,25 @@ export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
                 dispatch(addTodoListAC(res.data.data.item))
                 dispatch(changeStatusLoadingAC('succeeded'))
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setErrorAC(res.data.messages[0]))
-                } else {
-                    dispatch(setErrorAC('Some error occurred'))
-                }
-                dispatch(changeStatusLoadingAC('succeeded'))
+                handleServerAppError(res.data, dispatch)
             }
+        })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
         })
 }
 export const updateTodolistTitleTC = (todoListId: string, title: string): AppThunk => (dispatch) => {
     dispatch(changeStatusLoadingAC('loading'))
     todolistsApi.updateTodolist(todoListId, title)
-        .then(() => {
-            dispatch(changeTodoListTitleAC(todoListId, title))
-            dispatch(changeStatusLoadingAC('succeeded'))
+        .then((res) => {
+            if(res.data.resultCode === ResultCodeStatuses.succeeded) {
+                dispatch(changeTodoListTitleAC(todoListId, title))
+                dispatch(changeStatusLoadingAC('succeeded'))
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
         })
 }
