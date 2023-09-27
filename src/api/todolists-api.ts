@@ -90,3 +90,9 @@ export enum TaskStatuses {
     Completed = 2,
     Draft = 3
 }
+
+export enum ResultCodeStatuses {
+    succeeded,
+    error,
+    captcha_error = 10
+}

@@ -1,8 +1,8 @@
 import {addTodoListACType, removeTodoListACType, setTodolistsACType} from './todoListsReducer';
-import {TaskStatuses, TaskType, todolistsApi, UpdateTaskModelType} from '../api/todolists-api';
+import {ResultCodeStatuses, TaskStatuses, TaskType, todolistsApi, UpdateTaskModelType} from '../api/todolists-api';
 import {AppRootStateType, AppThunk} from './store';
 import {TasksStateType} from '../features/TodolistList/TodolistList';
-import {changeStatusLoadingAC} from './appReducer';
+import {changeStatusLoadingAC, setErrorAC} from './appReducer';
 
 let initialState: TasksStateType = {
     /*[todolistID1]: [
@@ -99,14 +99,23 @@ export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispa
     dispatch(changeStatusLoadingAC('loading'))
     todolistsApi.createTask(todolistId, title)
         .then(res => {
-            dispatch(addTaskAC(res.data.data.item))
-            dispatch(changeStatusLoadingAC('succeeded'))
+            if (res.data.resultCode === ResultCodeStatuses.succeeded) {
+                dispatch(addTaskAC(res.data.data.item))
+                dispatch(changeStatusLoadingAC('succeeded'))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                } else {
+                    dispatch(setErrorAC('Some error occurred'))
+                }
+                dispatch(changeStatusLoadingAC('succeeded'))
+            }
         })
 }
 export const updateTaskStatusTC = (todolistId: string, taskId: string, status: TaskStatuses): AppThunk => {
     return (dispatch, getState: () => AppRootStateType) => {
         const task = getState().tasks[todolistId].find(el => el.id === taskId)
-        if(task) {
+        if (task) {
             const model: UpdateTaskModelType = {
                 title: task.title,
                 deadline: task.deadline,
@@ -129,7 +138,7 @@ export const updateTaskStatusTC = (todolistId: string, taskId: string, status: T
 export const updateTaskTitleTC = (todolistId: string, taskId: string, title: string): AppThunk => {
     return (dispatch, getState: () => AppRootStateType) => {
         const task = getState().tasks[todolistId].find(el => el.id === taskId)
-        if(task) {
+        if (task) {
             const model: UpdateTaskModelType = {
                 deadline: task.deadline,
                 completed: task.completed,

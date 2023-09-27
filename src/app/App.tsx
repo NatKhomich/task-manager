@@ -5,13 +5,13 @@ import {ButtonAppBar} from '../components/ ButtonAppBar';
 import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
 import {useAppSelector} from '../state/store';
+import {ErrorSnackbar} from '../components/ErrorSnackbar';
 
 function App() {
 
     const status = useAppSelector(state => state.app.status)
 
     const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
-
     const mode = isDarkMode ? 'dark' : 'light'
     const customTheme = createTheme({
         palette: {primary: {main: '#283772'}, secondary: {main: '#8c9eff'}, mode: mode}
@@ -22,12 +22,12 @@ function App() {
             <CssBaseline></CssBaseline>
             <div className="App">
                 <ButtonAppBar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
-
                 {status === 'loading' && <LinearProgress color="success" />}
-
                 <Container fixed maxWidth="xl">
                     <TodolistList />
                 </Container>
+
+                <ErrorSnackbar />
             </div>
         </ThemeProvider>
     )
