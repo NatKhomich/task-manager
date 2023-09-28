@@ -46,6 +46,7 @@ const AddItemForm: FC<AddItemFormType> = memo(({addItem, disabled}) => {
                        value={title}
                        onChange={onChangeTitleHandler}
                        onKeyDown={onKeyDownHandler}
+                       disabled={disabled}
                        type="search"/>
 
             <Button variant="contained"

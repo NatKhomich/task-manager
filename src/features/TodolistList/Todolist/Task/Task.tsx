@@ -41,7 +41,7 @@ export const Task: FC<TaskPropsType> = memo(({
             <ListItem style={{padding: '3px', marginRight: '20px'}}
                       className={task.status ? 'is-done' : ''}
                       secondaryAction={
-                          <IconButton aria-label="delete" onClick={removeTaskHandler}>
+                          <IconButton aria-label="delete" onClick={removeTaskHandler} disabled={disabled}>
                               <DeleteIcon fontSize="small"/>
                           </IconButton>
                       }

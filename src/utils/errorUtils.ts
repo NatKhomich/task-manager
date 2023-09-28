@@ -1,5 +1,10 @@
-import { Dispatch } from 'redux'
-import {changeStatusLoadingAC, ChangeStatusLoadingActionType, setErrorAC, SetErrorACActionType} from '../state/appReducer';
+import {Dispatch} from 'redux'
+import {
+    changeStatusLoadingAC,
+    ChangeStatusLoadingActionType,
+    setErrorAC,
+    SetErrorACActionType
+} from '../state/appReducer';
 import {ResponseType} from '../api/todolists-api';
 
 // generic function
@@ -13,8 +18,8 @@ export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: ErrorUt
     dispatch(changeStatusLoadingAC('failed'))
 }
 
-export const handleServerNetworkError = (error: { message: string }, dispatch: ErrorUtilsDispatchType) => {
-    dispatch(setErrorAC(error.message))
+export const handleServerNetworkError = (error: string, dispatch: ErrorUtilsDispatchType) => {
+    dispatch(setErrorAC(error))
     dispatch(changeStatusLoadingAC('failed'))
 }
 
