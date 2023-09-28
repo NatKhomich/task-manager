@@ -2,8 +2,7 @@ import {Dispatch} from 'redux'
 import {
     changeStatusLoadingAC,
     ChangeStatusLoadingActionType,
-    setErrorAC,
-    SetErrorACActionType
+    setErrorAC, SetErrorActionType,
 } from '../state/appReducer';
 import {ResponseType} from '../api/todolists-api';
 
@@ -23,4 +22,4 @@ export const handleServerNetworkError = (error: string, dispatch: ErrorUtilsDisp
     dispatch(changeStatusLoadingAC('failed'))
 }
 
-type ErrorUtilsDispatchType = Dispatch<ChangeStatusLoadingActionType | SetErrorACActionType>
+type ErrorUtilsDispatchType = Dispatch<ChangeStatusLoadingActionType | SetErrorActionType>

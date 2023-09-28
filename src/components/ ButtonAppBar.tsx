@@ -10,7 +10,7 @@ import {FormControlLabel, FormGroup, Switch} from '@mui/material';
 
 type PropsType = {
     isDarkMode: boolean
-    setIsDarkMode: (darkMode: boolean)=> void
+    darkLightMode: (mode: boolean)=> void
 }
 
 export function ButtonAppBar(props: PropsType) {
@@ -33,7 +33,7 @@ export function ButtonAppBar(props: PropsType) {
 
                     <FormGroup>
                         <FormControlLabel control={<Switch defaultChecked={true} onChange={(e) =>
-                            props.setIsDarkMode(e.currentTarget.checked)}/>}
+                            props.darkLightMode(e.currentTarget.checked)}/>}
                                           label={props.isDarkMode ? "Go to Light" : "Go to Dark"}
                         />
                     </FormGroup>
