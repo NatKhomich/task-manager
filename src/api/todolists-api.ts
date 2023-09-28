@@ -54,7 +54,6 @@ export type TaskDomainType = TaskType & {
 export type TaskType = {
     description: string
     title: string
-    completed: boolean
     status: TaskStatuses
     priority: TaskPriorities
     startDate: string
@@ -74,7 +73,6 @@ type TasksResponseType = {
 export type UpdateTaskModelType = {
     title: string
     description: string
-    completed: boolean
     status: TaskStatuses
     priority: TaskPriorities
     startDate: string

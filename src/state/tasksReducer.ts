@@ -19,15 +19,15 @@ export type TasksStateType = {
 let initialState: TasksStateType = {
     /*[todolistID1]: [
         {id: v1(), title: 'html', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: 0, todoListId: todolistID2, addedDate: '', completed: false, order: 0},
+            description: '', deadline: 0, todoListId: todolistID2, addedDate: '', order: 0},
         {id: v1(), title: 'css', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: 0, todoListId: todolistID2, addedDate: '', completed: false, order: 0},
+            description: '', deadline: 0, todoListId: todolistID2, addedDate: '', order: 0},
     ],
     [todolistID2]: [
         {id: v1(), title: 'react', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: 0, todoListId: todolistID2, addedDate: '', completed: false, order: 0},
+            description: '', deadline: 0, todoListId: todolistID2, addedDate: '', order: 0},
         {id: v1(), title: 'rest api', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: 0, todoListId: todolistID2, addedDate: '', completed: false, order: 0},
+            description: '', deadline: 0, todoListId: todolistID2, addedDate: '', order: 0},
         ]*/
 }
 
@@ -143,7 +143,6 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
             priority: task.priority,
             startDate: task.startDate,
             status: task.status,
-            completed: task.completed,
             ...domainModel
         }
 
