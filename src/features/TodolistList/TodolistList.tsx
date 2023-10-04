@@ -1,20 +1,19 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {Todolist} from './Todolist/Todolist';
 import AddItemForm from '../../components/AddItemForm';
 import {TaskStatuses, TodolistType} from '../../api/todolists-api';
-import {useAppDispatch, useAppSelector} from '../../state/store';
 import {
     addTodolistTC,
     changeTodoListFilterAC,
     removeTodolistTC,
-    setTodolistsTC,
     updateTodolistTitleTC
 } from '../../state/todoListsReducer';
 import {addTaskTC, removeTaskTC, updateTaskTC} from '../../state/tasksReducer';
 import {RequestStatusType} from '../../state/appReducer';
+import {useTodolists} from '../../hooks/useSetTodolists';
 
 export type TodolistCommonType = TodolistType & {
     filter: FilterValueType
@@ -24,13 +23,7 @@ export type FilterValueType = 'all' | 'active' | 'completed'
 
 export const TodolistList = () => {
 
-    const todoLists = useAppSelector(state => state.todoLists)
-    const tasks = useAppSelector(state => state.tasks)
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        dispatch(setTodolistsTC())
-    }, [])
+   const {todolists, tasks, dispatch} = useTodolists()
 
     //tasks
     const removeTask = useCallback((todoListId: string, taskId: string) => {
@@ -66,7 +59,7 @@ export const TodolistList = () => {
                 <AddItemForm addItem={addTodoList}/>
             </Grid>
             <Grid container spacing={5}>
-                {todoLists.map(el => {
+                {todolists.map(el => {
                     return (
                         <Grid item key={el.id}>
                             <Paper elevation={4} style={{padding: '10px'}}>
