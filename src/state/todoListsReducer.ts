@@ -92,6 +92,7 @@ export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
         .then((res) => {
             if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(addTodoListAC(res.data.data.item))
+               // dispatch(setTodolistsTC()) если задиспатчить сразу санку кейс и AC 'ADD-TODOLIST' не нужны
                 dispatch(changeStatusLoadingAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)

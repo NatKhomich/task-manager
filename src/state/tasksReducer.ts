@@ -155,6 +155,7 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
                 if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                     dispatch(updateTaskAC(todolistId, taskId, model))
                     dispatch(changeStatusLoadingAC('succeeded'))
+                    dispatch(changeTaskEntityStatusAC(todolistId, taskId, 'succeeded'))
                 } else {
                     handleServerAppError(res.data, dispatch)
                 }
