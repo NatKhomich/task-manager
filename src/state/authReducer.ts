@@ -1,10 +1,9 @@
-import { Dispatch } from 'redux'
-import {authAPI, LoginDataType, ResultCodeStatuses, todolistsApi} from '../api/todolists-api';
+import {authAPI, LoginDataType, ResultCodeStatuses} from '../api/todolists-api';
 import {AppThunk} from './store';
 import {changeStatusLoadingAC} from './appReducer';
 import {handleServerAppError, handleServerNetworkError} from '../utils/errorUtils';
-import {AxiosError} from 'axios/index';
-import {changeTaskEntityStatusAC, ErrorType, removeTaskAC} from './tasksReducer';
+import {AxiosError} from 'axios';
+import {ErrorType} from './tasksReducer';
 
 const initialState: AuthStateType = {
     //залогинены или нет

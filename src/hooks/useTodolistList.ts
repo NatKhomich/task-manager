@@ -14,9 +14,13 @@ import {FilterValueType} from '../features/TodolistList/TodolistList';
 export const useTodolistList = () => {
     const todolists = useAppSelector(state => state.todoLists)
     const tasks = useAppSelector(state => state.tasks)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        if(!isLoggedIn) {
+            return
+        }
         dispatch(setTodolistsTC())
     }, [])
 
@@ -51,6 +55,6 @@ export const useTodolistList = () => {
 
     return {
         todolists, tasks, dispatch, removeTask, addTask, changeTaskStatus, changeTaskTitle,
-        removeTodoList, addTodoList, changeTodoListTitle, changeTodoListFilter
+        removeTodoList, addTodoList, changeTodoListTitle, changeTodoListFilter, isLoggedIn
     }
 }

@@ -7,6 +7,7 @@ import AddItemForm from '../../components/AddItemForm';
 import {TodolistType} from '../../api/todolists-api';
 import {RequestStatusType} from '../../state/appReducer';
 import {useTodolistList} from '../../hooks/useTodolistList';
+import {Navigate} from 'react-router-dom';
 
 export type TodolistCommonType = TodolistType & {
     filter: FilterValueType
@@ -17,7 +18,11 @@ export type FilterValueType = 'all' | 'active' | 'completed'
 export const TodolistList = () => {
 
    const {todolists, tasks, removeTask, addTask, changeTaskStatus, changeTaskTitle,
-       removeTodoList, addTodoList, changeTodoListTitle, changeTodoListFilter} = useTodolistList()
+       removeTodoList, addTodoList, changeTodoListTitle, changeTodoListFilter, isLoggedIn} = useTodolistList()
+
+    if (!isLoggedIn) {
+        return <Navigate to={'/todolist-practice/login'} />
+    }
 
     return (
         <Container fixed maxWidth="xl">
