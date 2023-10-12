@@ -7,6 +7,8 @@ import LinearProgress from '@mui/material/LinearProgress';
 import {useAppDispatch, useAppSelector} from '../state/store';
 import {ErrorSnackbar} from '../components/ErrorSnackbar';
 import {darkLightModeAC} from '../state/appReducer';
+import {Navigate, Route, Routes} from 'react-router-dom';
+import {Login} from '../features/Login/Login';
 
 function App() {
 
@@ -29,7 +31,16 @@ function App() {
                 <ButtonAppBar isDarkMode={isDarkMode} darkLightMode={darkLightMode}/>
                 {status === 'loading' && <LinearProgress color="success" />}
                 <Container fixed maxWidth="xl">
-                    <TodolistList />
+
+                    <Routes>
+                        <Route path={'/todolist-practice'} element={ <TodolistList />} />
+                        <Route path={'/todolist-practice/login'} element={ <Login />} />
+
+                        <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>} />
+                        <Route path='*' element={<Navigate to={'/404'} />} />
+                    </Routes>
+
+
                 </Container>
                 <ErrorSnackbar />
             </div>

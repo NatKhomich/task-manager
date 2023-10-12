@@ -7,7 +7,7 @@ type appStateType = {
 }
 
 const initialState: appStateType = {
-    status: 'loading',
+    status: 'idle',
     error: null,
     isDarkMode: true
 }
