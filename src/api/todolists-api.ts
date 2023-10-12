@@ -6,6 +6,12 @@ const instance = axios.create({
     withCredentials: true
 })
 
+export const authAPI = {
+    login(loginData: LoginDataType) {
+        return instance.post<ResponseType<{userId: number}>, AxiosResponse<ResponseType<{userId: number}>>, LoginDataType>('/auth/login', loginData)
+    }
+}
+
 export const todolistsApi = {
     getTodolists() {
         return instance.get<TodolistType[]>(`/todo-lists`)
@@ -98,4 +104,10 @@ export enum ResultCodeStatuses {
     succeeded,
     error,
     captcha_error = 10
+}
+
+export type LoginDataType = {
+    email: string
+    password: string
+    rememberMe: boolean
 }
