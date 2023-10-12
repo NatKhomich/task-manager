@@ -3,7 +3,10 @@ import {RequestStatusType} from '../state/appReducer';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1',
-    withCredentials: true
+    withCredentials: true,
+    headers: {
+        'API-KEY': '0de32dd8-38bf-442a-adf6-1e6453e370bb'
+    }
 })
 
 export const authAPI = {
