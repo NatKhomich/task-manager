@@ -1,4 +1,9 @@
-import {addTodoListACType, removeTodoListACType, setTodolistsACType} from './todoListsReducer';
+import {
+    AddTodoListActionType,
+    ClearTodolistsDataActionType,
+    RemoveTodoListActionType,
+    SetTodolistsActionType,
+} from './todoListsReducer';
 import {
     ResultCodeStatuses, TaskDomainType, TaskPriorities, TaskStatuses, TaskType, todolistsApi, UpdateTaskModelType
 } from '../api/todolists-api';
@@ -66,6 +71,9 @@ export const tasksReducer = (state = initialState, action: TaskActionsType): Tas
             action.todolists.forEach((el) => stateCopy[el.id] = [])
             return stateCopy;
         }
+        case 'CLEAR-TODOLISTS-DATA': {
+            return {}
+        }
         default:
             return state
     }
@@ -73,8 +81,8 @@ export const tasksReducer = (state = initialState, action: TaskActionsType): Tas
 
 export type TaskActionsType = ReturnType<typeof removeTaskAC> | ReturnType<typeof addTaskAC>
     | ReturnType<typeof setTaskAC> | ReturnType<typeof updateTaskAC>
-    | removeTodoListACType | addTodoListACType | setTodolistsACType
-    | ReturnType<typeof changeTaskEntityStatusAC>
+    | RemoveTodoListActionType | AddTodoListActionType | SetTodolistsActionType
+    | ReturnType<typeof changeTaskEntityStatusAC> | ClearTodolistsDataActionType
 
 export const removeTaskAC = (todoListId: string, taskId: string) => ({type: 'REMOVE-TASK', todoListId, taskId} as const)
 export const addTaskAC = (task: TaskType) => ({type: 'ADD-TASK', task} as const)

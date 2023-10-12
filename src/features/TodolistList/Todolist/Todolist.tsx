@@ -1,4 +1,4 @@
-import React, {FC, memo, useCallback, useEffect} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import AddItemForm from '../../../components/AddItemForm';
 import EditableSpan from '../../../components/EditableSpan';
 import IconButton from '@mui/material/IconButton';
@@ -8,8 +8,6 @@ import Typography from '@mui/material/Typography';
 import {ButtonProps} from '@mui/material/Button/Button';
 import {TaskDomainType, TaskStatuses} from '../../../api/todolists-api';
 import {Task} from './Task/Task';
-import {useAppDispatch} from '../../../state/store';
-import {setTasksTC} from '../../../state/tasksReducer';
 import {FilterValueType, TodolistCommonType} from '../TodolistList';
 
 type TodoListType = {
@@ -28,7 +26,7 @@ type TodoListType = {
 
 export const Todolist: FC<TodoListType> = memo((props) => {
 
-    const dispatch = useAppDispatch()
+    //const dispatch = useAppDispatch()
 
     let tasks = props.tasks
     if (props.todolist.filter === 'active') {
@@ -37,9 +35,9 @@ export const Todolist: FC<TodoListType> = memo((props) => {
         tasks = tasks.filter(el => el.status)
     }
 
-    useEffect(() => {
-        dispatch(setTasksTC(props.todolist.id))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(setTasksTC(props.todolist.id))
+    // }, [])
 
     const changeTodoListFilterHandler = useCallback((filter: FilterValueType) => () => {
         props.changeTodoListFilter(props.todolist.id, filter)
@@ -82,7 +80,6 @@ export const Todolist: FC<TodoListType> = memo((props) => {
                               removeTask={props.removeTask}
                               changeTaskTitle={props.changeTaskTitle}
                               disabled={el.entityStatus === 'loading'}
-
                         />
                     );
                 })}
