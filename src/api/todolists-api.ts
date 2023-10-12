@@ -7,8 +7,14 @@ const instance = axios.create({
 })
 
 export const authAPI = {
+    me() {
+        return instance.get<ResponseType<AuthResponseType>>(`/auth/me`)
+    },
     login(loginData: LoginDataType) {
         return instance.post<ResponseType<{userId: number}>, AxiosResponse<ResponseType<{userId: number}>>, LoginDataType>('/auth/login', loginData)
+    },
+    logout() {
+        return instance.delete<ResponseType>(`/auth/login`)
     }
 }
 
@@ -110,4 +116,10 @@ export type LoginDataType = {
     email: string
     password: string
     rememberMe: boolean
+}
+
+type AuthResponseType = {
+    id: number
+    email: string
+    login: string
 }

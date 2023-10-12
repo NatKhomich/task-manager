@@ -52,7 +52,6 @@ export const useTodolistList = () => {
         dispatch(changeTodoListFilterAC(todoListId, filter))
     }, [dispatch])
 
-
     return {
         todolists, tasks, dispatch, removeTask, addTask, changeTaskStatus, changeTaskTitle,
         removeTodoList, addTodoList, changeTodoListTitle, changeTodoListFilter, isLoggedIn
