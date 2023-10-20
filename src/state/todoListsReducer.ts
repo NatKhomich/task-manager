@@ -5,7 +5,7 @@ import {appActions, RequestStatusType} from './appReducer';
 import {handleServerAppError, handleServerNetworkError} from '../utils/errorUtils';
 import {AxiosError} from 'axios';
 import {ErrorType, setTasksTC} from './tasksReducer';
-import {createSlice, current, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 const slice = createSlice({
     name: 'todolists',
@@ -35,7 +35,7 @@ const slice = createSlice({
             const todo = state.find((todo) => todo.id === action.payload.todolistId)
             if (todo) todo.entityStatus = action.payload.entityStatus
         },
-        clearTodolistsData: (state, action: PayloadAction) => {
+        clearTodolistsData: () => {
             return []
         }
     }

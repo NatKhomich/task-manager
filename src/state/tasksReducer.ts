@@ -65,7 +65,7 @@ const slice = createSlice({
             .addCase(todolistsActions.setTodolists, (state, action) => {
                 action.payload.todolists.forEach(tl => state[tl.id] = [])
             })
-            .addCase(todolistsActions.clearTodolistsData, (state, action) => {
+            .addCase(todolistsActions.clearTodolistsData, () => {
                 return {}
             })
     }
