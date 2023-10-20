@@ -1,10 +1,4 @@
 import {
-    AddTodoListActionType,
-    ClearTodolistsDataActionType,
-    RemoveTodoListActionType,
-    SetTodolistsActionType,
-} from './todoListsReducer';
-import {
     ResultCodeStatuses, TaskDomainType, TaskPriorities, TaskStatuses, TaskType, todolistsApi, UpdateTaskModelType
 } from '../api/todolists-api';
 import {AppRootStateType, AppThunk} from './store';
@@ -32,7 +26,7 @@ let initialState: TasksStateType = {
 export const tasksReducer = (state = initialState, action: TaskActionsType): TasksStateType => {
     switch (action.type) {
         case 'SET-TASKS': {
-            return {...state, [action.todoListId]: action.tasks.map(el => ({...el, entityStatus: 'idle'}))}
+            return {...state, [action.todoListId]: action.tasks.map((el: any) => ({...el, entityStatus: 'idle'}))}
         }
         case 'REMOVE-TASK' : {
             return {...state, [action.todoListId]: state[action.todoListId].filter(el => el.id !== action.taskId)}
@@ -68,7 +62,7 @@ export const tasksReducer = (state = initialState, action: TaskActionsType): Tas
         }
         case 'SET-TODOLISTS': {
             const stateCopy = {...state}
-            action.todolists.forEach((el) => stateCopy[el.id] = [])
+            action.todolists.forEach((el: any) => stateCopy[el.id] = [])
             return stateCopy;
         }
         case 'CLEAR-TODOLISTS-DATA': {
@@ -81,8 +75,7 @@ export const tasksReducer = (state = initialState, action: TaskActionsType): Tas
 
 export type TaskActionsType = ReturnType<typeof removeTaskAC> | ReturnType<typeof addTaskAC>
     | ReturnType<typeof setTaskAC> | ReturnType<typeof updateTaskAC>
-    | RemoveTodoListActionType | AddTodoListActionType | SetTodolistsActionType
-    | ReturnType<typeof changeTaskEntityStatusAC> | ClearTodolistsDataActionType
+    | ReturnType<typeof changeTaskEntityStatusAC> | any
 
 export const removeTaskAC = (todoListId: string, taskId: string) => ({type: 'REMOVE-TASK', todoListId, taskId} as const)
 export const addTaskAC = (task: TaskType) => ({type: 'ADD-TASK', task} as const)

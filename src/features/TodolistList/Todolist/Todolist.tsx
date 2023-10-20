@@ -65,7 +65,7 @@ export const Todolist: FC<TodoListType> = memo((props) => {
             <AddItemForm addItem={addTaskHandler} disabled={props.todolist.entityStatus === 'loading'}/>
             <div style={{padding: '10px 0'}}>
 
-                {tasks.map(el => {
+                {tasks?.map(el => {
                     return (
                         <Task key={el.id}
                               task={el}
