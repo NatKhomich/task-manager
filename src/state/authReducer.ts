@@ -1,6 +1,6 @@
 import {authAPI, LoginDataType, ResultCodeStatuses} from '../api/todolists-api';
 import {AppThunk} from './store';
-import {changeStatusLoadingAC, isInitializedAC} from './appReducer';
+import {appActions} from './appReducer';
 import {handleServerAppError, handleServerNetworkError} from '../utils/errorUtils';
 import {AxiosError} from 'axios';
 import {ErrorType} from './tasksReducer';
@@ -25,12 +25,12 @@ export const authActions = slice.actions
 
 // thunks
 export const meTC = (): AppThunk => (dispatch) => {
-    dispatch(changeStatusLoadingAC('loading'))
+    dispatch(appActions.changeStatusLoading({status: 'loading'}))
     authAPI.me()
         .then((res) => {
             if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(authActions.setIsLoggedIn({isLoggedIn: true}))
-                dispatch(changeStatusLoadingAC('succeeded'))
+                dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
@@ -39,16 +39,16 @@ export const meTC = (): AppThunk => (dispatch) => {
             handleServerNetworkError(error.message, dispatch)
         })
         .finally(() => {
-            dispatch(isInitializedAC(true))
+            dispatch(appActions.isInitialized({isInitialized: true}))
         })
 }
 export const loginTC = (data: LoginDataType): AppThunk => (dispatch) => {
-    dispatch(changeStatusLoadingAC('loading'))
+    dispatch(appActions.changeStatusLoading({status: 'loading'}))
     authAPI.login(data)
         .then((res) => {
             if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(authActions.setIsLoggedIn({isLoggedIn: true}))
-                dispatch(changeStatusLoadingAC('succeeded'))
+                dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
@@ -58,12 +58,12 @@ export const loginTC = (data: LoginDataType): AppThunk => (dispatch) => {
         })
 }
 export const logoutTC = (): AppThunk => (dispatch) => {
-    dispatch(changeStatusLoadingAC('loading'))
+    dispatch(appActions.changeStatusLoading({status: 'loading'}))
     authAPI.logout()
         .then((res) => {
             if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(authActions.setIsLoggedIn({isLoggedIn: false}))
-                dispatch(changeStatusLoadingAC('succeeded'))
+                dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
                 dispatch(clearTodolistsDataAC())
             } else {
                 handleServerAppError(res.data, dispatch)

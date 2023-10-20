@@ -1,7 +1,7 @@
 import {ResultCodeStatuses, todolistsApi, TodolistType} from '../api/todolists-api';
 import {AppThunk} from './store';
 import {FilterValueType, TodolistCommonType} from '../features/TodolistList/TodolistList';
-import {changeStatusLoadingAC, RequestStatusType} from './appReducer';
+import {appActions, RequestStatusType} from './appReducer';
 import {handleServerAppError, handleServerNetworkError} from '../utils/errorUtils';
 import {AxiosError} from 'axios';
 import {ErrorType, setTasksTC} from './tasksReducer';
@@ -64,11 +64,11 @@ export const changeTodoListEntityStatusAC = (todoListId: string, status: Request
 }
 
 export const setTodolistsTC = (): AppThunk => (dispatch) => {
-    dispatch(changeStatusLoadingAC('loading'))
+    dispatch(appActions.changeStatusLoading({status: 'loading'}))
     todolistsApi.getTodolists()
         .then(res => {
             dispatch(setTodolistsAC(res.data))
-            dispatch(changeStatusLoadingAC('succeeded'))
+            dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
             return res.data
         })
         .then((todos) => {
@@ -81,13 +81,13 @@ export const setTodolistsTC = (): AppThunk => (dispatch) => {
         })
 }
 export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => {
-    dispatch(changeStatusLoadingAC('loading'))
+    dispatch(appActions.changeStatusLoading({status: 'loading'}))
     dispatch(changeTodoListEntityStatusAC(todolistId, 'loading'))
     todolistsApi.deleteTodolist(todolistId)
         .then((res) => {
             if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(removeTodoListAC(todolistId))
-                dispatch(changeStatusLoadingAC('succeeded'))
+                dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
                 dispatch(changeTodoListEntityStatusAC(todolistId, 'succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
@@ -99,13 +99,13 @@ export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => 
         })
 }
 export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
-    dispatch(changeStatusLoadingAC('loading'))
+    dispatch(appActions.changeStatusLoading({status: 'loading'}))
     todolistsApi.createTodolist(title)
         .then((res) => {
             if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(addTodoListAC(res.data.data.item))
                // dispatch(setTodolistsTC()) если задиспатчить сразу санку кейс и AC 'ADD-TODOLIST' не нужны
-                dispatch(changeStatusLoadingAC('succeeded'))
+                dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
@@ -115,12 +115,12 @@ export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
         })
 }
 export const updateTodolistTitleTC = (todoListId: string, title: string): AppThunk => (dispatch) => {
-    dispatch(changeStatusLoadingAC('loading'))
+    dispatch(appActions.changeStatusLoading({status: 'loading'}))
     todolistsApi.updateTodolist(todoListId, title)
         .then((res) => {
             if(res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(changeTodoListTitleAC(todoListId, title))
-                dispatch(changeStatusLoadingAC('succeeded'))
+                dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }

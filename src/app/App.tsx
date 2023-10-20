@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
 import {useAppDispatch, useAppSelector} from '../state/store';
 import {ErrorSnackbar} from '../components/ErrorSnackbar';
-import {darkLightModeAC} from '../state/appReducer';
+import {appActions} from '../state/appReducer';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from '../features/Login/Login';
 import {logoutTC, meTC} from '../state/authReducer';
@@ -24,7 +24,7 @@ function App() {
     }, [])
 
     const darkLightMode = useCallback((mode: boolean) => {
-        dispatch(darkLightModeAC(mode))
+        dispatch(appActions.darkLightMode({mode} ))
     }, [dispatch])
 
     const customTheme = createTheme({
