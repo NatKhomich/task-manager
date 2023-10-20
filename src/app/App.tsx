@@ -52,7 +52,7 @@ function App() {
                               isLoggedIn={isLoggedIn}
                 />
                 {status === 'loading' && <LinearProgress color="success" />}
-                <Container fixed maxWidth="xl">
+                <Container fixed maxWidth="xl" >
                     <Routes>
                         <Route path={'/todolist-practice'} element={ <TodolistList />} />
                         <Route path={'/todolist-practice/login'} element={ <Login />} />
@@ -60,7 +60,6 @@ function App() {
                         <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>} />
                         <Route path='*' element={<Navigate to={'/404'} />} />
                     </Routes>
-
                 </Container>
                 <ErrorSnackbar />
             </div>

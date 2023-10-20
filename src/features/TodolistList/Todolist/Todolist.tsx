@@ -26,18 +26,12 @@ type TodoListType = {
 
 export const Todolist: FC<TodoListType> = memo((props) => {
 
-    //const dispatch = useAppDispatch()
-
     let tasks = props.tasks
     if (props.todolist.filter === 'active') {
         tasks = tasks.filter(el => !el.status)
     } else if (props.todolist.filter === 'completed') {
         tasks = tasks.filter(el => el.status)
     }
-
-    // useEffect(() => {
-    //     dispatch(setTasksTC(props.todolist.id))
-    // }, [])
 
     const changeTodoListFilterHandler = useCallback((filter: FilterValueType) => () => {
         props.changeTodoListFilter(props.todolist.id, filter)
@@ -81,7 +75,7 @@ export const Todolist: FC<TodoListType> = memo((props) => {
                               changeTaskTitle={props.changeTaskTitle}
                               disabled={el.entityStatus === 'loading'}
                         />
-                    );
+                    )
                 })}
             </div>
             <div className={'btn-container'}>

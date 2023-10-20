@@ -53,6 +53,6 @@ export const Task: FC<TaskPropsType> = memo(({
                 <EditableSpan oldTitle={task.title} callBack={changeTaskTitleHandler} disabled={disabled}/>
             </ListItem>
         </div>
-    );
+    )
 })
 
