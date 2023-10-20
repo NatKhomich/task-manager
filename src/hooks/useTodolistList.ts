@@ -1,10 +1,9 @@
 import {useCallback, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../state/store';
 import {
-    actionsTodolists,
     addTodolistTC,
     removeTodolistTC,
-    setTodolistsTC,
+    setTodolistsTC, todolistsActions,
     updateTodolistTitleTC
 } from '../state/todoListsReducer';
 import {addTaskTC, removeTaskTC, updateTaskTC} from '../state/tasksReducer';
@@ -49,7 +48,7 @@ export const useTodolistList = () => {
         dispatch(updateTodolistTitleTC(todoListId, title))
     }, [dispatch])
     const changeTodoListFilter = useCallback((todolistId: string, filter: FilterValueType) => {
-        dispatch(actionsTodolists.changeTodoListFilter({todolistId: todolistId, filter}))
+        dispatch(todolistsActions.changeTodoListFilter({todolistId: todolistId, filter}))
     }, [dispatch])
 
     return {
