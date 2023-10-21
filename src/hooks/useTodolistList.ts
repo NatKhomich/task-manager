@@ -9,11 +9,14 @@ import {
 import {addTaskTC, removeTaskTC, updateTaskTC} from '../state/tasksReducer';
 import {TaskStatuses} from '../api/todolists-api';
 import {FilterValueType} from '../features/TodolistList/TodolistList';
+import {selectTodolists} from '../features/TodolistList/todolistSelectors';
+import {selectAuthIsLoggedIn} from '../features/Login/authSelectors';
+import {selectTasks} from '../features/TodolistList/tasksSelectors';
 
 export const useTodolistList = () => {
-    const todolists = useAppSelector(state => state.todoLists)
-    const tasks = useAppSelector(state => state.tasks)
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const todolists = useAppSelector(selectTodolists)
+    const tasks = useAppSelector(selectTasks)
+    const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {

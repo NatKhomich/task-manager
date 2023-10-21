@@ -10,16 +10,16 @@ const slice = createSlice({
         isInitialized: false // проиниц ли приложение(me запрос). будет крутилка пока прилож не поймет что показать туду или логин
     },
     reducers: {
-        changeStatusLoading: (state, action: PayloadAction<{status: RequestStatusType}>) => {
+        setAppStatus: (state, action: PayloadAction<{status: RequestStatusType}>) => {
             state.status = action.payload.status
         },
-        setError: (state, action: PayloadAction<{error: string | null}>) => {
+        setAppError: (state, action: PayloadAction<{error: string | null}>) => {
             state.error = action.payload.error
         },
-        darkLightMode: (state, action: PayloadAction<{mode: boolean}>) => {
+        darkLightAppMode: (state, action: PayloadAction<{mode: boolean}>) => {
             state.isDarkMode = action.payload.mode
         },
-        isInitialized: (state, action: PayloadAction<{isInitialized: boolean}>) => {
+        setAppInitialized: (state, action: PayloadAction<{isInitialized: boolean}>) => {
             state.isInitialized = action.payload.isInitialized
         }
     }

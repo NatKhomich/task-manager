@@ -10,13 +10,15 @@ import {appActions} from '../state/appReducer';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from '../features/Login/Login';
 import {logoutTC, meTC} from '../state/authReducer';
+import {selectAppIsDarkMode, selectAppStatus, selectSetAppInitialized} from './appSelectors';
+import {selectAuthIsLoggedIn} from '../features/Login/authSelectors';
 
 function App() {
 
-    const status = useAppSelector(state => state.app.status)
-    const isDarkMode = useAppSelector(state => state.app.isDarkMode)
-    const isInitialized = useAppSelector(state => state.app.isInitialized)
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const status = useAppSelector(selectAppStatus)
+    const isDarkMode = useAppSelector(selectAppIsDarkMode)
+    const isInitialized = useAppSelector(selectSetAppInitialized)
+    const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -24,7 +26,7 @@ function App() {
     }, [])
 
     const darkLightMode = useCallback((mode: boolean) => {
-        dispatch(appActions.darkLightMode({mode} ))
+        dispatch(appActions.darkLightAppMode({mode}))
     }, [dispatch])
 
     const customTheme = createTheme({
@@ -51,17 +53,17 @@ function App() {
                               logOutHandler={logOutHandler}
                               isLoggedIn={isLoggedIn}
                 />
-                {status === 'loading' && <LinearProgress color="success" />}
-                <Container fixed maxWidth="xl" >
+                {status === 'loading' && <LinearProgress color="success"/>}
+                <Container fixed maxWidth="xl">
                     <Routes>
-                        <Route path={'/todolist-practice'} element={ <TodolistList />} />
-                        <Route path={'/todolist-practice/login'} element={ <Login />} />
+                        <Route path={'/todolist-practice'} element={<TodolistList/>}/>
+                        <Route path={'/todolist-practice/login'} element={<Login/>}/>
 
-                        <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>} />
-                        <Route path='*' element={<Navigate to={'/404'} />} />
+                        <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
+                        <Route path="*" element={<Navigate to={'/404'}/>}/>
                     </Routes>
                 </Container>
-                <ErrorSnackbar />
+                <ErrorSnackbar/>
             </div>
         </ThemeProvider>
     )

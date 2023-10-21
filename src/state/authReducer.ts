@@ -25,12 +25,12 @@ export const authActions = slice.actions
 
 // thunks
 export const meTC = (): AppThunk => (dispatch) => {
-    dispatch(appActions.changeStatusLoading({status: 'loading'}))
+    dispatch(appActions.setAppStatus({status: 'loading'}))
     authAPI.me()
         .then((res) => {
             if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(authActions.setIsLoggedIn({isLoggedIn: true}))
-                dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
+                dispatch(appActions.setAppStatus({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
@@ -39,16 +39,16 @@ export const meTC = (): AppThunk => (dispatch) => {
             handleServerNetworkError(error.message, dispatch)
         })
         .finally(() => {
-            dispatch(appActions.isInitialized({isInitialized: true}))
+            dispatch(appActions.setAppInitialized({isInitialized: true}))
         })
 }
 export const loginTC = (data: LoginDataType): AppThunk => (dispatch) => {
-    dispatch(appActions.changeStatusLoading({status: 'loading'}))
+    dispatch(appActions.setAppStatus({status: 'loading'}))
     authAPI.login(data)
         .then((res) => {
             if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(authActions.setIsLoggedIn({isLoggedIn: true}))
-                dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
+                dispatch(appActions.setAppStatus({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
@@ -58,12 +58,12 @@ export const loginTC = (data: LoginDataType): AppThunk => (dispatch) => {
         })
 }
 export const logoutTC = (): AppThunk => (dispatch) => {
-    dispatch(appActions.changeStatusLoading({status: 'loading'}))
+    dispatch(appActions.setAppStatus({status: 'loading'}))
     authAPI.logout()
         .then((res) => {
             if (res.data.resultCode === ResultCodeStatuses.succeeded) {
                 dispatch(authActions.setIsLoggedIn({isLoggedIn: false}))
-                dispatch(appActions.changeStatusLoading({status: 'succeeded'}))
+                dispatch(appActions.setAppStatus({status: 'succeeded'}))
                 dispatch(todolistsActions.clearTodolistsData())
             } else {
                 handleServerAppError(res.data, dispatch)
