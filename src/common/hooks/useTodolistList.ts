@@ -8,7 +8,7 @@ import {
     removeTodolistTC,
     setTodolistsTC, todolistsActions,
     updateTodolistTitleTC
-} from 'features/TodolistList/todoListsReducer';
+} from 'features/TodolistList/todolistsReducer';
 import {addTaskTC, removeTaskTC, updateTaskTC} from 'features/TodolistList/tasksReducer';
 import {TaskStatuses} from 'common/enum';
 import {FilterValueType} from 'features/TodolistList/TodolistList';

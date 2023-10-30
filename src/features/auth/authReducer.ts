@@ -3,11 +3,11 @@ import {AppThunk} from 'app/store';
 import {appActions} from 'app/appReducer';
 import {authAPI} from 'features/auth/authApi';
 import {ResultCodeStatuses} from 'common/enum';
-import {handleServerAppError, handleServerNetworkError} from 'common/utils/errorUtils';
 import {AxiosError} from 'axios';
 import {ErrorType} from 'features/TodolistList/tasksReducer';
 import {LoginDataType} from 'features/TodolistList/todolistsApi';
-import {todolistsActions} from 'features/TodolistList/todoListsReducer';
+import {todolistsActions} from 'features/TodolistList/todolistsReducer';
+import {handleServerAppError, handleServerNetworkError} from 'common/utils';
 
 
 const slice = createSlice({

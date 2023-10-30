@@ -7,7 +7,7 @@ type EditableSpan = {
     disabled: boolean
 }
 
-const EditableSpan: FC<EditableSpan> = memo((props) => {
+export const EditableSpan: FC<EditableSpan> = memo((props) => {
 
     const [editMode, setEditMode] = useState(false)
     const [newTitle, setNewTitle] = useState(props.oldTitle)
@@ -46,5 +46,3 @@ const EditableSpan: FC<EditableSpan> = memo((props) => {
             : <span onDoubleClick={editModeHandler} style={{marginRight: '30px'}}>{props.oldTitle}</span>
     );
 })
-
-export default EditableSpan;

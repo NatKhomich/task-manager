@@ -1,7 +1,5 @@
-
-// generic function
-import {Dispatch} from 'redux';
 import {ResponseType} from 'common/types';
+import {Dispatch} from 'redux';
 import {appActions} from 'app/appReducer';
 
 export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: Dispatch) => {
@@ -11,10 +9,5 @@ export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: Dispatc
     } else {
         dispatch(appActions.setAppError({error: 'Some error occurred'}))
     }
-    dispatch(appActions.setAppStatus({status: 'failed'}))
-}
-
-export const handleServerNetworkError = (error: string, dispatch: Dispatch) => {
-    dispatch(appActions.setAppError({error}))
     dispatch(appActions.setAppStatus({status: 'failed'}))
 }

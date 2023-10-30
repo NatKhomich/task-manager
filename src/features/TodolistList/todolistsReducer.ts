@@ -1,4 +1,3 @@
-
 import {AxiosError} from 'axios';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {FilterValueType, TodolistCommonType} from 'features/TodolistList/TodolistList';
@@ -6,8 +5,8 @@ import {todolistsApi, TodolistType} from 'features/TodolistList/todolistsApi';
 import {appActions, RequestStatusType} from 'app/appReducer';
 import {AppThunk} from 'app/store';
 import {ErrorType, setTasksTC} from 'features/TodolistList/tasksReducer';
-import {handleServerAppError, handleServerNetworkError} from 'common/utils/errorUtils';
 import {ResultCodeStatuses} from 'common/enum';
+import {handleServerAppError, handleServerNetworkError} from 'common/utils';
 
 const slice = createSlice({
     name: 'todolists',
@@ -44,7 +43,7 @@ const slice = createSlice({
 })
 
 
-export const todoListsReducer = slice.reducer
+export const todolistsReducer = slice.reducer
 export const todolistsActions = slice.actions
 
 export const setTodolistsTC = (): AppThunk => (dispatch) => {

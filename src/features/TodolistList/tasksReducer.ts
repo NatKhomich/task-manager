@@ -2,11 +2,10 @@ import {AxiosError} from 'axios';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {TaskDomainType, TaskType, todolistsApi, UpdateTaskModelType} from 'features/TodolistList/todolistsApi';
 import {appActions, RequestStatusType} from 'app/appReducer';
-import {todolistsActions} from 'features/TodolistList/todoListsReducer';
+import {todolistsActions} from 'features/TodolistList/todolistsReducer';
 import {AppRootStateType, AppThunk} from 'app/store';
-import {handleServerAppError, handleServerNetworkError} from 'common/utils/errorUtils';
 import {ResultCodeStatuses, TaskPriorities, TaskStatuses} from 'common/enum';
-
+import {handleServerAppError, handleServerNetworkError} from 'common/utils';
 
 
 const slice = createSlice({

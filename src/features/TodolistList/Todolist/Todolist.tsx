@@ -1,6 +1,4 @@
 import React, {FC, memo, useCallback} from 'react';
-import AddItemForm from '../../../common/components/AddItemForm';
-import EditableSpan from '../../../common/components/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
@@ -10,6 +8,7 @@ import {Task} from './Task/Task';
 import {FilterValueType, TodolistCommonType} from '../TodolistList';
 import {TaskDomainType} from 'features/TodolistList/todolistsApi';
 import {TaskStatuses} from 'common/enum';
+import {AddItemForm, EditableSpan} from 'common/components';
 
 type TodoListType = {
     todolist: TodolistCommonType

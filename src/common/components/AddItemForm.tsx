@@ -7,7 +7,7 @@ type AddItemFormType = {
     disabled?: boolean
 }
 
-const AddItemForm: FC<AddItemFormType> = memo(({addItem, disabled}) => {
+export const AddItemForm: FC<AddItemFormType> = memo(({addItem, disabled}) => {
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -57,5 +57,3 @@ const AddItemForm: FC<AddItemFormType> = memo(({addItem, disabled}) => {
         </div>
     );
 })
-
-export default AddItemForm;
