@@ -1,17 +1,17 @@
 import React, {useCallback, useEffect} from 'react';
-import {TodolistList} from '../features/TodolistList/TodolistList';
+import {TodolistList} from 'features/TodolistList/TodolistList';
 import {CircularProgress, createTheme, CssBaseline, ThemeProvider} from '@mui/material';
-import {ButtonAppBar} from '../components/ ButtonAppBar';
+import {ButtonAppBar} from 'common/components/ ButtonAppBar';
 import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
-import {useAppDispatch, useAppSelector} from '../state/store';
-import {ErrorSnackbar} from '../components/ErrorSnackbar';
-import {appActions} from '../state/appReducer';
+import {ErrorSnackbar} from 'common/components/ErrorSnackbar';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {Login} from '../features/Login/Login';
-import {logoutTC, meTC} from '../state/authReducer';
+import {Login} from 'features/auth/Login';
 import {selectAppIsDarkMode, selectAppStatus, selectSetAppInitialized} from './appSelectors';
-import {selectAuthIsLoggedIn} from '../features/Login/authSelectors';
+import {selectAuthIsLoggedIn} from 'features/auth/authSelectors';
+import {useAppDispatch, useAppSelector} from 'app/store';
+import {logoutTC, meTC} from 'features/auth/authReducer';
+import {appActions} from 'app/appReducer';
 
 function App() {
 

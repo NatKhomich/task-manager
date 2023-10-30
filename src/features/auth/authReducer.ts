@@ -1,11 +1,13 @@
-import {authAPI, LoginDataType, ResultCodeStatuses} from '../api/todolists-api';
-import {AppThunk} from './store';
-import {appActions} from './appReducer';
-import {handleServerAppError, handleServerNetworkError} from '../utils/errorUtils';
-import {AxiosError} from 'axios';
-import {ErrorType} from './tasksReducer';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {todolistsActions} from './todoListsReducer';
+import {AppThunk} from 'app/store';
+import {appActions} from 'app/appReducer';
+import {authAPI} from 'features/auth/authApi';
+import {ResultCodeStatuses} from 'common/enum';
+import {handleServerAppError, handleServerNetworkError} from 'common/utils/errorUtils';
+import {AxiosError} from 'axios';
+import {ErrorType} from 'features/TodolistList/tasksReducer';
+import {LoginDataType} from 'features/TodolistList/todolistsApi';
+import {todolistsActions} from 'features/TodolistList/todoListsReducer';
 
 
 const slice = createSlice({

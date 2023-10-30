@@ -1,6 +1,7 @@
-import {todolistsActions, TodolistsInitialStateType, todoListsReducer,} from '../todoListsReducer'
-import {v1} from 'uuid'
-import {FilterValueType} from '../../features/TodolistList/TodolistList';
+import {todolistsActions, TodolistsInitialStateType, todoListsReducer} from 'features/TodolistList/todoListsReducer';
+import {v1} from 'uuid';
+import {FilterValueType} from 'features/TodolistList/TodolistList';
+
 
 let todolistId1: string
 let todolistId2: string

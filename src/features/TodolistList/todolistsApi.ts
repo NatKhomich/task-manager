@@ -1,25 +1,9 @@
-import axios, {AxiosResponse} from 'axios'
-import {RequestStatusType} from '../state/appReducer';
+import {AxiosResponse} from 'axios';
+import {instance} from 'common/api';
+import {ResponseType} from 'common/types';
+import {RequestStatusType} from 'app/appReducer';
+import {TaskPriorities, TaskStatuses} from 'common/enum';
 
-const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1',
-    withCredentials: true,
-    headers: {
-        'API-KEY': '0de32dd8-38bf-442a-adf6-1e6453e370bb'
-    }
-})
-
-export const authAPI = {
-    me() {
-        return instance.get<ResponseType<AuthResponseType>>(`/auth/me`)
-    },
-    login(loginData: LoginDataType) {
-        return instance.post<ResponseType<{userId: number}>, AxiosResponse<ResponseType<{userId: number}>>, LoginDataType>('/auth/login', loginData)
-    },
-    logout() {
-        return instance.delete<ResponseType>(`/auth/login`)
-    }
-}
 
 export const todolistsApi = {
     getTodolists() {
@@ -55,13 +39,6 @@ export type TodolistType = {
     order: number
 }
 
-export type ResponseType<D = {}> = {
-    data: D
-    resultCode: number
-    messages: string[]
-    fieldsErrors: Array<string>
-}
-
 export type TaskDomainType = TaskType & {
     entityStatus: RequestStatusType
 }
@@ -94,35 +71,8 @@ export type UpdateTaskModelType = {
     deadline: string
 }
 
-export enum TaskPriorities {
-    Low = 0,
-    Middle = 1,
-    Hi = 2,
-    Urgently = 3,
-    Later = 4
-}
-
-export enum TaskStatuses {
-    New = 0,
-    InProgress = 1,
-    Completed = 2,
-    Draft = 3
-}
-
-export enum ResultCodeStatuses {
-    succeeded,
-    error,
-    captcha_error = 10
-}
-
 export type LoginDataType = {
     email: string
     password: string
     rememberMe: boolean
-}
-
-type AuthResponseType = {
-    id: number
-    email: string
-    login: string
 }

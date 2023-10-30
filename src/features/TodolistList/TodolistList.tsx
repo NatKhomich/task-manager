@@ -3,11 +3,11 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {Todolist} from './Todolist/Todolist';
-import AddItemForm from '../../components/AddItemForm';
-import {TodolistType} from '../../api/todolists-api';
-import {RequestStatusType} from '../../state/appReducer';
-import {useTodolistList} from '../../hooks/useTodolistList';
+import AddItemForm from '../../common/components/AddItemForm';
+import {useTodolistList} from 'common/hooks/useTodolistList';
 import {Navigate} from 'react-router-dom';
+import {RequestStatusType} from 'app/appReducer';
+import {TodolistType} from 'features/TodolistList/todolistsApi';
 
 export type TodolistCommonType = TodolistType & {
     filter: FilterValueType

@@ -1,6 +1,7 @@
-import {TaskStatuses} from '../../api/todolists-api';
-import {tasksActions, TasksInitialStateType, tasksReducer} from '../tasksReducer';
-import {todolistsActions} from '../todoListsReducer';
+import {tasksActions, TasksInitialStateType, tasksReducer} from 'features/TodolistList/tasksReducer';
+import {TaskStatuses} from 'common/enum';
+import {todolistsActions} from 'features/TodolistList/todoListsReducer';
+
 
 let startState: TasksInitialStateType
 

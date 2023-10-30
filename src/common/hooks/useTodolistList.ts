@@ -1,17 +1,17 @@
 import {useCallback, useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../state/store';
+import {useAppDispatch, useAppSelector} from 'app/store';
+import {selectTodolists} from 'features/TodolistList/todolistSelectors';
+import {selectTasks} from 'features/TodolistList/tasksSelectors';
+import {selectAuthIsLoggedIn} from 'features/auth/authSelectors';
 import {
     addTodolistTC,
     removeTodolistTC,
     setTodolistsTC, todolistsActions,
     updateTodolistTitleTC
-} from '../state/todoListsReducer';
-import {addTaskTC, removeTaskTC, updateTaskTC} from '../state/tasksReducer';
-import {TaskStatuses} from '../api/todolists-api';
-import {FilterValueType} from '../features/TodolistList/TodolistList';
-import {selectTodolists} from '../features/TodolistList/todolistSelectors';
-import {selectAuthIsLoggedIn} from '../features/Login/authSelectors';
-import {selectTasks} from '../features/TodolistList/tasksSelectors';
+} from 'features/TodolistList/todoListsReducer';
+import {addTaskTC, removeTaskTC, updateTaskTC} from 'features/TodolistList/tasksReducer';
+import {TaskStatuses} from 'common/enum';
+import {FilterValueType} from 'features/TodolistList/TodolistList';
 
 export const useTodolistList = () => {
     const todolists = useAppSelector(selectTodolists)

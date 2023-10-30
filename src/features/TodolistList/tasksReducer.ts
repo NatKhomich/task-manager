@@ -1,18 +1,12 @@
-import {
-    ResultCodeStatuses,
-    TaskDomainType,
-    TaskPriorities,
-    TaskStatuses,
-    TaskType,
-    todolistsApi,
-    UpdateTaskModelType
-} from '../api/todolists-api';
-import {AppRootStateType, AppThunk} from './store';
-import {appActions, RequestStatusType} from './appReducer';
-import {handleServerAppError, handleServerNetworkError} from '../utils/errorUtils';
 import {AxiosError} from 'axios';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {todolistsActions} from './todoListsReducer';
+import {TaskDomainType, TaskType, todolistsApi, UpdateTaskModelType} from 'features/TodolistList/todolistsApi';
+import {appActions, RequestStatusType} from 'app/appReducer';
+import {todolistsActions} from 'features/TodolistList/todoListsReducer';
+import {AppRootStateType, AppThunk} from 'app/store';
+import {handleServerAppError, handleServerNetworkError} from 'common/utils/errorUtils';
+import {ResultCodeStatuses, TaskPriorities, TaskStatuses} from 'common/enum';
+
 
 
 const slice = createSlice({
