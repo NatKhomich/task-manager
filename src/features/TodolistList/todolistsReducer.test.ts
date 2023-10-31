@@ -1,4 +1,9 @@
-import {todolistsActions, TodolistsInitialStateType, todolistsReducer} from 'features/TodolistList/todolistsReducer';
+import {
+    todolistsActions,
+    TodolistsInitialStateType,
+    todolistsReducer,
+    todolistsThunks
+} from 'features/TodolistList/todolistsReducer';
 import {v1} from 'uuid';
 import {FilterValueType} from 'features/TodolistList/TodolistList';
 
@@ -20,7 +25,11 @@ beforeEach(() => {
 
 test('correct todolist should be removed', () => {
 
-    const endState = todolistsReducer(startState, todolistsActions.removeTodoList({todolistId: todolistId1}))
+    const endState = todolistsReducer(startState, todolistsThunks.removeTodolist.fulfilled(
+        {todolistId: todolistId1}, //то что санка возвращает
+        'requestId',
+        todolistId1 //то что санка принимает
+    ))
 
     expect(endState.length).toBe(1)
     expect(endState[0].id).toBe(todolistId2)

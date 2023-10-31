@@ -5,9 +5,7 @@ import {selectTasks} from 'features/TodolistList/tasksSelectors';
 import {selectAuthIsLoggedIn} from 'features/auth/authSelectors';
 import {
     addTodolistTC,
-    removeTodolistTC,
-    setTodolistsTC,
-    todolistsActions,
+    todolistsActions, todolistsThunks,
     updateTodolistTitleTC
 } from 'features/TodolistList/todolistsReducer';
 import {tasksThunks} from 'features/TodolistList/tasksReducer';
@@ -24,7 +22,8 @@ export const useTodolistList = () => {
         if(!isLoggedIn) {
             return
         }
-        dispatch(setTodolistsTC())
+
+        dispatch(todolistsThunks.fetchTodolists())
     }, [])
 
     //tasks
@@ -43,7 +42,7 @@ export const useTodolistList = () => {
 
     //todoLists
     const removeTodolist = useCallback((todolistId: string) => {
-        dispatch(removeTodolistTC(todolistId))
+        dispatch(todolistsThunks.removeTodolist(todolistId))
     }, [dispatch])
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistTC(title))
