@@ -4,10 +4,8 @@ import {selectTodolists} from 'features/TodolistList/todolistSelectors';
 import {selectTasks} from 'features/TodolistList/tasksSelectors';
 import {selectAuthIsLoggedIn} from 'features/auth/authSelectors';
 import {
-    addTodolistTC,
     todolistsActions, todolistsThunks,
-    updateTodolistTitleTC
-} from 'features/TodolistList/todolistsReducer';
+   } from 'features/TodolistList/todolistsReducer';
 import {tasksThunks} from 'features/TodolistList/tasksReducer';
 import {TaskStatuses} from 'common/enum';
 import {FilterValueType} from 'features/TodolistList/TodolistList';
@@ -45,10 +43,10 @@ export const useTodolistList = () => {
         dispatch(todolistsThunks.removeTodolist(todolistId))
     }, [dispatch])
     const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistTC(title))
+        dispatch(todolistsThunks.addTodolist(title))
     }, [dispatch])
     const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
-        dispatch(updateTodolistTitleTC(todolistId, title))
+        dispatch(todolistsThunks.updateTodolistTitle({todolistId, title}))
     }, [dispatch])
     const changeTodolistFilter = useCallback((todolistId: string, filter: FilterValueType) => {
         dispatch(todolistsActions.changeTodoListFilter({todolistId: todolistId, filter}))
