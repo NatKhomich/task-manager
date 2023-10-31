@@ -6,10 +6,11 @@ import {selectAuthIsLoggedIn} from 'features/auth/authSelectors';
 import {
     addTodolistTC,
     removeTodolistTC,
-    setTodolistsTC, todolistsActions,
+    setTodolistsTC,
+    todolistsActions,
     updateTodolistTitleTC
 } from 'features/TodolistList/todolistsReducer';
-import {addTaskTC, removeTaskTC, updateTaskTC} from 'features/TodolistList/tasksReducer';
+import {tasksThunks, updateTaskTC} from 'features/TodolistList/tasksReducer';
 import {TaskStatuses} from 'common/enum';
 import {FilterValueType} from 'features/TodolistList/TodolistList';
 
@@ -27,35 +28,35 @@ export const useTodolistList = () => {
     }, [])
 
     //tasks
-    const removeTask = useCallback((todoListId: string, taskId: string) => {
-        dispatch(removeTaskTC(todoListId, taskId))
+    const removeTask = useCallback((todolistId: string, taskId: string) => {
+        dispatch(tasksThunks.removeTask({todolistId, taskId}))
     }, [dispatch])
-    const addTask = useCallback((todoListsId: string, title: string) => {
-        dispatch(addTaskTC(todoListsId, title))
+    const addTask = useCallback((todolistId: string, title: string) => {
+        dispatch(tasksThunks.addTask({todolistId, title}))
     }, [dispatch])
-    const changeTaskStatus = useCallback((todoListId: string, taskId: string, status: TaskStatuses) => {
-        dispatch(updateTaskTC(todoListId, taskId, {status}))
+    const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
+        dispatch(updateTaskTC(todolistId, taskId, {status}))
     }, [dispatch])
-    const changeTaskTitle = useCallback((todoListId: string, taskId: string, title: string) => {
-        dispatch(updateTaskTC(todoListId, taskId, {title}))
+    const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
+        dispatch(updateTaskTC(todolistId, taskId, {title}))
     }, [dispatch])
 
     //todoLists
-    const removeTodoList = useCallback((todoListId: string) => {
-        dispatch(removeTodolistTC(todoListId))
+    const removeTodolist = useCallback((todolistId: string) => {
+        dispatch(removeTodolistTC(todolistId))
     }, [dispatch])
-    const addTodoList = useCallback((title: string) => {
+    const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistTC(title))
     }, [dispatch])
-    const changeTodoListTitle = useCallback((todoListId: string, title: string) => {
-        dispatch(updateTodolistTitleTC(todoListId, title))
+    const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
+        dispatch(updateTodolistTitleTC(todolistId, title))
     }, [dispatch])
-    const changeTodoListFilter = useCallback((todolistId: string, filter: FilterValueType) => {
+    const changeTodolistFilter = useCallback((todolistId: string, filter: FilterValueType) => {
         dispatch(todolistsActions.changeTodoListFilter({todolistId: todolistId, filter}))
     }, [dispatch])
 
     return {
         todolists, tasks, dispatch, removeTask, addTask, changeTaskStatus, changeTaskTitle,
-        removeTodoList, addTodoList, changeTodoListTitle, changeTodoListFilter, isLoggedIn
+        removeTodolist, addTodolist, changeTodolistTitle, changeTodolistFilter, isLoggedIn
     }
 }

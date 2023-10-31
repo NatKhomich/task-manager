@@ -18,7 +18,7 @@ export type FilterValueType = 'all' | 'active' | 'completed'
 export const TodolistList = () => {
 
    const {todolists, tasks, removeTask, addTask, changeTaskStatus, changeTaskTitle,
-       removeTodoList, addTodoList, changeTodoListTitle, changeTodoListFilter, isLoggedIn} = useTodolistList()
+       removeTodolist, addTodolist, changeTodolistTitle, changeTodolistFilter, isLoggedIn} = useTodolistList()
 
     if (!isLoggedIn) {
         return <Navigate to={'/todolist-practice/login'} />
@@ -27,7 +27,7 @@ export const TodolistList = () => {
     return (
         <Container fixed maxWidth="xl">
             <Grid container style={{padding: '20px 0'}}  >
-                <AddItemForm addItem={addTodoList}/>
+                <AddItemForm addItem={addTodolist}/>
             </Grid>
             <Grid container spacing={6}>
                 {todolists.map(el => {
@@ -43,9 +43,9 @@ export const TodolistList = () => {
                                     changeTaskTitle={changeTaskTitle}
                                     addTask={addTask}
 
-                                    removeTodoList={removeTodoList}
-                                    changeTodoListTitle={changeTodoListTitle}
-                                    changeTodoListFilter={changeTodoListFilter}
+                                    removeTodoList={removeTodolist}
+                                    changeTodoListTitle={changeTodolistTitle}
+                                    changeTodoListFilter={changeTodolistFilter}
                                 />
                             </Paper>
                         </Grid>

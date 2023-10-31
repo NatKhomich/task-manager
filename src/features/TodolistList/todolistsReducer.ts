@@ -4,7 +4,7 @@ import {FilterValueType, TodolistCommonType} from 'features/TodolistList/Todolis
 import {todolistsApi, TodolistType} from 'features/TodolistList/todolistsApi';
 import {appActions, RequestStatusType} from 'app/appReducer';
 import {AppThunk} from 'app/store';
-import {ErrorType, setTasksTC} from 'features/TodolistList/tasksReducer';
+import {ErrorType, tasksThunks} from 'features/TodolistList/tasksReducer';
 import {ResultCodeStatuses} from 'common/enum';
 import {handleServerAppError, handleServerNetworkError} from 'common/utils';
 
@@ -56,7 +56,8 @@ export const setTodolistsTC = (): AppThunk => (dispatch) => {
         })
         .then((todos) => {
             todos.forEach(t => {
-                dispatch(setTasksTC(t.id))
+                // dispatch(setTasksTC(t.id))
+                dispatch(tasksThunks.fetchTasks(t.id))
             })
         })
         .catch((error: AxiosError<ErrorType>) => {

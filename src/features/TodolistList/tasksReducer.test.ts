@@ -1,6 +1,7 @@
-import {tasksActions, TasksInitialStateType, tasksReducer} from 'features/TodolistList/tasksReducer';
+import {tasksActions, TasksInitialStateType, tasksReducer, tasksThunks} from 'features/TodolistList/tasksReducer';
 import {TaskStatuses} from 'common/enum';
 import {todolistsActions} from 'features/TodolistList/todolistsReducer';
+import {TaskType} from "features/TodolistList/todolistsApi";
 
 
 let startState: TasksInitialStateType
@@ -38,9 +39,44 @@ beforeEach(() => {
     }
 })
 
+test("tasks should be added for todolist", () => {
+       //1 variant
+    // const _action = tasksThunks.fetchTasks.fulfilled(
+    //   { tasks: startState["todolistId1"], todolistId: "todolistId1" }, "requestId", "todolistId1");
+
+    //2 variant
+    type FetchTasksAction = {
+        type: string
+        payload: {
+            tasks: TaskType[]
+            todolistId: string
+        }
+    }
+
+    const action: FetchTasksAction = {
+        type: tasksThunks.fetchTasks.fulfilled.type,
+        payload: {
+            tasks: startState["todolistId1"],
+            todolistId: "todolistId1"
+        }
+    };
+
+    const endState = tasksReducer(
+        {
+            todolistId2: [],
+            todolistId1: []
+        },
+        action
+    );
+
+    expect(endState["todolistId1"].length).toBe(3);
+    expect(endState["todolistId2"].length).toBe(0);
+});
+
 test('correct task should be deleted from correct array', () => {
 
-    const action = tasksActions.removeTask({todolistId: 'todolistId2', taskId: '2'})
+    const action = tasksThunks.removeTask.fulfilled({todolistId: 'todolistId2', taskId: '2'},
+        'requestId', {todolistId: 'todolistId2', taskId: '2'})
     const endState = tasksReducer(startState, action)
 
     expect(endState).toEqual({
@@ -117,13 +153,15 @@ test('correct task should be deleted from correct array', () => {
 })
 
 test('correct task should be added to correct array', () => {
+    const task = {
+        id: '5', title: 'New Task', status: TaskStatuses.New, startDate: '', priority: 0,
+        description: '', deadline: '', todoListId: 'todolistId1', addedDate: '', order: 0
+    }
 
-    const action = tasksActions.addTask({
-        task: {
-            id: '5', title: 'New Task', status: TaskStatuses.New, startDate: '', priority: 0,
-            description: '', deadline: '', todoListId: 'todolistId1', addedDate: '', order: 0
-        }
-    })
+    const action = tasksThunks.addTask.fulfilled(
+        {task: task}, //то что санка возврашает
+        'requestId',
+        {todolistId: 'todolistId1', title: 'New Task'}) //то что принимает санка
 
     const endState = tasksReducer(startState, action)
 
