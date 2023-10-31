@@ -1,4 +1,4 @@
-import {tasksActions, TasksInitialStateType, tasksReducer, tasksThunks} from 'features/TodolistList/tasksReducer';
+import {TasksInitialStateType, tasksReducer, tasksThunks} from 'features/TodolistList/tasksReducer';
 import {TaskStatuses} from 'common/enum';
 import {todolistsActions} from 'features/TodolistList/todolistsReducer';
 import {TaskType} from "features/TodolistList/todolistsApi";
@@ -40,7 +40,7 @@ beforeEach(() => {
 })
 
 test("tasks should be added for todolist", () => {
-       //1 variant
+    //1 variant
     // const _action = tasksThunks.fetchTasks.fulfilled(
     //   { tasks: startState["todolistId1"], todolistId: "todolistId1" }, "requestId", "todolistId1");
 
@@ -173,12 +173,13 @@ test('correct task should be added to correct array', () => {
 })
 
 test('status of specified task should be changed', () => {
-
-    const action = tasksActions.updateTask({
+    const payload = {
         todolistId: 'todolistId2',
         taskId: '2',
-        model: {status: TaskStatuses.Completed}
-    })
+        domainModel: {status: TaskStatuses.Completed}
+    }
+
+    const action = tasksThunks.updateTask.fulfilled(payload, 'requestId', payload)
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][1].status).toBe(TaskStatuses.Completed)
@@ -189,10 +190,13 @@ test('title of specified task should be changed', () => {
 
     const newTitle = 'hi hi'
 
-    const action = tasksActions.updateTask({
+    const payload = {
         todolistId: 'todolistId2',
         taskId: '2',
-        model: {title: newTitle}})
+        domainModel: {title: newTitle}
+    }
+
+    const action = tasksThunks.updateTask.fulfilled(payload, 'requestId', payload)
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][1].title).toBe('hi hi')

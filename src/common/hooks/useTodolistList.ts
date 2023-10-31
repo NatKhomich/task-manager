@@ -10,7 +10,7 @@ import {
     todolistsActions,
     updateTodolistTitleTC
 } from 'features/TodolistList/todolistsReducer';
-import {tasksThunks, updateTaskTC} from 'features/TodolistList/tasksReducer';
+import {tasksThunks} from 'features/TodolistList/tasksReducer';
 import {TaskStatuses} from 'common/enum';
 import {FilterValueType} from 'features/TodolistList/TodolistList';
 
@@ -35,10 +35,10 @@ export const useTodolistList = () => {
         dispatch(tasksThunks.addTask({todolistId, title}))
     }, [dispatch])
     const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
-        dispatch(updateTaskTC(todolistId, taskId, {status}))
+        dispatch(tasksThunks.updateTask({todolistId: todolistId, taskId: taskId, domainModel: {status}}))
     }, [dispatch])
     const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
-        dispatch(updateTaskTC(todolistId, taskId, {title}))
+        dispatch(tasksThunks.updateTask({todolistId: todolistId, taskId: taskId, domainModel: {title}}))
     }, [dispatch])
 
     //todoLists
