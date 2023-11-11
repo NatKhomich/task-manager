@@ -21,7 +21,7 @@ export const TodolistList = () => {
        removeTodolist, addTodolist, changeTodolistTitle, changeTodolistFilter, isLoggedIn} = useTodolistList()
 
     if (!isLoggedIn) {
-        return <Navigate to={'/todolist-practice/login'} />
+        return <Navigate to={'/login'} />
     }
 
     return (

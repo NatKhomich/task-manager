@@ -20,7 +20,6 @@ export const useTodolistList = () => {
         if(!isLoggedIn) {
             return
         }
-
         dispatch(todolistsThunks.fetchTodolists())
     }, [])
 
