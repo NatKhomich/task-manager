@@ -7,7 +7,7 @@ beforeEach(() => {
     startState = {
         status: "idle",
         error: null,
-        isDarkMode: true,
+        isDarkLightMode: true,
         isInitialized: false
     };
 });
@@ -24,5 +24,5 @@ test("correct status should be set", () => {
 
 test("correct status isDarkMode be set", () => {
     const endState = appReducer(startState, appActions.darkLightAppMode({ mode: false }));
-    expect(endState.isDarkMode).toBe(false);
+    expect(endState.isDarkLightMode).toBe(false);
 });

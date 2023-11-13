@@ -16,7 +16,7 @@ import {TodolistList} from "features/TodolistList/TodolistList";
 function App() {
 
     const status = useAppSelector(selectAppStatus)
-    const isDarkMode = useAppSelector(selectAppIsDarkMode)
+    const isDarkLightMode = useAppSelector(selectAppIsDarkMode)
     const isInitialized = useAppSelector(selectSetAppInitialized)
     const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
     const dispatch = useAppDispatch()
@@ -30,7 +30,7 @@ function App() {
     }, [dispatch])
 
     const customTheme = createTheme({
-        palette: {primary: {main: '#414b6e'}, secondary: {main: '#5461a2'}, mode: isDarkMode ? 'dark' : 'light'}
+        palette: {primary: {main: '#414b6e'}, secondary: {main: '#5461a2'}, mode: isDarkLightMode ? 'dark' : 'light'}
     })
 
     if (!isInitialized) {
@@ -48,7 +48,7 @@ function App() {
         <ThemeProvider theme={customTheme}>
             <CssBaseline></CssBaseline>
             <div className="App">
-                <ButtonAppBar isDarkMode={isDarkMode}
+                <ButtonAppBar isDarkLightMode={isDarkLightMode}
                               darkLightMode={darkLightMode}
                               logOutHandler={logOutHandler}
                               isLoggedIn={isLoggedIn}

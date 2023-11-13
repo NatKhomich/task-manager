@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {FormControlLabel, FormGroup, Switch} from '@mui/material';
 
 type PropsType = {
-    isDarkMode: boolean
+    isDarkLightMode: boolean
     darkLightMode: (mode: boolean)=> void
     logOutHandler: () => void
     isLoggedIn: boolean
@@ -28,10 +28,16 @@ export function ButtonAppBar(props: PropsType) {
                         Task_manager
                     </Typography>
                     <FormGroup>
-                        <FormControlLabel control={<Switch defaultChecked={true} onChange={(e) =>
+                        {props.isDarkLightMode ? <FormControlLabel control={<Switch defaultChecked={true} onChange={(e) =>
                             props.darkLightMode(e.currentTarget.checked)}/>}
-                                          label={props.isDarkMode ? "Go to Light" : "Go to Dark"}
-                        />
+                                                                    label={props.isDarkLightMode ? "Go to Light" : "Go to Dark"}
+                        /> :  <FormControlLabel control={<Switch defaultChecked={false} onChange={(e) =>
+                            props.darkLightMode(e.currentTarget.checked)}/>}
+                                                label={props.isDarkLightMode ? "Go to Light" : "Go to Dark"}
+                        /> }
+
+
+
                     </FormGroup>
                     {props.isLoggedIn && <Button onClick={props.logOutHandler} color="inherit">Logout</Button>}
                 </Toolbar>

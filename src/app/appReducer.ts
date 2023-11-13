@@ -1,13 +1,17 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
+const loadDarkLightModeFromLocalStorage = (): boolean => {
+    const storedMode = localStorage.getItem('darkLightMode');
+    return storedMode ? JSON.parse(storedMode) : true;
+};
 
 const slice = createSlice({
     name: 'app',
     initialState: {
-        status: 'idle' as RequestStatusType, //делается ли запрос на сервер, если да LinearProgress
-        error: null as null | string, //если ошибка текст запишется сюда
-        isDarkMode: true, //светлая или темная тема
-        isInitialized: false // проиниц ли приложение(me запрос). будет крутилка пока прилож не поймет что показать туду или логин
+        status: 'idle' as RequestStatusType,
+        error: null as null | string,
+        isDarkLightMode: loadDarkLightModeFromLocalStorage(),
+        isInitialized: false
     },
     reducers: {
         setAppStatus: (state, action: PayloadAction<{status: RequestStatusType}>) => {
@@ -17,13 +21,15 @@ const slice = createSlice({
             state.error = action.payload.error
         },
         darkLightAppMode: (state, action: PayloadAction<{mode: boolean}>) => {
-            state.isDarkMode = action.payload.mode
+            state.isDarkLightMode = action.payload.mode
+            localStorage.setItem('darkLightMode', JSON.stringify(action.payload.mode))
         },
         setAppInitialized: (state, action: PayloadAction<{isInitialized: boolean}>) => {
             state.isInitialized = action.payload.isInitialized
         }
     }
 })
+
 
 export const appReducer = slice.reducer
 export const appActions = slice.actions
