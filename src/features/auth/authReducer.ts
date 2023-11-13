@@ -8,6 +8,7 @@ import {ErrorType} from 'features/TodolistList/tasksReducer';
 import {LoginDataType} from 'features/TodolistList/todolistsApi';
 import {todolistsActions} from 'features/TodolistList/todolistsReducer';
 import {handleServerAppError, handleServerNetworkError} from 'common/utils';
+import {createAppAsyncThunk} from "common/utils/createAppAsyncThunk";
 
 
 const slice = createSlice({
@@ -25,25 +26,29 @@ const slice = createSlice({
 export const authReducer = slice.reducer
 export const authActions = slice.actions
 
+
+const login = createAppAsyncThunk<
+    {isLoggedIn: true},
+    LoginDataType
+>('auth/login', async (arg, thunkAPI) => {
+    const {dispatch, rejectWithValue} = thunkAPI;
+    try {
+        dispatch(appActions.setAppStatus({status: 'loading'}))
+        const res = await authAPI.login(arg)
+        if (res.data.resultCode === ResultCodeStatuses.succeeded) {
+            dispatch(appActions.setAppStatus({status: 'succeeded'}))
+            return {isLoggedIn: true}
+        } else {
+            handleServerAppError(res.data, dispatch)
+            return rejectWithValue(null);
+        }
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
+        return rejectWithValue(null);
+    }
+})
 // thunks
-export const meTC = (): AppThunk => (dispatch) => {
-    dispatch(appActions.setAppStatus({status: 'loading'}))
-    authAPI.me()
-        .then((res) => {
-            if (res.data.resultCode === ResultCodeStatuses.succeeded) {
-                dispatch(authActions.setIsLoggedIn({isLoggedIn: true}))
-                dispatch(appActions.setAppStatus({status: 'succeeded'}))
-            } else {
-                handleServerAppError(res.data, dispatch)
-            }
-        })
-        .catch((error: AxiosError<ErrorType>) => {
-            handleServerNetworkError(error.message, dispatch)
-        })
-        .finally(() => {
-            dispatch(appActions.setAppInitialized({isInitialized: true}))
-        })
-}
+
 export const loginTC = (data: LoginDataType): AppThunk => (dispatch) => {
     dispatch(appActions.setAppStatus({status: 'loading'}))
     authAPI.login(data)
@@ -73,6 +78,25 @@ export const logoutTC = (): AppThunk => (dispatch) => {
         })
         .catch((error: AxiosError<ErrorType>) => {
             handleServerNetworkError(error.message, dispatch)
+        })
+}
+
+export const meTC = (): AppThunk => (dispatch) => {
+    dispatch(appActions.setAppStatus({status: 'loading'}))
+    authAPI.me()
+        .then((res) => {
+            if (res.data.resultCode === ResultCodeStatuses.succeeded) {
+                dispatch(authActions.setIsLoggedIn({isLoggedIn: true}))
+                dispatch(appActions.setAppStatus({status: 'succeeded'}))
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        })
+        .catch((error: AxiosError<ErrorType>) => {
+            handleServerNetworkError(error.message, dispatch)
+        })
+        .finally(() => {
+            dispatch(appActions.setAppInitialized({isInitialized: true}))
         })
 }
 
