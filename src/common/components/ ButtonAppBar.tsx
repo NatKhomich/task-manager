@@ -25,7 +25,7 @@ export function ButtonAppBar(props: PropsType) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Todolist
+                        Task_manager
                     </Typography>
                     <FormGroup>
                         <FormControlLabel control={<Switch defaultChecked={true} onChange={(e) =>

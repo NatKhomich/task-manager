@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react';
-import {TodolistList} from 'features/TodolistList/TodolistList';
 import {CircularProgress, createTheme, CssBaseline, ThemeProvider} from '@mui/material';
 import {ButtonAppBar} from 'common/components/ ButtonAppBar';
 import Container from '@mui/material/Container';
@@ -12,6 +11,7 @@ import {selectAuthIsLoggedIn} from 'features/auth/authSelectors';
 import {useAppDispatch, useAppSelector} from 'app/store';
 import {authThunks} from 'features/auth/authReducer';
 import {appActions} from 'app/appReducer';
+import {TodolistList} from "features/TodolistList/TodolistList";
 
 function App() {
 
