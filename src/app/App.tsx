@@ -10,7 +10,7 @@ import {Login} from 'features/auth/Login';
 import {selectAppIsDarkMode, selectAppStatus, selectSetAppInitialized} from './appSelectors';
 import {selectAuthIsLoggedIn} from 'features/auth/authSelectors';
 import {useAppDispatch, useAppSelector} from 'app/store';
-import {logoutTC, meTC} from 'features/auth/authReducer';
+import {authThunks} from 'features/auth/authReducer';
 import {appActions} from 'app/appReducer';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(meTC())
+        dispatch(authThunks.initializeApp())
     }, [])
 
     const darkLightMode = useCallback((mode: boolean) => {
@@ -41,7 +41,7 @@ function App() {
     }
 
     const logOutHandler = () => {
-        dispatch(logoutTC())
+        dispatch(authThunks.logout())
     }
 
     return (
@@ -60,7 +60,7 @@ function App() {
                         <Route path={'/login'} element={<Login/>}/>
 
                         <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
-                        {/*<Route path="*" element={<Navigate to={'/404'}/>}/>*/}
+                        <Route path="*" element={<Navigate to={'/404'}/>}/>
                     </Routes>
                 </Container>
                 <ErrorSnackbar/>
