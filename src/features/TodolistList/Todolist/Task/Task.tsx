@@ -51,7 +51,9 @@ export const Task: FC<TaskPropsType> = memo(({
                           checked={task.status === TaskStatuses.Completed}
                           size="small"
                           onChange={changeTaskStatusHandler}/>
-                <EditableSpan oldTitle={task.title} callBack={changeTaskTitleHandler} disabled={disabled}/>
+                <EditableSpan oldTitle={task.title}
+                              callBack={changeTaskTitleHandler}
+                              disabled={disabled}/>
             </ListItem>
         </div>
     )

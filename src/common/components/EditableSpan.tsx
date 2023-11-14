@@ -43,6 +43,7 @@ export const EditableSpan: FC<EditableSpan> = memo((props) => {
                          type="search"
                          style={{width: '70%'}}/>
 
-            : <span onDoubleClick={editModeHandler} style={{marginRight: '30px'}}>{props.oldTitle}</span>
+            : <span onDoubleClick={editModeHandler} style={{marginRight: '30px',
+                textAlign: 'left', paddingRight: '20px', wordBreak: 'break-all'}}>{props.oldTitle} </span>
     );
 })

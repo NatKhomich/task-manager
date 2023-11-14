@@ -36,8 +36,6 @@ export function ButtonAppBar(props: PropsType) {
                                                 label={props.isDarkLightMode ? "Go to Light" : "Go to Dark"}
                         /> }
 
-
-
                     </FormGroup>
                     {props.isLoggedIn && <Button onClick={props.logOutHandler} color="inherit">Logout</Button>}
                 </Toolbar>

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -68,15 +68,15 @@ export const TodolistList = () => {
     }
 
     return (
-        <Container fixed maxWidth="xl">
+        <Container fixed maxWidth="xl"  className='container'>
             <Grid container style={{padding: '20px 0'}}  >
                 <AddItemForm addItem={addTodolist}/>
             </Grid>
-            <Grid container spacing={6}>
+            <Grid container spacing={6} >
                 {todolists.map(el => {
                     return (
-                        <Grid item key={el.id } >
-                            <Paper elevation={4} style={{padding: '10px'}}>
+                        <Grid item key={el.id } style={{width: '400px'}}>
+                            <Paper elevation={4} style={{padding: '15px'}}>
                                 <Todolist
                                     todolist={el}
                                     tasks={tasks[el.id]}
