@@ -1,18 +1,20 @@
 import React, {ChangeEvent, FC, KeyboardEvent, memo, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import styles from './AddItemForm.module.css'
 
-type AddItemFormType = {
+type PropsType = {
     addItem: (title: string) => void
     disabled?: boolean
 }
 
-export const AddItemForm: FC<AddItemFormType> = memo(({addItem, disabled}) => {
+export const AddItemForm: FC<PropsType> = memo((props) => {
+    const {addItem, disabled} = props
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
-    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
         setError(null)
     }
@@ -21,20 +23,18 @@ export const AddItemForm: FC<AddItemFormType> = memo(({addItem, disabled}) => {
         if (title.trim() !== '') {
             addItem(title.trim())
             setTitle('')
-        } else {setError('Title is required')}
+        } else {
+            setError('Title is required')
+        }
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if(error !== null) return setError(null)
-        if (e.key === 'Enter') addItemHandler()
-    }
-
-    const muiStyles = {
-        maxWidth: '39px',
-        maxHeight: '39px',
-        minWidth: '39px',
-        minHeight: '39px',
-        marginLeft: '3px'
+        if (error !== null) {
+            return setError(null)
+        }
+        if (e.key === 'Enter') {
+            addItemHandler()
+        }
     }
 
     return (
@@ -44,16 +44,17 @@ export const AddItemForm: FC<AddItemFormType> = memo(({addItem, disabled}) => {
                        size="small"
                        error={!!error}
                        value={title}
-                       onChange={onChangeTitleHandler}
+                       onChange={onChangeTitle}
                        onKeyDown={onKeyDownHandler}
                        disabled={disabled}
                        type="search"/>
 
             <Button variant="contained"
-                    style={muiStyles}
+                    className={styles.btn}
                     disabled={disabled}
                     onClick={addItemHandler}>
-                + </Button>
+                +
+            </Button>
         </div>
     );
 })

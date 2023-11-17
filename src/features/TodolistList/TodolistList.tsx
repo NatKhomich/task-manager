@@ -6,7 +6,6 @@ import {Todolist} from './Todolist/Todolist';
 import {Navigate} from 'react-router-dom';
 import {RequestStatusType} from 'app/appReducer';
 import {TodolistType} from 'features/TodolistList/todolistsApi';
-import {AddItemForm} from 'common/components';
 import {useAppDispatch, useAppSelector} from "app/store";
 import {selectTodolists} from "features/TodolistList/todolistSelectors";
 import {selectTasks} from "features/TodolistList/tasksSelectors";
@@ -14,6 +13,7 @@ import {selectAuthIsLoggedIn} from "features/auth/authSelectors";
 import {todolistsActions, todolistsThunks} from "features/TodolistList/todolistsReducer";
 import {tasksThunks} from "features/TodolistList/tasksReducer";
 import {TaskStatuses} from "common/enum";
+import {AddItemForm} from "common/components/AddItemForm";
 
 export type TodolistCommonType = TodolistType & {
     filter: FilterValueType

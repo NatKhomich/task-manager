@@ -1,0 +1,12 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.error {
+    max-width: 550px;
+    width: 100%;
+}

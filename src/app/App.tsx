@@ -12,6 +12,7 @@ import {useAppDispatch, useAppSelector} from 'app/store';
 import {authThunks} from 'features/auth/authReducer';
 import {appActions} from 'app/appReducer';
 import {TodolistList} from "features/TodolistList/TodolistList";
+import {NotFound} from "common/components/NotFound";
 
 function App() {
 
@@ -50,7 +51,7 @@ function App() {
             <div className="App">
                 <ButtonAppBar isDarkLightMode={isDarkLightMode}
                               darkLightMode={darkLightMode}
-                              logOutHandler={logOutHandler}
+                              logOut={logOutHandler}
                               isLoggedIn={isLoggedIn}
                 />
                 {status === 'loading' && <LinearProgress color="success"/>}
@@ -59,7 +60,7 @@ function App() {
                         <Route path={'/'} element={<TodolistList/>}/>
                         <Route path={'/login'} element={<Login/>}/>
 
-                        <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
+                        <Route path="/404" element={<NotFound />}/>
                         <Route path="*" element={<Navigate to={'/404'}/>}/>
                     </Routes>
                 </Container>

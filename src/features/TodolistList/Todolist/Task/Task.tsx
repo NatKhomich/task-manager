@@ -5,9 +5,9 @@ import Checkbox from '@mui/material/Checkbox';
 import {ListItem} from '@mui/material';
 import {TaskType} from 'features/TodolistList/todolistsApi';
 import {TaskStatuses} from 'common/enum';
-import {EditableSpan} from 'common/components';
+import {EditableSpan} from "common/components/EditableSpan";
 
-export type TaskPropsType = {
+export type PropsType = {
     task: TaskType
     todoListId: string
     changeTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
@@ -18,14 +18,8 @@ export type TaskPropsType = {
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
-export const Task: FC<TaskPropsType> = memo(({
-                                                 task,
-                                                 todoListId,
-                                                 changeTaskTitle,
-                                                 changeTaskStatus,
-                                                 removeTask,
-                                                 disabled
-                                             }) => {
+export const Task: FC<PropsType> = memo((props) => {
+    const {task, todoListId, changeTaskTitle, changeTaskStatus, removeTask, disabled} = props
 
     const removeTaskHandler = () => {
         removeTask(todoListId, task.id)
@@ -51,7 +45,7 @@ export const Task: FC<TaskPropsType> = memo(({
                           checked={task.status === TaskStatuses.Completed}
                           size="small"
                           onChange={changeTaskStatusHandler}/>
-                <EditableSpan oldTitle={task.title}
+                <EditableSpan value={task.title}
                               callBack={changeTaskTitleHandler}
                               disabled={disabled}/>
             </ListItem>

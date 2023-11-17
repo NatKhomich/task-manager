@@ -7,37 +7,42 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {FormControlLabel, FormGroup, Switch} from '@mui/material';
+import {ChangeEvent, FC} from "react";
 
 type PropsType = {
     isDarkLightMode: boolean
-    darkLightMode: (mode: boolean)=> void
-    logOutHandler: () => void
+    darkLightMode: (mode: boolean) => void
+    logOut: () => void
     isLoggedIn: boolean
 }
 
-export function ButtonAppBar(props: PropsType) {
+export const ButtonAppBar: FC<PropsType> = (props) => {
+    const {isDarkLightMode, darkLightMode, logOut, isLoggedIn} = props
+
+    const darkLightModeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        darkLightMode(e.currentTarget.checked)
+    }
+    const darkLight = isDarkLightMode ? "Go to Light" : "Go to Dark"
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         Task_manager
                     </Typography>
                     <FormGroup>
-                        {props.isDarkLightMode ? <FormControlLabel control={<Switch defaultChecked={true} onChange={(e) =>
-                            props.darkLightMode(e.currentTarget.checked)}/>}
-                                                                    label={props.isDarkLightMode ? "Go to Light" : "Go to Dark"}
-                        /> :  <FormControlLabel control={<Switch defaultChecked={false} onChange={(e) =>
-                            props.darkLightMode(e.currentTarget.checked)}/>}
-                                                label={props.isDarkLightMode ? "Go to Light" : "Go to Dark"}
-                        /> }
-
+                        {isDarkLightMode
+                            ?
+                            <FormControlLabel control={<Switch defaultChecked={true} onChange={darkLightModeHandler}/>}
+                                              label={darkLight}
+                            />
+                            :
+                            <FormControlLabel control={<Switch defaultChecked={false} onChange={darkLightModeHandler}/>}
+                                              label={darkLight}
+                            />}
                     </FormGroup>
-                    {props.isLoggedIn && <Button onClick={props.logOutHandler} color="inherit">Logout</Button>}
+                    {isLoggedIn && <Button onClick={logOut} color="inherit">Logout</Button>}
                 </Toolbar>
             </AppBar>
         </Box>

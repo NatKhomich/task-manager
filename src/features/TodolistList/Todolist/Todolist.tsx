@@ -8,7 +8,8 @@ import {Task} from './Task/Task';
 import {FilterValueType, TodolistCommonType} from '../TodolistList';
 import {TaskDomainType} from 'features/TodolistList/todolistsApi';
 import {TaskStatuses} from 'common/enum';
-import {AddItemForm, EditableSpan} from 'common/components';
+import {EditableSpan} from "common/components/EditableSpan";
+import {AddItemForm} from "common/components/AddItemForm";
 
 type TodoListType = {
     todolist: TodolistCommonType
@@ -54,7 +55,7 @@ export const Todolist: FC<TodoListType> = memo((props) => {
         <div style={{maxWidth: '100%', position: 'relative'}}>
             <Typography component={'h5'} variant="h6" align="left" fontWeight="bold"
                         margin="10px 50px 10px 10px" >
-                <EditableSpan oldTitle={props.todolist.title}
+                <EditableSpan value={props.todolist.title}
                               disabled={props.todolist.entityStatus === 'loading'}
                               callBack={changeTodoListTitleHandler}/>
                 <IconButton aria-label="delete"
