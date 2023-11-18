@@ -4,12 +4,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ButtonProps} from '@mui/material/Button/Button';
-import {Task} from './Task/Task';
 import {FilterValueType, TodolistCommonType} from '../TodolistList';
 import {TaskDomainType} from 'features/TodolistList/todolistsApi';
 import {TaskStatuses} from 'common/enum';
 import {EditableSpan} from "common/components/EditableSpan";
 import {AddItemForm} from "common/components/AddItemForm";
+import {Task} from "features/TodolistList/Todolist/Task";
 
 type TodoListType = {
     todolist: TodolistCommonType
