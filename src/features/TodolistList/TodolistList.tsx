@@ -36,18 +36,18 @@ export const TodolistList = () => {
     }, [])
 
     //tasks
-    const removeTask = useCallback((todolistId: string, taskId: string) => {
-        dispatch(tasksThunks.removeTask({todolistId, taskId}))
-    }, [dispatch])
+    // const removeTask = useCallback((todolistId: string, taskId: string) => {
+    //     dispatch(tasksThunks.removeTask({todolistId, taskId}))
+    // }, [dispatch])
     const addTask = useCallback((todolistId: string, title: string) => {
         dispatch(tasksThunks.addTask({todolistId, title}))
     }, [dispatch])
-    const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
-        dispatch(tasksThunks.updateTask({todolistId: todolistId, taskId: taskId, domainModel: {status}}))
-    }, [dispatch])
-    const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
-        dispatch(tasksThunks.updateTask({todolistId: todolistId, taskId: taskId, domainModel: {title}}))
-    }, [dispatch])
+    // const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
+    //     dispatch(tasksThunks.updateTask({todolistId: todolistId, taskId: taskId, domainModel: {status}}))
+    // }, [dispatch])
+    // const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
+    //     dispatch(tasksThunks.updateTask({todolistId: todolistId, taskId: taskId, domainModel: {title}}))
+    // }, [dispatch])
 
     //todoLists
     const removeTodolist = useCallback((todolistId: string) => {
@@ -80,10 +80,6 @@ export const TodolistList = () => {
                                 <Todolist
                                     todolist={el}
                                     tasks={tasks[el.id]}
-
-                                    removeTask={removeTask}
-                                    changeTaskStatus={changeTaskStatus}
-                                    changeTaskTitle={changeTaskTitle}
                                     addTask={addTask}
 
                                     removeTodoList={removeTodolist}

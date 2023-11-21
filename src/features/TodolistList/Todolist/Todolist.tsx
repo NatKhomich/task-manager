@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import {ButtonProps} from '@mui/material/Button/Button';
 import {FilterValueType, TodolistCommonType} from '../TodolistList';
 import {TaskDomainType} from 'features/TodolistList/todolistsApi';
-import {TaskStatuses} from 'common/enum';
 import {EditableSpan} from "common/components/EditableSpan";
 import {AddItemForm} from "common/components/AddItemForm";
 import {Task} from "features/TodolistList/Todolist/Task";
@@ -15,11 +14,8 @@ type TodoListType = {
     todolist: TodolistCommonType
     tasks: TaskDomainType[]
 
-    removeTask: (todoListID: string, taskID: string) => void
-    changeTaskStatus: (todoListID: string, taskID: string, status: TaskStatuses) => void
     changeTodoListFilter: (todoListID: string, filterValue: FilterValueType) => void
     addTask: (todoListsID: string, title: string) => void
-    changeTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
 
     removeTodoList: (todoListID: string) => void
     changeTodoListTitle: (todoListID: string, newTitle: string) => void
@@ -72,10 +68,6 @@ export const Todolist: FC<TodoListType> = memo((props) => {
                     return (
                         <Task key={el.id}
                               task={el}
-                              todoListId={props.todolist.id}
-                              changeTaskStatus={props.changeTaskStatus}
-                              removeTask={props.removeTask}
-                              changeTaskTitle={props.changeTaskTitle}
                               disabled={el.entityStatus === 'loading'}
                         />
                     )

@@ -6,37 +6,43 @@ import {ListItem} from '@mui/material';
 import {TaskType} from 'features/TodolistList/todolistsApi';
 import {TaskStatuses} from 'common/enum';
 import {EditableSpan} from "common/components/EditableSpan";
+import {useAppDispatch} from "app/store";
+import {tasksThunks} from "features/TodolistList/tasksReducer";
 
 export type PropsType = {
     task: TaskType
-    todoListId: string
-    changeTaskTitle: (todoListID: string, taskID: string, newTitle: string) => void
-    changeTaskStatus: (todoListID: string, taskID: string, status: TaskStatuses) => void
-    removeTask: (todolistID: string, taskID: string) => void
     disabled: boolean
 }
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
 export const Task: FC<PropsType> = memo((props) => {
-    const {task, todoListId, changeTaskTitle, changeTaskStatus, removeTask, disabled} = props
+    const {task, disabled} = props
 
-    const removeTaskHandler = () => {
-        removeTask(todoListId, task.id)
-    }
-    const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        changeTaskStatus(todoListId, task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)
-    }
-    const changeTaskTitleHandler = useCallback((newTitle: string) => {
-        changeTaskTitle(todoListId,task.id, newTitle)
-    }, [changeTaskTitle, task.id])
+    const dispatch = useAppDispatch()
+
+    const removeTask = useCallback(() => {
+        dispatch(tasksThunks.removeTask({todolistId: task.todoListId, taskId: task.id}))
+    }, [])
+
+    const changeTaskStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
+        dispatch(tasksThunks.updateTask({
+            todolistId: task.todoListId, taskId: task.id,
+            domainModel: {status}
+        }))
+    }, [])
+
+    const changeTaskTitle = useCallback((title: string) => {
+        dispatch(tasksThunks.updateTask({todolistId: task.todoListId, taskId: task.id, domainModel: {title}}))
+    }, [])
 
     return (
         <div>
             <ListItem style={{padding: '3px', marginRight: '20px'}}
                       className={task.status ? 'is-done' : ''}
                       secondaryAction={
-                          <IconButton aria-label="delete" onClick={removeTaskHandler} disabled={disabled}>
+                          <IconButton aria-label="delete" onClick={removeTask} disabled={disabled}>
                               <DeleteIcon fontSize="small"/>
                           </IconButton>
                       }
@@ -44,9 +50,9 @@ export const Task: FC<PropsType> = memo((props) => {
                 <Checkbox {...label}
                           checked={task.status === TaskStatuses.Completed}
                           size="small"
-                          onChange={changeTaskStatusHandler}/>
+                          onChange={changeTaskStatus}/>
                 <EditableSpan value={task.title}
-                              callBack={changeTaskTitleHandler}
+                              callBack={changeTaskTitle}
                               disabled={disabled}/>
             </ListItem>
         </div>
