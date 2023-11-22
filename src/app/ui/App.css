@@ -1,0 +1,9 @@
+.is-done {
+   opacity: 0.5;
+
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-around;
+}

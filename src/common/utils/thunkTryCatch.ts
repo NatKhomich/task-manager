@@ -1,9 +1,9 @@
-import {AppRootStateType } from 'app/store';
+import {AppRootStateType } from 'app/model/store';
 import { BaseThunkAPI } from '@reduxjs/toolkit/dist/createAsyncThunk';
 import { BaseResponseType} from 'common/types';
 import {Dispatch} from "redux";
 import {handleServerNetworkError} from "common/utils/handleServerNetworkError";
-import {appActions} from "app/appReducer";
+import {appActions} from "app/model/appSlice";
 
 /**
  * A utility function for handling asynchronous logic within Redux thunks, incorporating a try-catch mechanism.

@@ -61,5 +61,8 @@
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
     }
+  },
+  "devDependencies": {
+    "prettier": "3.1.0"
   }
 }

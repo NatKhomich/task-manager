@@ -1,6 +1,6 @@
 import axios from "axios";
-import {AppDispatchType} from "app/store";
-import {appActions} from "app/appReducer";
+import {AppDispatchType} from "app/model/store";
+import {appActions} from "app/model/appSlice";
 
 /**
  * Handles network errors occurring during server interactions.
