@@ -19,11 +19,11 @@ export const useTodolistList = () => {
     dispatch(todolistsThunks.fetchTodolists())
   }, [])
 
-  const addTodolist = useCallback((title: string) => {
-    dispatch(todolistsThunks.addTodolist(title))
+  const addTodolistCallback = useCallback((title: string) => {
+   return dispatch(todolistsThunks.addTodolist(title)).unwrap()
   }, [dispatch])
 
   return {
-    todolists, tasks, addTodolist, isLoggedIn
+    todolists, tasks, addTodolistCallback, isLoggedIn
   }
 }

@@ -2,9 +2,10 @@ import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import styles from "./AddItemForm.module.css";
+import { BaseResponseType } from "common/types"
 
 type Props = {
-    addItem: (title: string) => void
+    addItem: (title: string) => Promise<unknown>
     disabled?: boolean
 }
 
@@ -20,7 +21,12 @@ export const AddItemForm = memo(({addItem, disabled}: Props) => {
     const addItemHandler = () => {
         if (title.trim() !== '') {
             addItem(title.trim())
-            setTitle('')
+              .then(() => {
+                  setTitle('')
+              })
+              .catch((err: BaseResponseType) => {
+                  setError(err.messages[0])
+              })
         } else {
             setError('Title is required')
         }
@@ -36,7 +42,7 @@ export const AddItemForm = memo(({addItem, disabled}: Props) => {
 
     return (
         <div>
-            <TextField label={error ? 'Title is required' : 'Type out something'}
+            <TextField label={error ? 'Error' : 'Type out something'}
                        variant="outlined"
                        size="small"
                        error={!!error}
@@ -52,6 +58,7 @@ export const AddItemForm = memo(({addItem, disabled}: Props) => {
                     onClick={addItemHandler}>
                 +
             </Button>
+            {error && <div className={styles.error}>{error}</div>}
         </div>
     );
 })

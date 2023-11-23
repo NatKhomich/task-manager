@@ -5,3 +5,8 @@
     max-height: 39px;
     margin-left: 3px;
 }
+
+.error {
+    color: red;
+    font-size: 14px;
+}

@@ -114,8 +114,8 @@ const addTask = createAppAsyncThunk<
         if (res.data.resultCode === ResultCodeStatuses.succeeded) {
             return {task: res.data.data.item}
         } else {
-            handleServerAppError(res.data, dispatch)
-            return rejectWithValue(null);
+            handleServerAppError(res.data, dispatch, false)
+            return rejectWithValue(res.data)
         }
     })
 })

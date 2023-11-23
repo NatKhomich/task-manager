@@ -5,7 +5,7 @@ import {
     todolistsThunks
 } from 'features/TodolistList/model/todolists/todolistsSlice';
 import {v1} from 'uuid';
-import {FilterValueType} from 'features/TodolistList/ui/TodolistList';
+import { FilterValueType } from "features/TodolistList/ui/Todolist/FilterTasksButtons/FilterTasksButtons"
 
 
 let todolistId1: string

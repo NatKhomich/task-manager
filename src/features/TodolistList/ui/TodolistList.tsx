@@ -7,10 +7,9 @@ import { AddItemForm } from "common/components/AddItemForm"
 import { Todolist } from "features/TodolistList/ui/Todolist"
 import { useTodolistList } from "features/TodolistList/lib/useTodolistList"
 
-
 export const TodolistList = () => {
 
-  const { addTodolist, todolists, tasks, isLoggedIn } = useTodolistList()
+  const { addTodolistCallback, todolists, tasks, isLoggedIn } = useTodolistList()
 
   if (!isLoggedIn) {
     return <Navigate to={"/login"} />
@@ -18,14 +17,14 @@ export const TodolistList = () => {
 
   return (
     <Container fixed maxWidth="xl" className="container">
-      <Grid container style={{ padding: "20px 0" }}>
-        <AddItemForm addItem={addTodolist} />
+      <Grid container sx={{ padding: "20px 0" }}>
+        <AddItemForm addItem={addTodolistCallback} />
       </Grid>
       <Grid container spacing={6}>
         {todolists.map(el => {
           return (
-            <Grid item key={el.id} style={{ width: "400px" }}>
-              <Paper elevation={4} style={{ padding: "15px" }}>
+            <Grid item key={el.id} sx={{ width: "400px" }}>
+              <Paper elevation={4} sx={{ padding: "15px" }}>
                 <Todolist
                   todolist={el}
                   tasks={tasks[el.id]}

@@ -26,7 +26,6 @@ function App() {
   return (
     <ThemeProvider theme={customTheme}>
       <CssBaseline></CssBaseline>
-
         <Header isDarkLightMode={isDarkLightMode}
                 isLoggedIn={isLoggedIn}
         />

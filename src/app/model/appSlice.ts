@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export const loadDarkLightModeFromLocalStorage = (): boolean => {
     const storedMode = localStorage.getItem('darkLightMode');
@@ -28,7 +28,15 @@ const slice = createSlice({
         setAppInitialized: (state, action: PayloadAction<{isInitialized: boolean}>) => {
             state.isInitialized = action.payload.isInitialized
         }
-    }
+    },
+    // extraReducers: builder => {
+    //     builder.addMatcher((action: AnyAction) => {
+    //         console.log('addMatcher predicate', action.type)
+    //         return true
+    //     }, (state, action) => {
+    //         console.log('addMatcher reducer', action.type)
+    //     })
+    // }
 })
 
 

@@ -7,6 +7,7 @@ import { FilterTasksButtons } from "features/TodolistList/ui/Todolist/FilterTask
 import { tasksThunks } from "features/TodolistList/model/tasks/tasksSlice"
 import { useAppDispatch } from "app/model/store"
 import { TodolistCommonType } from "features/TodolistList/model/todolists/todolistsSlice"
+import style from './Todolist.module.css'
 
 type Props = {
   todolist: TodolistCommonType
@@ -18,11 +19,11 @@ export const Todolist = memo(({todolist, tasks}: Props) => {
   const dispatch = useAppDispatch()
 
   const addTaskHandler = useCallback((title: string) => {
-    dispatch(tasksThunks.addTask({todolistId: todolist.id, title}))
+   return dispatch(tasksThunks.addTask({todolistId: todolist.id, title})).unwrap()
   }, [dispatch])
 
   return (
-    <div style={{ maxWidth: "100%", position: "relative" }}>
+    <div className={style.root}>
       <TodolistTitle todolist={todolist} />
       <AddItemForm addItem={addTaskHandler} disabled={todolist.entityStatus === "loading"} />
       <Tasks tasks={tasks} todolist={todolist} />

@@ -9,46 +9,6 @@ import { thunkTryCatch } from "common/utils/thunkTryCatch"
 import { TodolistType } from "features/TodolistList/api/todolists/types"
 import { FilterValueType } from "features/TodolistList/ui/Todolist/FilterTasksButtons/FilterTasksButtons"
 
-
-const slice = createSlice({
-  name: "todolists",
-  initialState: [] as TodolistCommonType[],
-  reducers: {
-    changeTodoListFilter: (state, action: PayloadAction<{ todolistId: string, filter: FilterValueType }>) => {
-      const todo = state.find((todo) => todo.id === action.payload.todolistId)
-      if (todo) todo.filter = action.payload.filter
-    },
-    changeTodoListEntityStatus: (state, action: PayloadAction<{
-      todolistId: string,
-      entityStatus: RequestStatus
-    }>) => {
-      const todo = state.find((todo) => todo.id === action.payload.todolistId)
-      if (todo) todo.entityStatus = action.payload.entityStatus
-    },
-    clearTodolistsData: () => {
-      return []
-    }
-  },
-  extraReducers: builder => {
-    builder
-      .addCase(fetchTodolists.fulfilled, (state, action) => {
-        action.payload.todolists.forEach(tl => state.push({ ...tl, filter: "all", entityStatus: "idle" }))
-      })
-      .addCase(removeTodolist.fulfilled, (state, action) => {
-        const index = state.findIndex(el => el.id === action.payload.todolistId)
-        if (index > -1) state.splice(index, 1)
-      })
-      .addCase(addTodolist.fulfilled, (state, action) => {
-        const newTodo: TodolistCommonType = { ...action.payload.todolist, filter: "all", entityStatus: "idle" }
-        state.unshift(newTodo)
-      })
-      .addCase(updateTodolistTitle.fulfilled, (state, action) => {
-        const todo = state.find((todo) => todo.id === action.payload.todolistId)
-        if (todo) todo.title = action.payload.title
-      })
-  }
-})
-
 const fetchTodolists = createAppAsyncThunk<
   { todolists: TodolistType[] }
 >(`todolists/fetchTodolists`, async (_, thunkAPI) => {
@@ -92,8 +52,8 @@ const addTodolist = createAppAsyncThunk<
     if (res.data.resultCode === ResultCodeStatuses.succeeded) {
       return { todolist: res.data.data.item }
     } else {
-      handleServerAppError(res.data, dispatch)
-      return rejectWithValue(null)
+      handleServerAppError(res.data, dispatch, false)
+      return rejectWithValue(res.data)
     }
   })
 })
@@ -121,6 +81,44 @@ const updateTodolistTitle = createAppAsyncThunk<
     })
 })
 
+const slice = createSlice({
+  name: "todolists",
+  initialState: [] as TodolistCommonType[],
+  reducers: {
+    changeTodoListFilter: (state, action: PayloadAction<{ todolistId: string, filter: FilterValueType }>) => {
+      const todo = state.find((todo) => todo.id === action.payload.todolistId)
+      if (todo) todo.filter = action.payload.filter
+    },
+    changeTodoListEntityStatus: (state, action: PayloadAction<{
+      todolistId: string,
+      entityStatus: RequestStatus
+    }>) => {
+      const todo = state.find((todo) => todo.id === action.payload.todolistId)
+      if (todo) todo.entityStatus = action.payload.entityStatus
+    },
+    clearTodolistsData: () => {
+      return []
+    }
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchTodolists.fulfilled, (state, action) => {
+        action.payload.todolists.forEach(tl => state.push({ ...tl, filter: "all", entityStatus: "idle" }))
+      })
+      .addCase(removeTodolist.fulfilled, (state, action) => {
+        const index = state.findIndex(el => el.id === action.payload.todolistId)
+        if (index > -1) state.splice(index, 1)
+      })
+      .addCase(addTodolist.fulfilled, (state, action) => {
+        const newTodo: TodolistCommonType = { ...action.payload.todolist, filter: "all", entityStatus: "idle" }
+        state.unshift(newTodo)
+      })
+      .addCase(updateTodolistTitle.fulfilled, (state, action) => {
+        const todo = state.find((todo) => todo.id === action.payload.todolistId)
+        if (todo) todo.title = action.payload.title
+      })
+  }
+})
 
 export const todolistsSlice = slice.reducer
 export const todolistsActions = slice.actions
