@@ -1,24 +1,22 @@
-import React, {ChangeEvent, FC, KeyboardEvent, memo, useState} from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import styles from './AddItemForm.module.css'
+import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import styles from "./AddItemForm.module.css";
 
-type PropsType = {
+type Props = {
     addItem: (title: string) => void
     disabled?: boolean
 }
 
-export const AddItemForm: FC<PropsType> = memo((props) => {
-    const {addItem, disabled} = props
+export const AddItemForm = memo(({addItem, disabled}: Props) => {
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
-    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    const changeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
         setError(null)
     }
-
     const addItemHandler = () => {
         if (title.trim() !== '') {
             addItem(title.trim())
@@ -27,8 +25,7 @@ export const AddItemForm: FC<PropsType> = memo((props) => {
             setError('Title is required')
         }
     }
-
-    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (error !== null) {
             return setError(null)
         }
@@ -44,8 +41,8 @@ export const AddItemForm: FC<PropsType> = memo((props) => {
                        size="small"
                        error={!!error}
                        value={title}
-                       onChange={onChangeTitle}
-                       onKeyDown={onKeyDownHandler}
+                       onChange={changeTitleHandler}
+                       onKeyDown={keyDownHandler}
                        disabled={disabled}
                        type="search"/>
 

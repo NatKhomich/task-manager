@@ -1,5 +1,5 @@
 import axios from "axios";
-import {AppDispatchType} from "app/model/store";
+import {AppDispatch} from "app/model/store";
 import {appActions} from "app/model/appSlice";
 
 /**
@@ -9,7 +9,7 @@ import {appActions} from "app/model/appSlice";
  * @returns void
  */
 
-export const handleServerNetworkError = (err: unknown, dispatch: AppDispatchType):void => {
+export const handleServerNetworkError = (err: unknown, dispatch: AppDispatch):void => {
     let errorMessage = "Some error occurred";
     if (axios.isAxiosError(err)) {
         errorMessage = err.response?.data?.message || err?.message || errorMessage;

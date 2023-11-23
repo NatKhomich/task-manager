@@ -1,9 +1,14 @@
-.is-done {
-   opacity: 0.5;
-
-}
-
 .btn-container {
     display: flex;
     justify-content: space-around;
 }
+
+/*.circularProgress{*/
+/*    position: fixed;*/
+/*    top: 30%;*/
+/*    text-align: center;*/
+/*    width: 100%;*/
+/*}*/
+
+
+/*position: 'fixed', top: '30%', textAlign: 'center', width: '100%'*/

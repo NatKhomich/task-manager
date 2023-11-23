@@ -12,8 +12,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <BrowserRouter basename={"/task-manager"}>
+    <BrowserRouter >
       <App />
     </BrowserRouter>
   </Provider>
 );
+
+{/*basename={"/task-manager"}*/}

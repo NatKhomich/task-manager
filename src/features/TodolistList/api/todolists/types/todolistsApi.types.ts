@@ -1,4 +1,4 @@
-import { RequestStatusType } from "app/model/appSlice";
+import { RequestStatus } from "app/model/appSlice";
 import { TaskPriorities, TaskStatuses } from "common/enum";
 
 export type TodolistType = {
@@ -9,7 +9,7 @@ export type TodolistType = {
 }
 
 export type TaskDomainType = TaskType & {
-  entityStatus: RequestStatusType
+  entityStatus: RequestStatus
 }
 
 export type TaskType = {

@@ -1,7 +1,7 @@
-import {appActions, AppInitialStateType, appSlice} from 'app/model/appSlice';
+import {appActions, AppInitialState, appSlice} from 'app/model/appSlice';
 
 
-let startState: AppInitialStateType;
+let startState: AppInitialState;
 
 beforeEach(() => {
     startState = {

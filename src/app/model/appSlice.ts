@@ -9,13 +9,13 @@ export const loadDarkLightModeFromLocalStorage = (): boolean => {
 const slice = createSlice({
     name: 'app',
     initialState: {
-        status: 'idle' as RequestStatusType,
+        status: 'idle' as RequestStatus,
         error: null as null | string,
         isDarkLightMode: loadDarkLightModeFromLocalStorage(),
         isInitialized: false
     },
     reducers: {
-        setAppStatus: (state, action: PayloadAction<{status: RequestStatusType}>) => {
+        setAppStatus: (state, action: PayloadAction<{status: RequestStatus}>) => {
             state.status = action.payload.status
         },
         setAppError: (state, action: PayloadAction<{error: string | null}>) => {
@@ -36,7 +36,7 @@ export const appSlice = slice.reducer
 export const appActions = slice.actions
 
 //types
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-export type AppInitialStateType = ReturnType<typeof slice.getInitialState>
+export type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type AppInitialState = ReturnType<typeof slice.getInitialState>
 
 

@@ -1,5 +1,5 @@
-import { TaskPriorities, TaskStatuses } from "common/enum";
-import { TaskType } from "features/TodolistList/api/todolists/types";
+import { TaskType } from "features/TodolistList/api/todolists/types"
+import { TaskPriorities, TaskStatuses } from "common/enum"
 
 export type TasksResponseType = {
   items: TaskType[]
@@ -7,11 +7,13 @@ export type TasksResponseType = {
   error: string | null
 }
 
-export type UpdateTaskModelType = {
-  title: string
-  description: string
-  status: TaskStatuses
-  priority: TaskPriorities
-  startDate: string
-  deadline: string
+export type UpdateDomainTaskModelType = {
+  title?: string
+  description?: string
+  status?: TaskStatuses
+  priority?: TaskPriorities
+  startDate?: string
+  deadline?: string
+  completed?: boolean
 }
+export type UpdateTaskModelType = Required<Omit<UpdateDomainTaskModelType, 'completed'>>

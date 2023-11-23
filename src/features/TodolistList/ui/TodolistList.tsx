@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { Navigate } from "react-router-dom";
-import { RequestStatusType } from "app/model/appSlice";
+import { RequestStatus } from "app/model/appSlice";
 import { useAppDispatch, useAppSelector } from "app/model/store";
 import { selectTodolists } from "features/TodolistList/model/todolists/todolistSelectors";
 import { selectTasks } from "features/TodolistList/model/tasks/tasksSelectors";
@@ -16,7 +16,7 @@ import { TodolistType } from "features/TodolistList/api/todolists/types";
 
 export type TodolistCommonType = TodolistType & {
     filter: FilterValueType
-    entityStatus: RequestStatusType
+    entityStatus: RequestStatus
 }
 export type FilterValueType = 'all' | 'active' | 'completed'
 
@@ -34,19 +34,9 @@ export const TodolistList = () => {
         dispatch(todolistsThunks.fetchTodolists())
     }, [])
 
-    //tasks
-    // const removeTask = useCallback((todolistId: string, taskId: string) => {
-    //     dispatch(tasksThunks.removeTask({todolistId, taskId}))
-    // }, [dispatch])
     const addTask = useCallback((todolistId: string, title: string) => {
         dispatch(tasksThunks.addTask({todolistId, title}))
     }, [dispatch])
-    // const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
-    //     dispatch(tasksThunks.updateTask({todolistId: todolistId, taskId: taskId, domainModel: {status}}))
-    // }, [dispatch])
-    // const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
-    //     dispatch(tasksThunks.updateTask({todolistId: todolistId, taskId: taskId, domainModel: {title}}))
-    // }, [dispatch])
 
     //todoLists
     const removeTodolist = useCallback((todolistId: string) => {

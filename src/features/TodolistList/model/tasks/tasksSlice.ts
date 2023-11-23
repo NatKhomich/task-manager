@@ -1,13 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RequestStatusType } from "app/model/appSlice";
-import { todolistsActions, todolistsThunks } from "features/TodolistList/model/todolists/todolistsSlice";
-import { ResultCodeStatuses, TaskPriorities, TaskStatuses } from "common/enum";
-import { handleServerAppError } from "common/utils";
-import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk";
-import { thunkTryCatch } from "common/utils/thunkTryCatch";
-import { tasksApi } from "features/TodolistList/api/tasks/tasksApi";
-import { UpdateTaskModelType } from "features/TodolistList/api/tasks/types";
-import { TaskDomainType, TaskType } from "features/TodolistList/api/todolists/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { RequestStatus } from "app/model/appSlice"
+import { todolistsActions, todolistsThunks } from "features/TodolistList/model/todolists/todolistsSlice"
+import { ResultCodeStatuses } from "common/enum"
+import { handleServerAppError } from "common/utils"
+import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
+import { thunkTryCatch } from "common/utils/thunkTryCatch"
+import { tasksApi } from "features/TodolistList/api/tasks/tasksApi"
+import { TaskDomainType, TaskType } from "features/TodolistList/api/todolists/types"
+import { UpdateDomainTaskModelType, UpdateTaskModelType } from "features/TodolistList/api/tasks/types"
 
 
 const slice = createSlice({
@@ -17,7 +17,7 @@ const slice = createSlice({
         changeTaskEntityStatus: (state, action: PayloadAction<{
             todolistId: string,
             taskId: string,
-            entityStatus: RequestStatusType
+            entityStatus: RequestStatus
         }>) => {
             const tasksCurrentTodo = state[action.payload.todolistId]
             const index = tasksCurrentTodo.findIndex(t => t.id === action.payload.taskId)
@@ -173,27 +173,6 @@ export const tasksActions = slice.actions
 export const tasksThunks = {fetchTasks, removeTask, addTask, updateTask}
 
 //types
-export type ErrorType = {
-    statusCode: number
-    messages: [{
-        message: string
-        field: string
-    }],
-    error: string
-}
-
-export type UpdateDomainTaskModelType = {
-    title?: string
-    description?: string
-    status?: TaskStatuses
-    priority?: TaskPriorities
-    startDate?: string
-    deadline?: string
-    completed?: boolean
-}
-
-export type TasksStateType = {
-    [key: string]: TaskDomainType[]
-}
+export type TasksStateType = Record<string, TaskDomainType[]>
 
 export type TasksInitialStateType = ReturnType<typeof slice.getInitialState>

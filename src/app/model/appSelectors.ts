@@ -1,8 +1,8 @@
-import {AppRootStateType} from 'app/model/store';
+import {AppRootState} from 'app/model/store';
 
 
-export const selectAppStatus = (state: AppRootStateType) => state.app.status
-export const selectAppIsDarkMode = (state: AppRootStateType) => state.app.isDarkLightMode
-export const selectSetAppInitialized = (state: AppRootStateType) => state.app.isInitialized
-export const selectSetAppError = (state: AppRootStateType) => state.app.error
+export const selectAppStatus = (state: AppRootState) => state.app.status
+export const selectAppIsDarkMode = (state: AppRootState) => state.app.isDarkLightMode
+export const selectSetAppInitialized = (state: AppRootState) => state.app.isInitialized
+export const selectSetAppError = (state: AppRootState) => state.app.error
 
