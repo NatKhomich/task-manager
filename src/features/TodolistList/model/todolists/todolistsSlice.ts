@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { FilterValueType, TodolistCommonType } from "features/TodolistList/ui/TodolistList"
 import { todolistsApi } from "features/TodolistList/api/todolists/todolistsApi"
 import { RequestStatus } from "app/model/appSlice"
 import { tasksThunks } from "features/TodolistList/model/tasks/tasksSlice"
@@ -8,6 +7,7 @@ import { handleServerAppError } from "common/utils"
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
 import { thunkTryCatch } from "common/utils/thunkTryCatch"
 import { TodolistType } from "features/TodolistList/api/todolists/types"
+import { FilterValueType } from "features/TodolistList/ui/Todolist/FilterTasksButtons/FilterTasksButtons"
 
 
 const slice = createSlice({
@@ -127,3 +127,8 @@ export const todolistsActions = slice.actions
 export const todolistsThunks = { fetchTodolists, removeTodolist, addTodolist, updateTodolistTitle }
 
 export type TodolistsInitialStateType = ReturnType<typeof slice.getInitialState>
+
+export type TodolistCommonType = TodolistType & {
+  filter: FilterValueType
+  entityStatus: RequestStatus
+}

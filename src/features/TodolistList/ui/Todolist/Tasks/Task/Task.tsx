@@ -8,7 +8,7 @@ import { EditableSpan } from "common/components/EditableSpan"
 import { useAppDispatch } from "app/model/store"
 import { tasksThunks } from "features/TodolistList/model/tasks/tasksSlice"
 import { TaskType } from "features/TodolistList/api/todolists/types"
-import styles from './Task.module.css'
+import styles from 'features/TodolistList/ui/Todolist/Tasks/Task/Task.module.css'
 
 export type Props = {
   task: TaskType
