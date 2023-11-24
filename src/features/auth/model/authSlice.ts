@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, isAnyOf } from "@reduxjs/toolkit"
 import { appActions } from "app/model/appSlice"
 import { authAPI } from "features/auth/api/authApi"
 import { ResultCodeStatuses } from "common/enum"
@@ -16,13 +16,9 @@ const slice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(login.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn
-      })
-      .addCase(logout.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn
-      })
-      .addCase(initializeApp.fulfilled, (state, action) => {
+      .addMatcher(
+        isAnyOf(authThunks.login.fulfilled, authThunks.logout.fulfilled, authThunks.initializeApp.fulfilled),
+        (state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn
       })
   }

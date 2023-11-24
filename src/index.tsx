@@ -17,5 +17,3 @@ root.render(
     </BrowserRouter>
   </Provider>
 );
-
-{/*basename={"/task-manager"}*/}
