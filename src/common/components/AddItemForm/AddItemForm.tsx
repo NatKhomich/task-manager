@@ -25,7 +25,9 @@ export const AddItemForm = memo(({addItem, disabled}: Props) => {
                   setTitle('')
               })
               .catch((err: BaseResponseType) => {
-                  setError(err.messages[0])
+                  if (err?.resultCode) {
+                      setError(err.messages[0]);
+                  }
               })
         } else {
             setError('Title is required')

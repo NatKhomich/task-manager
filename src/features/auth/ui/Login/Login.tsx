@@ -52,7 +52,11 @@ export const Login = () => {
                               control={<Checkbox />}
                               {...formik.getFieldProps("rememberMe")}
             />
-            <Button type={"submit"} variant={"contained"} color={"primary"}>
+            <Button type={"submit"}
+                    variant={"contained"}
+                    color={"primary"}
+                    disabled={!(formik.isValid && formik.dirty)}
+            >
               Login
             </Button>
           </FormGroup>

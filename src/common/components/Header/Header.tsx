@@ -1,14 +1,16 @@
-import * as React from "react";
-import { ChangeEvent } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { FormControlLabel, FormGroup, Switch } from "@mui/material";
-import { useAppDispatch } from "app/model/store";
-import { appActions } from "app/model/appSlice";
-import { authThunks } from "features/auth/model/authSlice";
+import * as React from "react"
+import { ChangeEvent } from "react"
+import AppBar from "@mui/material/AppBar"
+import Box from "@mui/material/Box"
+import Toolbar from "@mui/material/Toolbar"
+import Typography from "@mui/material/Typography"
+import Button from "@mui/material/Button"
+import { FormControlLabel, FormGroup, Switch } from "@mui/material"
+import { useAppDispatch } from "app/model/store"
+import { appActions } from "app/model/appSlice"
+import { authThunks } from "features/auth/model/authSlice"
+import { NavLink } from "react-router-dom"
+import styles from './Header.module.css'
 
 type Props = {
   isDarkLightMode: boolean
@@ -20,11 +22,11 @@ export const Header = ({ isLoggedIn, isDarkLightMode }: Props) => {
   const dispatch = useAppDispatch()
 
   const darkLightMode = (mode: boolean) => {
-    dispatch(appActions.darkLightAppMode({mode}))
+    dispatch(appActions.darkLightAppMode({ mode }))
   }
   const darkLightModeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    darkLightMode(e.currentTarget.checked);
-  };
+    darkLightMode(e.currentTarget.checked)
+  }
   const logOutHandler = () => {
     dispatch(authThunks.logout())
   }
@@ -34,7 +36,7 @@ export const Header = ({ isLoggedIn, isDarkLightMode }: Props) => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Task_manager
+            <NavLink className={styles.navLink} to={"/"}>Task_manager</NavLink>
           </Typography>
           <FormGroup>
             <FormControlLabel
@@ -46,5 +48,5 @@ export const Header = ({ isLoggedIn, isDarkLightMode }: Props) => {
         </Toolbar>
       </AppBar>
     </Box>
-  );
+  )
 }

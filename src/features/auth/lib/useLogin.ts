@@ -1,13 +1,17 @@
 import { useAppDispatch, useAppSelector } from "app/model/store"
-import { useFormik } from "formik"
+import { FormikHelpers, useFormik } from "formik"
 import { authThunks } from "features/auth/model/authSlice"
 import { selectAuthIsLoggedIn } from "features/auth/model/authSelectors"
+import { BaseResponseType } from "common/types"
 
-type FormikErrorType = {
-  email?: string
-  password?: string
-  rememberMe?: boolean
-}
+export type LoginParamsType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha?: string;
+};
+export type FormikErrorType = Partial<Omit<LoginParamsType, 'captcha'>>
+
 export const useLogin = () => {
 
   const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
@@ -39,8 +43,14 @@ export const useLogin = () => {
       }
       return errors
     },
-    onSubmit: values => {
+    onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
       dispatch(authThunks.login(values))
+        .unwrap()
+        .catch((reason: BaseResponseType) => {
+          reason.fieldsErrors?.forEach((fieldError) => {
+            formikHelpers.setFieldError(fieldError.field, fieldError.error);
+          });
+        });
     }
   })
 

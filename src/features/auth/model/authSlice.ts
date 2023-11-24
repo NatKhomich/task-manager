@@ -17,7 +17,9 @@ const slice = createSlice({
   extraReducers: builder => {
     builder
       .addMatcher(
-        isAnyOf(authThunks.login.fulfilled, authThunks.logout.fulfilled, authThunks.initializeApp.fulfilled),
+        isAnyOf(authThunks.login.fulfilled,
+          authThunks.logout.fulfilled,
+          authThunks.initializeApp.fulfilled),
         (state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn
       })
@@ -29,21 +31,13 @@ const login = createAppAsyncThunk<
   LoginDataType
 >("auth/login", async (arg, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
-  try {
-    dispatch(appActions.setAppStatus({ status: "loading" }))
     const res = await authAPI.login(arg)
     if (res.data.resultCode === ResultCodeStatuses.succeeded) {
-      dispatch(appActions.setAppStatus({ status: "succeeded" }))
       return { isLoggedIn: true }
     } else {
-      handleServerAppError(res.data, dispatch)
-      return rejectWithValue(null)
+      // handleServerAppError(res.data, dispatch)
+      return rejectWithValue(res.data)
     }
-  } catch (error) {
-    handleServerNetworkError(error, dispatch)
-    return rejectWithValue(null)
-  }
-
 })
 
 const logout = createAppAsyncThunk<
@@ -74,22 +68,15 @@ const initializeApp = createAppAsyncThunk<
   undefined
 >("auth/initializeApp", async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
-  try {
-    dispatch(appActions.setAppStatus({ status: "loading" }))
     const res = await authAPI.me()
+    //   .finally(() => {
+    //   dispatch(appActions.setAppInitialized({ isInitialized: true }))
+    // })
     if (res.data.resultCode === ResultCodeStatuses.succeeded) {
-      dispatch(appActions.setAppStatus({ status: "succeeded" }))
       return { isLoggedIn: true }
     } else {
-      dispatch(appActions.setAppStatus({ status: "failed" }))
-      return rejectWithValue(null)
+      return rejectWithValue(res.data)
     }
-  } catch (error) {
-    handleServerNetworkError(error, dispatch)
-    return rejectWithValue(null)
-  } finally {
-    dispatch(appActions.setAppInitialized({ isInitialized: true }))
-  }
 })
 
 export const authSlice = slice.reducer

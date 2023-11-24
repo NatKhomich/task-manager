@@ -1,4 +1,6 @@
-import { createSlice, isFulfilled, isPending, isRejected, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, isAnyOf, isFulfilled, isPending, isRejected, PayloadAction } from "@reduxjs/toolkit"
+import { AnyAction } from "redux"
+import { authThunks } from "features/auth/model/authSlice"
 
 export const loadDarkLightModeFromLocalStorage = (): boolean => {
   const storedMode = localStorage.getItem("darkLightMode")
@@ -34,18 +36,33 @@ const slice = createSlice({
       .addMatcher(
         isPending,
         (state) => {
-        state.status = "loading"
-      })
+          state.status = "loading"
+        })
       .addMatcher(
         isRejected,
-        (state) => {
+        (state, action: AnyAction) => {
           state.status = "failed"
-      })
+          if (action.payload) {
+            if (action.type.includes("addTodolist")) return;
+            if (action.type.includes("addTask")) return;
+            if (action.type.includes("initializeApp")) return;
+            state.error = action.payload.messages[0]
+          } else {
+            state.error = action.error.message
+              ? action.error.message
+              : "Some error occurred"
+          }
+        })
       .addMatcher(
         isFulfilled,
         (state) => {
           state.status = "succeeded"
-      })
+        })
+      .addMatcher(
+        isAnyOf(authThunks.initializeApp.fulfilled, authThunks.initializeApp.rejected),
+        (state, action) => {
+          state.isInitialized = true
+        })
   }
 })
 
