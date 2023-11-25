@@ -14,7 +14,7 @@ export enum TaskStatuses {
 }
 
 export enum ResultCodeStatuses {
-    succeeded,
-    error,
-    captcha_error = 10
+    Succeeded,
+    Error,
+    Captcha_error = 10
 }

@@ -5,13 +5,14 @@ let startState: AuthStateType
 
 beforeEach(() => {
   startState = {
-    isLoggedIn: false
+    isLoggedIn: false,
+    captchaUrl: null
   }
 })
 
 test("correct login should be set", () => {
   const endState = authSlice(startState, authThunks.login.fulfilled(
-    {isLoggedIn: true}, 'requestId', {email: '', password: '', rememberMe: false}))
+    {isLoggedIn: true}, 'requestId', {email: '', password: '', rememberMe: false, captcha: false}))
 
   expect(endState.isLoggedIn).toBe(true)
 })

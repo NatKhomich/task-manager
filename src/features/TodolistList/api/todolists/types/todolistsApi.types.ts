@@ -24,9 +24,3 @@ export type TaskType = {
   order: number
   addedDate: string
 }
-
-export type LoginDataType = {
-  email: string
-  password: string
-  rememberMe: boolean
-}

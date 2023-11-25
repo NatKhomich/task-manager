@@ -1,27 +1,29 @@
 import { useAppDispatch, useAppSelector } from "app/model/store"
 import { FormikHelpers, useFormik } from "formik"
 import { authThunks } from "features/auth/model/authSlice"
-import { selectAuthIsLoggedIn } from "features/auth/model/authSelectors"
+import { selectAuthCaptchaUrl, selectAuthIsLoggedIn } from "features/auth/model/authSelectors"
 import { BaseResponseType } from "common/types"
 
-export type LoginParamsType = {
+export type LoginDataType = {
   email: string;
   password: string;
   rememberMe: boolean;
-  captcha?: string;
+  captcha: string;
 };
-export type FormikErrorType = Partial<Omit<LoginParamsType, 'captcha'>>
+export type FormikErrorType = Partial<Omit<LoginDataType, "captcha">>
 
 export const useLogin = () => {
 
   const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
+  const captchaUrl = useAppSelector(selectAuthCaptchaUrl)
   const dispatch = useAppDispatch()
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
-      rememberMe: false
+      rememberMe: false,
+      captcha: ""
     },
     validate: (values) => {
       const errors: FormikErrorType = {}
@@ -43,18 +45,18 @@ export const useLogin = () => {
       }
       return errors
     },
-    onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
+    onSubmit: (values, formikHelpers: FormikHelpers<LoginDataType>) => {
       dispatch(authThunks.login(values))
         .unwrap()
         .catch((reason: BaseResponseType) => {
           reason.fieldsErrors?.forEach((fieldError) => {
-            formikHelpers.setFieldError(fieldError.field, fieldError.error);
-          });
-        });
+            formikHelpers.setFieldError(fieldError.field, fieldError.error)
+          })
+        })
     }
   })
 
   return {
-    formik, isLoggedIn
+    formik, isLoggedIn, captchaUrl
   }
 }

@@ -13,7 +13,7 @@ import { useLogin } from "features/auth/lib"
 
 export const Login = () => {
 
-  const { formik, isLoggedIn } = useLogin()
+  const { formik, isLoggedIn , captchaUrl} = useLogin()
 
   if (isLoggedIn) {
     return <Navigate to={"/"} />
@@ -23,16 +23,6 @@ export const Login = () => {
     <Grid item justifyContent={"center"}>
       <form onSubmit={formik.handleSubmit}>
         <FormControl>
-          <FormLabel>
-            <p>To log in get registered
-              <a href={"https://social-network.samuraijs.com/"}
-                 target={"_blank"}> here
-              </a>
-            </p>
-            <p>or use common test account credentials:</p>
-            <p>Email: free@samuraijs.com</p>
-            <p>Password: free</p>
-          </FormLabel>
           <FormGroup>
             <TextField label="Email"
                        type="email"
@@ -52,6 +42,19 @@ export const Login = () => {
                               control={<Checkbox />}
                               {...formik.getFieldProps("rememberMe")}
             />
+
+
+            {captchaUrl && <img  src={captchaUrl} alt={'captcha'}/>}
+            {captchaUrl && <div>
+              <TextField label="Enter the characters from the image"
+                         margin="normal"
+                         size='small'
+                         style={{width: '100%'}}
+                         {...formik.getFieldProps('captcha')} />
+            </div>
+            }
+
+
             <Button type={"submit"}
                     variant={"contained"}
                     color={"primary"}
@@ -59,6 +62,17 @@ export const Login = () => {
             >
               Login
             </Button>
+
+            <FormLabel>
+              <p>To log in get registered
+                <a href={"https://social-network.samuraijs.com/"}
+                   target={"_blank"}> here
+                </a>
+              </p>
+              <p>or use common test account credentials:</p>
+              <p>Email: free@samuraijs.com</p>
+              <p>Password: free</p>
+            </FormLabel>
           </FormGroup>
         </FormControl>
       </form>

@@ -11,9 +11,9 @@ const fetchTasks = createAppAsyncThunk<
   { tasks: TaskType[], todolistId: string },
   string
 >(`tasks/fetchTasks`, async (todolistId: string) => {
-    const res = await tasksApi.getTasks(todolistId)
-    const tasks = res.data.items
-    return { tasks, todolistId }
+  const res = await tasksApi.getTasks(todolistId)
+  const tasks = res.data.items
+  return { tasks, todolistId }
 })
 
 const removeTask = createAppAsyncThunk<
@@ -26,19 +26,19 @@ const removeTask = createAppAsyncThunk<
     taskId: arg.taskId,
     entityStatus: "loading"
   }))
-    const res = await tasksApi.deleteTask(arg.todolistId, arg.taskId)
-      .finally(() => {
-        dispatch(tasksActions.changeTaskEntityStatus({
-          todolistId: arg.todolistId,
-          taskId: arg.taskId,
-          entityStatus: "succeeded"
-        }))
-      })
-    if (res.data.resultCode === ResultCodeStatuses.succeeded) {
-      return { todolistId: arg.todolistId, taskId: arg.taskId }
-    } else {
-      return rejectWithValue(res.data)
-    }
+  const res = await tasksApi.deleteTask(arg.todolistId, arg.taskId)
+    .finally(() => {
+      dispatch(tasksActions.changeTaskEntityStatus({
+        todolistId: arg.todolistId,
+        taskId: arg.taskId,
+        entityStatus: "succeeded"
+      }))
+    })
+  if (res.data.resultCode === ResultCodeStatuses.Succeeded) {
+    return { todolistId: arg.todolistId, taskId: arg.taskId }
+  } else {
+    return rejectWithValue(res.data)
+  }
 })
 
 const addTask = createAppAsyncThunk<
@@ -47,7 +47,7 @@ const addTask = createAppAsyncThunk<
 >("tasks/addTask", async (arg, thunkAPI) => {
   const { rejectWithValue } = thunkAPI
   const res = await tasksApi.createTask(arg.todolistId, arg.title)
-  if (res.data.resultCode === ResultCodeStatuses.succeeded) {
+  if (res.data.resultCode === ResultCodeStatuses.Succeeded) {
     return { task: res.data.data.item }
   } else {
     return rejectWithValue(res.data)
@@ -82,19 +82,19 @@ const updateTask = createAppAsyncThunk<
     entityStatus: "loading"
   }))
 
-      const res = await tasksApi.updateTask(arg.todolistId, arg.taskId, model)
-        .finally(() => {
-          dispatch(tasksActions.changeTaskEntityStatus({
-            todolistId: arg.todolistId,
-            taskId: arg.taskId,
-            entityStatus: "succeeded"
-          }))
-        })
-      if (res.data.resultCode === ResultCodeStatuses.succeeded) {
-        return { todolistId: arg.todolistId, taskId: arg.taskId, domainModel: arg.domainModel }
-      } else {
-        return rejectWithValue(res.data)
-      }
+  const res = await tasksApi.updateTask(arg.todolistId, arg.taskId, model)
+    .finally(() => {
+      dispatch(tasksActions.changeTaskEntityStatus({
+        todolistId: arg.todolistId,
+        taskId: arg.taskId,
+        entityStatus: "succeeded"
+      }))
+    })
+  if (res.data.resultCode === ResultCodeStatuses.Succeeded) {
+    return { todolistId: arg.todolistId, taskId: arg.taskId, domainModel: arg.domainModel }
+  } else {
+    return rejectWithValue(res.data)
+  }
 })
 
 
@@ -159,5 +159,4 @@ export const tasksThunks = { fetchTasks, removeTask, addTask, updateTask }
 
 //types
 export type TasksStateType = Record<string, TaskDomainType[]>
-
 export type TasksInitialStateType = ReturnType<typeof slice.getInitialState>
