@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/task-manager/static/css/main.e6c13ad2.css",
-    "main.js": "/task-manager/static/js/main.6a118242.js",
+    "main.css": "/task-manager/static/css/main.b29433bd.css",
+    "main.js": "/task-manager/static/js/main.bbcbb718.js",
+    "static/media/error404.jpg": "/task-manager/static/media/error404.665359841f4768529d5c.jpg",
     "index.html": "/task-manager/index.html",
-    "main.e6c13ad2.css.map": "/task-manager/static/css/main.e6c13ad2.css.map",
-    "main.6a118242.js.map": "/task-manager/static/js/main.6a118242.js.map"
+    "main.b29433bd.css.map": "/task-manager/static/css/main.b29433bd.css.map",
+    "main.bbcbb718.js.map": "/task-manager/static/js/main.bbcbb718.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.6a118242.js"
+    "static/css/main.b29433bd.css",
+    "static/js/main.bbcbb718.js"
   ]
 }
