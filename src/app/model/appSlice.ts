@@ -41,6 +41,7 @@ const slice = createSlice({
       .addMatcher(
         isRejected,
         (state, action: AnyAction) => {
+
           state.status = "failed"
           if (action.payload) {
             if (action.type.includes("addTodolist")) return;
@@ -60,7 +61,7 @@ const slice = createSlice({
         })
       .addMatcher(
         isAnyOf(authThunks.initializeApp.fulfilled, authThunks.initializeApp.rejected),
-        (state, action) => {
+        (state) => {
           state.isInitialized = true
         })
   }
