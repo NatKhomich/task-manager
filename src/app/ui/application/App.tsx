@@ -16,7 +16,6 @@ function App() {
     return <div style={{ position: "fixed", top: "30%", textAlign: "center", width: "100%" }}>
       <CircularProgress />
     </div>
-
   }
 
   return (
