@@ -47,6 +47,7 @@ export const AddItemForm = memo(({addItem, disabled}: Props) => {
             <TextField label={error ? 'Error' : 'Type out something'}
                        variant="outlined"
                        size="small"
+                       sx={{width: '200px'}}
                        error={!!error}
                        value={title}
                        onChange={changeTitleHandler}
@@ -55,8 +56,8 @@ export const AddItemForm = memo(({addItem, disabled}: Props) => {
                        type="search"/>
 
             <Button variant="contained"
-                    className={styles.btn}
                     disabled={disabled}
+                    sx={{height: '39px', marginLeft:'5px'}}
                     onClick={addItemHandler}>
                 +
             </Button>

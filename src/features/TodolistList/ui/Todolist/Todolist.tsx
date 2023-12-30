@@ -8,6 +8,7 @@ import { tasksThunks } from "features/TodolistList/model/tasks/tasksSlice"
 import { useAppDispatch } from "app/model/store"
 import { TodolistCommonType } from "features/TodolistList/model/todolists/todolistsSlice"
 import style from './Todolist.module.css'
+import Box from "@mui/material/Box"
 
 type Props = {
   todolist: TodolistCommonType
@@ -23,11 +24,11 @@ export const Todolist = memo(({todolist, tasks}: Props) => {
   }, [dispatch])
 
   return (
-    <div className={style.root}>
+    <Box className={style.root}>
       <TodolistTitle todolist={todolist} />
       <AddItemForm addItem={addTaskHandler} disabled={todolist.entityStatus === "loading"} />
       <Tasks tasks={tasks} todolist={todolist} />
       <FilterTasksButtons todolist={todolist}/>
-    </div>
+    </Box>
   )
 })

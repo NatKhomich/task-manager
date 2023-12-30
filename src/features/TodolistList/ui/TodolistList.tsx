@@ -23,7 +23,7 @@ export const TodolistList = () => {
       <Grid container spacing={6}>
         {todolists.map(el => {
           return (
-            <Grid item key={el.id} sx={{ width: "400px" }}>
+            <Grid item key={el.id} sx={{ width: "350px" }}>
               <Paper elevation={4} sx={{ padding: "15px" }}>
                 <Todolist
                   todolist={el}
