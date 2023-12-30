@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/task-manager/static/css/main.3c7aa68a.css",
-    "main.js": "/task-manager/static/js/main.de458d34.js",
+    "main.js": "/task-manager/static/js/main.619e4c0c.js",
     "static/media/error404.jpg": "/task-manager/static/media/error404.665359841f4768529d5c.jpg",
     "index.html": "/task-manager/index.html"
   },
   "entrypoints": [
     "static/css/main.3c7aa68a.css",
-    "static/js/main.de458d34.js"
+    "static/js/main.619e4c0c.js"
   ]
 }
