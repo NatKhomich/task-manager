@@ -10,7 +10,8 @@ import { useAppDispatch } from "app/model/store"
 import { appActions } from "app/model/appSlice"
 import { authThunks } from "features/auth/model/authSlice"
 import { NavLink } from "react-router-dom"
-import styles from 'app/ui/application/Header/Header.module.css'
+import styles from "app/ui/application/Header/Header.module.css"
+import logo from "../../../../assets/images/icon.png"
 
 type Props = {
   isDarkLightMode: boolean
@@ -35,7 +36,7 @@ export const Header = ({ isLoggedIn, isDarkLightMode }: Props) => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: "flex" }}>
             <NavLink className={styles.navLink} to={"/"}>Task_manager</NavLink>
           </Typography>
           <FormGroup>
