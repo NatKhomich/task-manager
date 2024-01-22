@@ -2,6 +2,7 @@ import React from "react"
 import { Task } from "features/TodolistList/ui/Todolist/Tasks/Task"
 import { TaskDomainType } from "features/TodolistList/api/todolists/types"
 import { TodolistCommonType } from "features/TodolistList/model/todolists/todolistsSlice"
+import Box from "@mui/material/Box"
 
 type Props = {
   tasks: TaskDomainType[]
@@ -17,7 +18,7 @@ export const Tasks = ({tasks, todolist}: Props) => {
   }
 
   return (
-    <div style={{ padding: "10px 0" }}>
+    <Box p={'10px 0'}>
       {filterTasks?.map(el => {
         return (
           <Task key={el.id}
@@ -26,6 +27,6 @@ export const Tasks = ({tasks, todolist}: Props) => {
           />
         )
       })}
-    </div>
+    </Box>
   )
 }

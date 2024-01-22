@@ -26,7 +26,7 @@ function App() {
               isLoggedIn={isLoggedIn}
       />
       {status === "loading" && <LinearProgress color="success" />}
-      <Container>
+      <Container maxWidth="xl">
         <Routing />
         <ErrorSnackbar />
       </Container>

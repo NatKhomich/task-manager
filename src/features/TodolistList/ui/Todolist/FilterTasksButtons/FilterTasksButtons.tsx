@@ -17,7 +17,7 @@ export const FilterTasksButtons = ({ todolist }: Props) => {
   }
 
   return (
-    <div className={"btn-container"}>
+    <>
       <Button
         onClick={changeTodoListFilterHandler("all")}
         variant={todolist.filter === "all" ? "contained" : "text"}
@@ -43,7 +43,7 @@ export const FilterTasksButtons = ({ todolist }: Props) => {
       >
         Completed
       </Button>
-    </div>
+    </>
   )
 }
 
