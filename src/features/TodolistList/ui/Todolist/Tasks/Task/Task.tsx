@@ -35,7 +35,7 @@ export const Task = memo(({task, disabled}: Props) => {
 
   return (
     <div>
-      <ListItem sx={{ padding: "3px", marginRight: "20px" }}
+      <ListItem sx={{ padding: "3px", marginRight: "10px" }}
                 className={task.status === TaskStatuses.Completed ? styles.isDone : ""}
                 secondaryAction={
                   <IconButton aria-label="delete" onClick={removeTaskHandler} disabled={disabled}>

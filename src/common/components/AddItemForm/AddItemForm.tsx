@@ -47,7 +47,7 @@ export const AddItemForm = memo(({ addItem, disabled }: Props) => {
       <TextField label={error ? "Error" : "Type out something"}
                  variant="outlined"
                  size="small"
-                 sx={{ width: "200px" }}
+                 sx={{ width: "210px" }}
                  error={!!error}
                  value={title}
                  onChange={changeTitleHandler}

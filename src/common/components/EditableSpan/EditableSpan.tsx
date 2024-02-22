@@ -32,7 +32,7 @@ export const EditableSpan = memo(({ value, disabled, callBack }: Props) => {
 
   return (
     editMode
-      ? <TextField size="small" value={title}
+      ? <TextField size="small" value={title} style={{maxWidth: '190px'}}
                    onChange={changeTitleHandler}
                    onKeyDown={keyDownHandler}
                    onBlur={activateEditModeHandler}
